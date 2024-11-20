@@ -5,10 +5,8 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -20,7 +18,7 @@ public class Game {
 
     public Game() {
         try {
-            URL resource = getClass().getClassLoader().getResource("Resources/square.ttf");
+            URL resource = getClass().getClassLoader().getResource("square.ttf");
             if (resource == null) {
                 throw new RuntimeException("Font resource not found!");
             }
@@ -33,17 +31,17 @@ public class Game {
             AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
             factory.setTerminalEmulatorFontConfiguration(fontConfig);
             factory.setForceAWTOverSwing(true);
-            factory.setInitialTerminalSize(new TerminalSize(40, 20));
+            factory.setInitialTerminalSize(new TerminalSize(40, 40));
             Terminal terminal = factory.createTerminal();
-            screen = new TerminalScreen(terminal);  // Correct initialization
+            screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
         } catch (URISyntaxException | FontFormatException | IOException e) {
-            e.printStackTrace();  // Log the error
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
-        arena = new Arena(40, 20);
+        arena = new Arena(40, 40);
     }
 
     private void draw() throws IOException {
