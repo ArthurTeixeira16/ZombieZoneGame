@@ -15,6 +15,7 @@ import java.net.URL;
 public class Game {
     private Screen screen;
     private Arena arena;
+    private Soldier soldier;
 
     public Game() {
         try {
@@ -48,6 +49,7 @@ public class Game {
         screen.clear();
         arena.draw(screen.newTextGraphics());
         screen.refresh();
+
     }
 
     public void run() {

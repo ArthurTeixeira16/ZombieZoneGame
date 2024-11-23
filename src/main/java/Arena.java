@@ -6,11 +6,13 @@ public class Arena {
     private int height;
     private int width;
     private Random random;
+    private Soldier soldier;
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
         this.random = new Random();
+        this.soldier = new Soldier(width/2,height/2);
     }
 
     public void draw(TextGraphics screen) {
@@ -24,6 +26,7 @@ public class Arena {
                 screen.putString(x, y, String.valueOf(tile));
             }
         }
+        soldier.draw(screen);
     }
     private TextColor randomGrayShade() {
         int grayValue = 180 + random.nextInt(50);
