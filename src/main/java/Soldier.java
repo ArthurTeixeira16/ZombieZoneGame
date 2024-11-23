@@ -1,8 +1,8 @@
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Soldier extends Element{
-
+public class Soldier extends Element{//sem mistério, mesma coisa do hero por enquanto, o dificil vai ser implementar movimento com 3x3
+//talvez tenhamos que mudar o 3x3 pra 1x1 e é isso
 
     public Soldier(int x, int y) {
         super(x, y);

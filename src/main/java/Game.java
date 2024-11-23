@@ -42,7 +42,7 @@ public class Game {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        arena = new Arena(40, 40);
+        arena = new Arena(30, 20);//mudei a titulo de teste
     }
 
     private void draw() throws IOException {

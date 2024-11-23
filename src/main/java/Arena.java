@@ -10,14 +10,15 @@ public class Arena {
     private int width;
     private Random random;
     private Soldier soldier;
-    private List<Zombie> zombies;
+    //private List<Zombie> zombies;
+    private Spawn spawn;
 
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
         this.random = new Random();
-        this.soldier = new Soldier(width/2,height/2);//c
-        this.zombies = SpawnZombies();
+        this.soldier = new Soldier(width/2,height/2);
+        this.spawn = new Spawn(width,height);
 
     }
 
@@ -33,7 +34,7 @@ public class Arena {
             }
         }
         soldier.draw(screen);
-        for(Zombie zombie:zombies){
+        for(Zombie zombie:spawn.SpawnZombies()){
             zombie.draw(screen);
         }
     }
@@ -42,19 +43,5 @@ public class Arena {
         String hexGray = String.format("#%02X%02X%02X", grayValue, grayValue, grayValue);
         return TextColor.Factory.fromString(hexGray);
     }
-    private List<Zombie> SpawnZombies(){
-        List<Zombie> zombies = new ArrayList<>();
-        int i = 0;
-        while(i < 5) {
-            int num1,num2;
-            do { num1 = random.nextInt(height-2) + 1;
-            } while( num1 == width/2);
-            do { num2 = random.nextInt(width-2) + 1;
-            } while( num2 == height/2);
-            Zombie zombie = new Zombie(num1,num2);
-            zombies.add(zombie);
-            i++;
-        }
-        return zombies;
-    }
+
 }

@@ -2,7 +2,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Zombie extends Element{
-
+//mesmo b.o que eu escrevi em soldier se aplica a esta coisinha
     public Zombie(int x,int y){
         super(x,y);
     }
