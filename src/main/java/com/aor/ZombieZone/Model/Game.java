@@ -2,9 +2,8 @@ package com.aor.ZombieZone.Model;
 import com.aor.ZombieZone.Controller.GameController;
 import com.aor.ZombieZone.View.ArenaView;
 import com.aor.ZombieZone.View.GameView;
+import com.aor.ZombieZone.View.HudView;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -25,6 +24,8 @@ public class Game {
     private List<Wall> walls;
     private GameView gameView;
     private GameController gameController;
+    private Hud hud;
+    private HudView hudView;
 
     public Game() {
         try {
@@ -51,7 +52,9 @@ public class Game {
             soldier = new Soldier(15,10);
             zombies = new Spawn(30,20,soldier).SpawnZombies();
             walls = WallCreator.createWalls(30,20);
-            gameView = new GameView(new ArenaView(arena), soldier, zombies,walls);
+            hud = new Hud(soldier,arena);
+            hudView= new HudView(hud);
+            gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView);
             gameController = new GameController(this, gameView, screen);
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();

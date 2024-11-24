@@ -14,6 +14,13 @@ public class Arena {
         this.colors = new TextColor[height][width];
         initializeArena();
     }
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 
     private void initializeArena() {
         for (int y = 0; y < height; y++) {
