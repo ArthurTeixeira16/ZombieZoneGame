@@ -1,10 +1,8 @@
-package Game;
+package com.aor.hero;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-
-import java.io.IOException;
 
 public class Wall extends Element{
     public Wall(int x,int y){
@@ -14,7 +12,7 @@ public class Wall extends Element{
     @Override
     public void draw(TextGraphics graphics){
         /* Criação de um Bloco morrom como o Wall */
-        graphics.setForegroundColor(TextColor.Factory.fromString("#38291A")); // Cor dourada para a moeda
+        graphics.setForegroundColor(TextColor.Factory.fromString("#38291A")); // Cor Marrom da Wall
         graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "█");
     }
 }

@@ -1,4 +1,4 @@
-package Game;
+package com.aor.hero;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyType;
@@ -43,7 +43,7 @@ public class Game {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        arena = new Arena(40, 40);
+        arena = new Arena(40, 30);
     }
 
     private void draw() throws IOException {

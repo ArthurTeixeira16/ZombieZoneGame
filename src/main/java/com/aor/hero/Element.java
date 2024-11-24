@@ -1,4 +1,4 @@
-package Game;
+package com.aor.hero;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
 

@@ -1,4 +1,4 @@
-package Game;
+package com.aor.hero;
 
 public interface HasLife {
 }
