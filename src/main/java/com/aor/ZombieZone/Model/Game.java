@@ -71,7 +71,9 @@ public class Game {
     }
 
     public void update() {
-
+        for(Zombie zombie : zombies){
+            zombie.track(soldier,arena);
+        }
     }
 
     public Arena getArena() {
