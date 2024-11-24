@@ -1,3 +1,5 @@
+package com.aor.ZombieZone;
+import com.aor.ZombieZone.Model.Arena;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -5,7 +7,6 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import java.net.URL;
 public class Game {
     private Screen screen;
     private Arena arena;
-    private Soldier soldier;
 
     public Game() {
         try {
@@ -49,7 +49,6 @@ public class Game {
         screen.clear();
         arena.draw(screen.newTextGraphics());
         screen.refresh();
-
     }
 
     public void run() {

@@ -1,5 +1,4 @@
-
-import java.io.IOException;
+package com.aor.ZombieZone;
 
 public class Application {
     public static void main(String[] args) {

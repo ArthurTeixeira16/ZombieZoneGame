@@ -1,3 +1,5 @@
+package com.aor.ZombieZone.Model;
+
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public abstract class Element {

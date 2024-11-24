@@ -1,3 +1,5 @@
+package com.aor.ZombieZone.Model;
+
 public class Position {
     protected int x;
     protected int y;

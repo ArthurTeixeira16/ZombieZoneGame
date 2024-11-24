@@ -28,5 +28,5 @@ test {
 }
 
 application {
-    mainClass.set("Application")
+    mainClass.set("com.aor.ZombieZone.Application")
 }
