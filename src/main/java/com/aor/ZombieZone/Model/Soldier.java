@@ -4,6 +4,10 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Soldier extends Element implements HasLife,HasMovement{
+    private int life=3;
+    public int getLife() {
+        return life;
+    }
 
     public Soldier(int x, int y) {
         super(x, y);
@@ -17,7 +21,7 @@ public class Soldier extends Element implements HasLife,HasMovement{
 
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
-        screen.putString(getPosition().getX(), getPosition().getY(), "O");
+        screen.putString(getPosition().getX(), getPosition().getY(), "@");
     }
 
     @Override

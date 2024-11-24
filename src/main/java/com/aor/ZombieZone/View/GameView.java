@@ -11,20 +11,20 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.List;
 
     public class GameView {
-        private Arena arena;
+        private ArenaView arenaView;
         private Soldier soldier;
         private List<Zombie> zombies;
         private List<Wall> walls;
 
-        public GameView(Arena arena, Soldier soldier, List<Zombie> zombies, List<Wall> walls) {
-            this.arena = arena;
+        public GameView(ArenaView arenaView, Soldier soldier, List<Zombie> zombies, List<Wall> walls) {
+            this.arenaView = arenaView;
             this.soldier = soldier;
             this.zombies = zombies;
             this.walls = walls;
         }
 
         public void render(TextGraphics screen) {
-            arena.draw(screen);
+            arenaView.render(screen);
             soldier.draw(screen);
             for (Wall wall : walls) {
                 wall.draw(screen);
