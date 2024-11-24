@@ -1,4 +1,4 @@
-package com.aor.hero;
+package com.aor.hero.element;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;

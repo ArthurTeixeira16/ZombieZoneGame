@@ -1,4 +1,4 @@
-package com.aor.hero;
+package com.aor.hero.element;
 
 public class Position {
     protected int x;
