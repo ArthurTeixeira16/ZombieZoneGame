@@ -19,7 +19,7 @@ public class Soldier extends Element implements HasLife,HasMovement{
         return super.getPosition();
     }
 
-
+    @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
         screen.putString(getPosition().getX(), getPosition().getY(), "@");
