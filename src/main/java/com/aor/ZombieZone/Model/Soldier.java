@@ -4,7 +4,8 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Soldier extends Element implements HasLife,HasMovement{
-    private int life=3;
+    private int life = 3;
+
     public int getLife() {
         return life;
     }
@@ -26,30 +27,25 @@ public class Soldier extends Element implements HasLife,HasMovement{
 
     @Override
     public void moveUp() {
-        Position newPosition = new Position(getPosition().x,getPosition().y-1);
+        Position newPosition = new Position(getPosition().x, getPosition().y - 1);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveDown() {
-        Position newPosition = new Position(getPosition().x,getPosition().y+1);
+        Position newPosition = new Position(getPosition().x, getPosition().y + 1);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveLeft() {
-        Position newPosition = new Position(getPosition().x-1,getPosition().y);
+        Position newPosition = new Position(getPosition().x - 1, getPosition().y);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveRight() {
-        Position newPosition = new Position(getPosition().x+1,getPosition().y);
+        Position newPosition = new Position(getPosition().x + 1, getPosition().y);
         this.setPosition(newPosition);
-    }
-
-    @Override
-    public void canMoveTo() {
-
     }
 }

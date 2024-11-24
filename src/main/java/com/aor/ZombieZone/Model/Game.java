@@ -48,10 +48,10 @@ public class Game {
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
-            arena = new Arena(30,20);
             soldier = new Soldier(15,10);
             zombies = new Spawn(30,20,soldier).SpawnZombies();
             walls = WallCreator.createWalls(30,20);
+            arena = new Arena(30,20,zombies,walls);
             hud = new Hud(soldier,arena);
             hudView= new HudView(hud);
             gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView);
@@ -72,5 +72,9 @@ public class Game {
 
     public void update() {
 
+    }
+
+    public Arena getArena() {
+        return arena;
     }
 }

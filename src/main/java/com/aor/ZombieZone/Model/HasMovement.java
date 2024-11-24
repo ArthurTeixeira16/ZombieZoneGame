@@ -5,5 +5,4 @@ public interface HasMovement {
    void moveDown();
    void moveLeft();
    void moveRight();
-   void canMoveTo();
 }

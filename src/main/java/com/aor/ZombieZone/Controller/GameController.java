@@ -1,5 +1,6 @@
 package com.aor.ZombieZone.Controller;
 import com.aor.ZombieZone.Model.Game;
+import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.View.GameView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -39,23 +40,30 @@ public class GameController {
     private void handleInput() throws IOException {
         KeyStroke key = screen.readInput();
         if (key.getKeyType() == KeyType.Character) {
+            Position currentPosition = game.getSoldier().getPosition();
+            Position newPosition = null;
+
             switch (key.getCharacter()) {
-                    case 'w':
-                        game.getSoldier().moveUp();
-                        break;
-                    case 's':
-                        game.getSoldier().moveDown();
-                        break;
-                    case 'a':
-                        game.getSoldier().moveLeft();
-                        break;
-                    case 'd':
-                        game.getSoldier().moveRight();
-                        break;
-                    case 'q':
-                        screen.close();
-                        System.exit(0);
-                        break;
+                case 'w':
+                    newPosition = currentPosition.up();
+                    break;
+                case 's':
+                    newPosition = currentPosition.down();
+                    break;
+                case 'a':
+                    newPosition = currentPosition.left();
+                    break;
+                case 'd':
+                    newPosition = currentPosition.right();
+                    break;
+                case 'q':
+                    screen.close();
+                    System.exit(0);
+                    return; // Ensure method exits
+            }
+
+            if (newPosition != null && game.getArena().canMoveTo(newPosition)) {
+                game.getSoldier().setPosition(newPosition);
             }
         }
     }

@@ -18,6 +18,9 @@ public class Zombie extends Element implements HasLife,HasMovement {
         screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
         screen.putString(getPosition().getX(), getPosition().getY(), "Z");
     }
+    public void track(Soldier soldier){
+
+    }
 
     @Override
     public void moveUp() {
@@ -36,11 +39,6 @@ public class Zombie extends Element implements HasLife,HasMovement {
 
     @Override
     public void moveRight() {
-
-    }
-
-    @Override
-    public void canMoveTo() {
 
     }
 }
