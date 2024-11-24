@@ -1,6 +1,5 @@
-package com.aor.hero;
+package com.aor.ZombieZone.Model;
 
-import com.aor.hero.element.Wall;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -59,20 +58,9 @@ class WallTest {
     @Test  //
     void testDrawMethod() {
         setUp4();
-        // Criamos um mock do TextGraphics seguir com o teste
         TextGraphics graphics = Mockito.mock(TextGraphics.class);
-
-        // Desenhamos o Wall
         wall.draw(graphics);
-
-        /* Verificamos se o método
-           @setForegroundColor ( função que usamos para definir a cor do Wall no Wall.java)
-           foi chamado com a cor correta   */
         Mockito.verify(graphics).setForegroundColor(Mockito.eq(TextColor.Factory.fromString("#38291A")));
-
-        /* Verificamos se o método
-           @putString ( função que usamos para definir o Carácter do Wall no Wall.java)
-           foi chamado com o caracter correto   */
         Mockito.verify(graphics).putString(Mockito.eq(new TerminalPosition(10, 5)), Mockito.eq("█"));
     }
 }
