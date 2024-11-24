@@ -29,9 +29,28 @@ E que o Desafio deve ser obter a maior pontuação possível .
 
 ## Mockups
 
-Você pode criar cabeçalhos com o símbolo `#`:
+![Mockup do RUN GAME](mochup%20do%20Run%20Game.jpg)
 
-```md
-# Cabeçalho 1
-## Cabeçalho 2
-### Cabeçalho 3
+## Design Patterns Escolhidos
+
+### MVC (Model-View-Controller)
+
+O padrão de design **MVC** (Model-View-Controller) foi escolhido para organizar o código e separar claramente as responsabilidades de cada parte do jogo. Ele facilita a manutenção e evolução do sistema, dado que ainda temos um progresso de implementação de features, e pontos a serem implementados.
+
+#### Como o MVC é aplicado no jogo:
+
+1. **Model**:
+   - Representa os dados e a lógica de negócio do jogo. O **Model** é responsável por manipular esses dados, como atualizar a posição dos personagens, verificar colisões, e calcular a pontuação e etc...
+
+2. **View**:
+   - A **View** é responsável por exibir a interface do jogo para o jogador, renderização de todos os elementos como o **Soldier**, **Zombie**, e **Wall**, além de exibir a pontuação, a vida e outras informações ao jogador.
+
+3. **Controller**:
+   - O **Controller** é o intermediário entre o **Model** e a **View**. Ele recebe as entradas do jogador (como comandos de movimento do player ou disparo par aa criação de projéteis) e manipula o **Model** de acordo com essas ações. Ela também organiza as interações entre a **View** e o **Model**, como atualizar a tela sempre que o estado do jogo muda.
+
+O uso do padrão **MVC** permitiu que o código do jogo ficasse mais organizado, tornando a adição de novas funcionalidades e a manutenção do sistema mais simples.
+
+### Singleton
+
+O padrão **Singleton** é utilizado para garantir que uma classe tenha apenas uma instância e que forneça um ponto de acesso global a essa instância. Esse padrão ajudou-nos porque precisa-mos de um único objeto controlando um recurso compartilhado, mas não em toda a aplicacação, aplicamos em apenas algumas partes.
+
