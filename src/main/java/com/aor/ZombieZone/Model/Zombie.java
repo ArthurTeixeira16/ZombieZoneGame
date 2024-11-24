@@ -5,8 +5,9 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Zombie extends Element implements HasLife,HasMovement {
     private int life;
-    public Zombie(int x,int y){
+    public Zombie(int x,int y,int speed){
         super(x,y);
+
     }
 
     @Override

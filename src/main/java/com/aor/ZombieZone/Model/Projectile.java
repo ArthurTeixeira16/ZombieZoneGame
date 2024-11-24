@@ -49,9 +49,4 @@ public class Projectile extends Element implements HasMovement{
         this.setPosition(newPosition);
 
     }
-
-    @Override
-    public void canMoveTo() {
-
-    }
 }

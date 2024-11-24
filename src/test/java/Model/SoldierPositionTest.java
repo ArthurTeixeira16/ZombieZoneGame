@@ -1,21 +1,22 @@
 package Model;
 
 
-import com.aor.ZombieZone.Model.Arena;
-import com.aor.ZombieZone.Model.Position;
-import com.aor.ZombieZone.Model.Soldier;
+import com.aor.ZombieZone.Model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 
 public class SoldierPositionTest {
     private Arena arena;
     private Soldier soldier;
-
+    private List< Zombie> zombies;
+    private List <Wall> walls;
     @BeforeEach
     public void setUp(){
-        arena = new Arena(40,30);
+        arena = new Arena(40,30,  zombies, walls);
         soldier = new Soldier(20,15);
     }
 
