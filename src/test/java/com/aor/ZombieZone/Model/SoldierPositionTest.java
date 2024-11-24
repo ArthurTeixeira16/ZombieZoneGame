@@ -1,9 +1,6 @@
-package Model;
+package com.aor.ZombieZone.Model;
 
 
-import com.aor.ZombieZone.Model.Arena;
-import com.aor.ZombieZone.Model.Position;
-import com.aor.ZombieZone.Model.Soldier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

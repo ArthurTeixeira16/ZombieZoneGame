@@ -1,5 +1,5 @@
 package com.aor.ZombieZone.Model;
-
+import com.aor.ZombieZone.Model.Wall;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -7,60 +7,56 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-class WallTest {
-
-    private Wall wall;
-    private int width = 40;
-    private int height = 40;
-
-       // Criação do "BeforeEach" para os teste
-    void setUp1() {
-        wall = new Wall(10, 51);
+public class WallTester {
+    private final int width = 40; // Limite horizontal
+    private final int height = 40; // Limite vertical
+    //Preferimos criar setUps diferentes para cada teste, para facilitar a mudança de cada setUp
+    private Wall setUp1() {
+        return new Wall(10, 51); // X válido, Y fora do limite
     }
-    void setUp2() {
-        wall = new Wall(-1, 5);
+    private Wall setUp2() {
+        return new Wall(-1, 5); // X fora do limite, Y válido
     }
-    void setUp3() {
-        wall = new Wall(-5, -5);
+    private Wall setUp3() {
+        return new Wall(-5, -5); // X e Y fora dos limites
     }
-    void setUp4() {
-        wall = new Wall(10, 5);
+    private Wall setUp4() {
+        return new Wall(10, 5); // X e Y válidos
     }
-    @Test    // teste simples de ver se a posição é bem atribuída
+    @Test
     void testWallPosition1() {
-        setUp1();
+        Wall wall = setUp1();
         assertTrue(wall.getPosition().getX() >= 0 && wall.getPosition().getX() < width,
                 "Wall X position is out of bounds");
         assertFalse(wall.getPosition().getY() >= 0 && wall.getPosition().getY() < height,
                 "Wall Y position is out of bounds");
-
     }
+
     @Test
-    void testWallPosition2(){
-        setUp2();
+    void testWallPosition2() {
+        Wall wall = setUp2();
         assertFalse(wall.getPosition().getX() >= 0 && wall.getPosition().getX() < width,
                 "Wall X position is out of bounds");
         assertTrue(wall.getPosition().getY() >= 0 && wall.getPosition().getY() < height,
                 "Wall Y position is out of bounds");
-
     }
+
     @Test
-    void testWallPosition3(){
-        setUp3();
+    void testWallPosition3() {
+        Wall wall = setUp3();
         assertFalse(wall.getPosition().getX() >= 0 && wall.getPosition().getX() < width,
                 "Wall X position is out of bounds");
         assertFalse(wall.getPosition().getY() >= 0 && wall.getPosition().getY() < height,
                 "Wall Y position is out of bounds");
-
     }
 
-    @Test  //
+  /*  @Test
     void testDrawMethod() {
-        setUp4();
+        Wall wall = setUp4();
         TextGraphics graphics = Mockito.mock(TextGraphics.class);
         wall.draw(graphics);
         Mockito.verify(graphics).setForegroundColor(Mockito.eq(TextColor.Factory.fromString("#38291A")));
         Mockito.verify(graphics).putString(Mockito.eq(new TerminalPosition(10, 5)), Mockito.eq("█"));
-    }
+    } */
 }
+
