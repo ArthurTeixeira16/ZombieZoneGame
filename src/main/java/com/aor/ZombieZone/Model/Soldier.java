@@ -19,4 +19,28 @@ public class Soldier extends Element implements HasLife,HasMovement{
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
         screen.putString(getPosition().getX(), getPosition().getY(), "O");
     }
+
+    @Override
+    public void moveUp() {
+        Position newPosition = new Position(getPosition().x,getPosition().y-1);
+        this.setPosition(newPosition);
+    }
+
+    @Override
+    public void moveDown() {
+        Position newPosition = new Position(getPosition().x,getPosition().y+1);
+        this.setPosition(newPosition);
+    }
+
+    @Override
+    public void moveLeft() {
+        Position newPosition = new Position(getPosition().x-1,getPosition().y);
+        this.setPosition(newPosition);
+    }
+
+    @Override
+    public void moveRight() {
+        Position newPosition = new Position(getPosition().x+1,getPosition().y);
+        this.setPosition(newPosition);
+    }
 }

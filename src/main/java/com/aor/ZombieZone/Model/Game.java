@@ -1,6 +1,8 @@
-package com.aor.ZombieZone;
-import com.aor.ZombieZone.Model.Arena;
+package com.aor.ZombieZone.Model;
+import com.aor.ZombieZone.Controller.GameController;
+import com.aor.ZombieZone.View.GameView;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -12,10 +14,16 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 
 public class Game {
     private Screen screen;
     private Arena arena;
+    private Soldier soldier;
+    private List<Zombie> zombies;
+    private List<Wall> walls;
+    private GameView gameView;
+    private GameController gameController;
 
     public Game() {
         try {
@@ -38,33 +46,27 @@ public class Game {
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
+            arena = new Arena(30,20);
+            soldier = new Soldier(15,10);
+            zombies = new Spawn(30,20,soldier).SpawnZombies();
+            walls = WallCreator.createWalls(30,20);
+            gameView = new GameView(arena, soldier, zombies,walls);
+            gameController = new GameController(this, gameView, screen);
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        arena = new Arena(30, 20);//mudei a titulo de teste
-    }
-
-    private void draw() throws IOException {
-        screen.clear();
-        arena.draw(screen.newTextGraphics());
-        screen.refresh();
     }
 
     public void run() {
-        try {
-            while (true) {
-                draw();
-                com.googlecode.lanterna.input.KeyStroke key = screen.readInput();
-                if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
-                    screen.close();
-                    break;
-                }
-                if (key.getKeyType() == KeyType.EOF)
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        gameController.run();
+    }
+
+    public Soldier getSoldier() {
+        return soldier;
+    }
+
+    public void update() {
+
     }
 }

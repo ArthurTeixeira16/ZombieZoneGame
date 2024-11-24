@@ -1,24 +1,17 @@
 package com.aor.ZombieZone.Model;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import java.util.List;
 
 public class Arena {
     private int width;
     private int height;
     private char[][] tiles;
     private TextColor[][] colors;
-    private Soldier soldier;
-    private List<Zombie> zombies;
-    private List<Wall> walls;
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
         this.tiles = new char[height][width];
         this.colors = new TextColor[height][width];
-        this.soldier = new Soldier(width / 2, height / 2);
-        this.zombies = new Spawn(width,height,soldier).SpawnZombies();
-        this.walls = WallCreator.createWalls(width,height);
         initializeArena();
     }
 
@@ -39,13 +32,6 @@ public class Arena {
                 screen.setForegroundColor(foregroundColor);
                 screen.putString(x, y, String.valueOf(tiles[y][x]));
             }
-        }
-        soldier.draw(screen);
-        for (Wall wall : walls) {
-            wall.draw(screen);
-        }
-        for (Zombie zombie : zombies) {
-            zombie.draw(screen);
         }
     }
 

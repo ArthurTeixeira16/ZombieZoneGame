@@ -17,4 +17,24 @@ public class Zombie extends Element implements HasLife,HasMovement {
         screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
         screen.putString(getPosition().getX(), getPosition().getY(), "Z");
     }
+
+    @Override
+    public void moveUp() {
+
+    }
+
+    @Override
+    public void moveDown() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
+    @Override
+    public void moveRight() {
+
+    }
 }
