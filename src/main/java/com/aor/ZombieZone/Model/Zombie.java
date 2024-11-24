@@ -38,4 +38,9 @@ public class Zombie extends Element implements HasLife,HasMovement {
     public void moveRight() {
 
     }
+
+    @Override
+    public void canMoveTo() {
+
+    }
 }

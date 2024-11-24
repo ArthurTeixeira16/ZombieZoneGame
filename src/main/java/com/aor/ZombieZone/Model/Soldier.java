@@ -47,4 +47,9 @@ public class Soldier extends Element implements HasLife,HasMovement{
         Position newPosition = new Position(getPosition().x+1,getPosition().y);
         this.setPosition(newPosition);
     }
+
+    @Override
+    public void canMoveTo() {
+
+    }
 }
