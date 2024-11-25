@@ -1,13 +1,13 @@
 # Descrição
 
 O nosso jogo é inspirado em Space Invaders, mas com uma jogabilidade mais livre. A cada round, novos zumbis aparecem, ficando mais fortes e vindo com mais frequência à medida que o jogo avança. Ao contrário de Space Invaders, o jogador pode se mover livremente pelo mapa, evitando as paredes (Walls) e disparando projéteis para eliminar os zumbis.
-Cada zombi morto pelo projétil aumenta a pontuação, mas se um zumbi tocar o jogador, ele perde uma vida. É um jogo rápido, com ação constante e desafios crescentes a cada round.
+Cada zumbi morto pelo projétil aumenta a pontuação, mas se um zumbi tocar o jogador, ele perde uma vida. É um jogo rápido, com ação constante e desafios crescentes a cada round.
 E que o Desafio deve ser obter a maior pontuação possível .
 
 ## Lista de Features
 
 - **Wall**: As paredes (Walls) são obstáculos no mapa que limitam e obstruem o movimento do jogador mas sem bloquear completamente a ação, permitindo que o jogador se movimente livremente, desde que não bata nas chamadas Walls.
-- **Soldier**: O soldado é o player do jogo, controlado pelo jogador. Ele tem a capacidade de se mover pelo mapa e disparar projéteis para eliminar os zumbis.Com ele, é possível sobreviver e alcançar uma pontuação cada vez maior.
+- **Soldier**: O soldado é o player do jogo, controlado pelo jogador. Ele tem a capacidade de se mover pelo mapa e disparar projéteis para eliminar os zumbis. Com ele, é possível sobreviver e alcançar uma pontuação cada vez maior.
 - **Zombie**:Os zumbis são os inimigos do jogador. Eles aparecem em maior número à medida que os rounds avançam e se tornam mais fortes conforme o jogo progride, criando um desafio crescente para o jogador.
 - **View**: A "view" é responsável por exibir o que está acontecendo no jogo para o jogador. É como a camada gráfica que permite que o usuário veja o cenário, os inimigos, o personagem e os elementos interativos de forma clara e compreensível.
 - **Pontuação**: O sistema de pontuação do jogo. Cada zumbi que o jogador elimina aumenta a sua pontuação. Isso funciona como o placar do jogo, incentivando o jogador a buscar sempre uma pontuação mais alta.
@@ -53,4 +53,15 @@ O uso do padrão **MVC** permitiu que o código do jogo ficasse mais organizado,
 ### Singleton
 
 O padrão **Singleton** é utilizado para garantir que uma classe tenha apenas uma instância e que forneça um ponto de acesso global a essa instância. Esse padrão ajudou-nos porque precisa-mos de um único objeto controlando um recurso compartilhado, mas não em toda a aplicacação, aplicamos em apenas algumas partes.
+
+## Observação
+
+Ainda está sendo descutido a implementação de outros padrões de Design como:
+
+-**observer**
+-**factory**
+-**SOLID**
+e entres outros para a entrega porsterior!
+
+
 
