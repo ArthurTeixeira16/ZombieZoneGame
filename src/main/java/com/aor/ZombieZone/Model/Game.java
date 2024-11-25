@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -26,6 +27,7 @@ public class Game {
     private GameController gameController;
     private Hud hud;
     private HudView hudView;
+    private List<Projectile> projectiles;
 
     public Game() {
         try {
@@ -56,6 +58,7 @@ public class Game {
             hudView= new HudView(hud);
             gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView);
             gameController = new GameController(this, gameView, screen);
+
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -68,6 +71,13 @@ public class Game {
 
     public Soldier getSoldier() {
         return soldier;
+    }
+
+    public Projectile shoot(Position direction){
+        Position soldierposition = getSoldier().getPosition();
+        Projectile projectile = new Projectile(soldierposition.getX(),soldierposition.getY(),7,1);
+        projectile.setDirection(direction);
+        return projectile;
     }
 
     public void update() {

@@ -14,6 +14,8 @@ public class Soldier extends Element implements HasLife,HasMovement{
         super(x, y);
     }
 
+
+
     @Override
     public Position getPosition() {
         return super.getPosition();
