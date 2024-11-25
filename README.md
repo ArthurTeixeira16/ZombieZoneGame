@@ -54,6 +54,10 @@ O uso do padrão **MVC** permitiu que o código do jogo ficasse mais organizado,
 
 O padrão **Singleton** é utilizado para garantir que uma classe tenha apenas uma instância e que forneça um ponto de acesso global a essa instância. Esse padrão ajudou-nos porque precisa-mos de um único objeto controlando um recurso compartilhado, mas não em toda a aplicacação, aplicamos em apenas algumas partes.
 
+## Diagrama UML
+
+![UML DIAGRAMA](UmlDoProjeto.png)
+
 ## Observação
 
 Ainda está sendo descutido a implementação de outros padrões de Design como:
