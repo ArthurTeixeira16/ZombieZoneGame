@@ -14,11 +14,17 @@ public class WallCreator {
             walls.add(new Wall(x, height - 1));
         }
         for (int y = 0; y < height; y++) {
-            walls.add(new Wall(0, y));
-            walls.add(new Wall(width - 1, y));
+            Wall wallEsquerda = new Wall(0, y);
+            Wall wallDireita = new Wall(width - 1, y);
+            if(!walls.contains(wallEsquerda)) {
+                walls.add(wallEsquerda);
+            }
+            if(!walls.contains(wallDireita)) {
+                walls.add(wallDireita);
+            }
         }
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < wallsinternas(width,height); i++) {
             int x = random.nextInt(width - 2) + 1;
             int y = random.nextInt(height - 2) + 1;
             Wall newWall = new Wall(x, y);
@@ -30,5 +36,14 @@ public class WallCreator {
             }
         }
         return walls;
+    }
+    public static int wallsinternas(int width, int height) {
+
+        int area = width * height;
+        if(area <9){
+            return 0;
+        }
+        return (area/15);
+
     }
 }

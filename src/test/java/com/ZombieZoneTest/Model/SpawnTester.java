@@ -1,4 +1,4 @@
-package Model;
+package com.ZombieZoneTest.Model;
 
 import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.Model.Soldier;

@@ -1,4 +1,4 @@
-package Model;
+package com.ZombieZoneTest.Model;
 
 import com.aor.ZombieZone.Model.Arena;
 import com.aor.ZombieZone.Model.Position;
