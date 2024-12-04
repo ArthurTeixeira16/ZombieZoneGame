@@ -10,6 +10,8 @@ public class Projectile extends Element implements HasMovement{
     private int speed;
     private long elapsedTime;
     private Position direction;
+    private boolean isDestroyed = false;
+
     public Projectile(int x, int y, int range, int speed) {
         super(x, y);
         this.range = range;
@@ -28,14 +30,18 @@ public class Projectile extends Element implements HasMovement{
 
             if(Travelled_distance>=range){
                 destroy();
+                System.out.println("Bala destruída");
                 break;
             }
         }
     }
 
     public void destroy(){
-        //falta implementação
+        this.isDestroyed = true;
     }
+     public boolean isDestroyed(){
+        return isDestroyed;
+     }
 
     @Override
     public Position getPosition() {return super.getPosition();}
@@ -43,7 +49,7 @@ public class Projectile extends Element implements HasMovement{
     @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#FFA500"));
-        screen.putString(getPosition().getX(), getPosition().getY(), "-");
+        screen.putString(getPosition().getX(), getPosition().getY(), ".");
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.aor.ZombieZone.View;
 
-import com.aor.ZombieZone.Model.Soldier;
-import com.aor.ZombieZone.Model.Wall;
-import com.aor.ZombieZone.Model.Zombie;
+import com.aor.ZombieZone.Model.*;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 
@@ -13,14 +11,16 @@ import java.util.List;
         private Soldier soldier;
         private List<Zombie> zombies;
         private List<Wall> walls;
+        private List<Projectile> bullets;
         private HudView hudView;
 
-        public GameView(ArenaView arenaView, Soldier soldier, List<Zombie> zombies, List<Wall> walls, HudView hudView) {
+        public GameView(ArenaView arenaView, Soldier soldier, List<Zombie> zombies, List<Wall> walls, HudView hudView, List<Projectile> bullets) {
             this.arenaView = arenaView;
             this.soldier = soldier;
             this.zombies = zombies;
             this.walls = walls;
             this.hudView = hudView;
+            this.bullets = bullets;
         }
 
         public void render(TextGraphics screen) {
@@ -32,6 +32,12 @@ import java.util.List;
             }
             for (Zombie zombie : zombies) {
                 zombie.draw(screen);
+            }
+            if(bullets!=null && !bullets.isEmpty()) {
+                for (Projectile bullet : bullets) {
+                    bullet.draw(screen);
+                    System.out.println("Desenhado aqui hein");
+                }
             }
         }
     }

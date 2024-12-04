@@ -27,7 +27,7 @@ public class Game {
     private GameController gameController;
     private Hud hud;
     private HudView hudView;
-    private List<Projectile> projectiles;
+    private List<Projectile> bullets;
 
     public Game() {
         try {
@@ -56,7 +56,8 @@ public class Game {
             arena = new Arena(30,20,zombies,walls);
             hud = new Hud(soldier,arena);
             hudView= new HudView(hud);
-            gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView);
+            bullets = new ArrayList<>();
+            gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView,bullets);
             gameController = new GameController(this, gameView, screen);
 
         } catch (URISyntaxException | FontFormatException | IOException e) {
@@ -73,17 +74,25 @@ public class Game {
         return soldier;
     }
 
-    public Projectile shoot(Position direction){
+    public void shoot(Position direction){
         Position soldierposition = getSoldier().getPosition();
         Projectile projectile = new Projectile(soldierposition.getX(),soldierposition.getY(),7,1);
         projectile.setDirection(direction);
-        return projectile;
+        bullets.add(projectile);
     }
 
-    public void update() {
+    public void update(long deltaTime) {
         for(Zombie zombie : zombies){
             zombie.track(soldier,arena);
         }
+        for(Projectile bullet: bullets){
+            bullet.updateProjectile(deltaTime);
+        }
+        bullets.removeIf(Projectile::isDestroyed);
+    }
+
+    public List<Projectile> getBullets() {
+        return this.bullets;
     }
 
     public Arena getArena() {
