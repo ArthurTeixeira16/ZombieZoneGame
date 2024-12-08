@@ -96,7 +96,7 @@ public class GameController {
                     case 'q':
                         screen.close();
                         System.exit(0);
-                        return; // Ensure method exits
+                        return;
                 }
             }
 

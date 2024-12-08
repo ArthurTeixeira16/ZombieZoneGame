@@ -30,7 +30,6 @@ public class Projectile extends Element implements HasMovement{
 
             if(Travelled_distance>=range){
                 destroy();
-                System.out.println("Bala destruída");
                 break;
             }
         }
