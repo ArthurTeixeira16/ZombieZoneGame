@@ -18,7 +18,7 @@ public class ZombieTester {
     @BeforeEach
     public void setUp(){
         arena = new Arena(40,30,zombies, walls);
-        zombie = new Zombie(10, 15);
+        zombie = new Zombie(10, 15,1);
     }
 
     @Test

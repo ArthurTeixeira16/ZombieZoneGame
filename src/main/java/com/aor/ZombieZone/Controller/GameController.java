@@ -23,14 +23,32 @@ public class GameController {
 
     public void run() {
         try {
-            long lastTime = System.currentTimeMillis();
+            new Thread(() -> {
+                long lastTime = System.currentTimeMillis();
+                while (true) {
+                    long currentTime = System.currentTimeMillis();
+                    long deltaTime = currentTime - lastTime;
+                    lastTime = currentTime;
+
+                    synchronized (game) {
+                        try {
+                            game.update(deltaTime);
+                            draw();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    try {
+                        Thread.sleep(16);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
             while (true) {
-                long currentTime = System.currentTimeMillis();
-                long deltaTime = currentTime - lastTime;
-                lastTime = currentTime;
-                draw();
                 handleInput();
-                game.update(deltaTime);
             }
         } catch (IOException e) {
             e.printStackTrace();
