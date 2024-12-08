@@ -28,6 +28,8 @@ public class Game {
     private Hud hud;
     private HudView hudView;
     private List<Projectile> bullets;
+    private Round round;
+    private Score score;
 
     public Game() {
         try {
@@ -51,10 +53,12 @@ public class Game {
             screen.startScreen();
             screen.doResizeIfNecessary();
             soldier = new Soldier(15,10);
-            zombies = new Spawn(30,20,soldier).SpawnZombies();
+            round = new Round();
+            score = new Score();
+            zombies = new Spawn(30,20,soldier).SpawnZombies(round);
             walls = WallCreator.createWalls(30,20);
             arena = new Arena(30,20,zombies,walls);
-            hud = new Hud(soldier,arena);
+            hud = new Hud(soldier,arena,score,round);
             hudView= new HudView(hud);
             bullets = new ArrayList<>();
             gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView,bullets);
@@ -84,6 +88,10 @@ public class Game {
     public void update(long deltaTime) {
         for(Zombie zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
+        }
+        if (zombies.isEmpty()){
+            round.nextRound();
+            zombies = new Spawn(30,20,soldier).SpawnZombies(round);
         }
         for(Projectile bullet: bullets){
             bullet.updateProjectile(deltaTime);

@@ -36,7 +36,6 @@ import java.util.List;
             if(bullets!=null && !bullets.isEmpty()) {
                 for (Projectile bullet : bullets) {
                     bullet.draw(screen);
-                    System.out.println("Desenhado aqui hein");
                 }
             }
         }
