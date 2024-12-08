@@ -30,14 +30,15 @@ import java.util.List;
             for (Wall wall : walls) {
                 wall.draw(screen);
             }
-            for (Zombie zombie : zombies) {
-                zombie.draw(screen);
-            }
             if(bullets!=null && !bullets.isEmpty()) {
                 for (Projectile bullet : bullets) {
                     bullet.draw(screen);
                     System.out.println("Desenhado aqui hein");
                 }
             }
+            for (Zombie zombie : zombies) {
+                zombie.draw(screen);
+            }
+
         }
     }

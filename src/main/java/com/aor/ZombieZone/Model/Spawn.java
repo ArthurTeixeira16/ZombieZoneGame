@@ -10,6 +10,7 @@ public class Spawn {
     private int width;
     private Random random;
     private int speed = 1;
+    private int life = 2;
     List<Position> occupiedPos = new ArrayList<>();
     public Spawn(int width,int height,Soldier soldier){
         this.height = height;
@@ -31,7 +32,7 @@ public class Spawn {
                     current_position = new Position(x,y);
                 }
             }
-            Zombie zombie = new Zombie(x,y,speed);
+            Zombie zombie = new Zombie(x,y,speed,life);
             zombies.add(zombie);
             occupiedPos.add(current_position);
             i++;

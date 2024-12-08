@@ -9,9 +9,10 @@ public class Zombie extends Element implements HasLife,HasMovement {
     private int speed;
     private long elapsed_time;
 
-    public Zombie(int x,int y,int speed){
+    public Zombie(int x,int y,int speed,int life){
         super(x,y);
         this.speed = speed;
+        this.life = life;
 
     }
 
@@ -88,5 +89,15 @@ public class Zombie extends Element implements HasLife,HasMovement {
     public void moveRight() {
         Position newPosition = new Position(getPosition().x + 1, getPosition().y);
         this.setPosition(newPosition);
+    }
+
+    @Override
+    public void hit() {
+         life --;
+    }
+
+    @Override
+    public boolean isDead() {
+        return life == 0;
     }
 }

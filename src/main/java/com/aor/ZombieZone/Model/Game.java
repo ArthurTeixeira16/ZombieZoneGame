@@ -86,6 +86,7 @@ public class Game {
             for(Zombie zombie:zombies){
                 if(bullet.getPosition().equals(zombie.getPosition())){
                     bullet.destroy();
+                    zombie.hit();
                 }
             }
             for(Wall wall:walls){
@@ -105,6 +106,7 @@ public class Game {
             checkBulletsColisions();
         }
         bullets.removeIf(Projectile::isDestroyed);
+        zombies.removeIf(Zombie::isDead);
     }
 
     public Arena getArena() {
