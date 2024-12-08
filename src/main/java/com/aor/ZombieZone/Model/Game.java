@@ -91,10 +91,6 @@ public class Game {
         bullets.removeIf(Projectile::isDestroyed);
     }
 
-    public List<Projectile> getBullets() {
-        return this.bullets;
-    }
-
     public Arena getArena() {
         return arena;
     }
