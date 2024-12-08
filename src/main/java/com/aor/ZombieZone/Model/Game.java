@@ -81,12 +81,28 @@ public class Game {
         bullets.add(projectile);
     }
 
+    public void checkBulletsColisions(){
+        for(Projectile bullet: bullets){
+            for(Zombie zombie:zombies){
+                if(bullet.getPosition().equals(zombie.getPosition())){
+                    bullet.destroy();
+                }
+            }
+            for(Wall wall:walls){
+                if(bullet.getPosition().equals(wall.getPosition())){
+                    bullet.destroy();
+                }
+            }
+        }
+    }
+
     public void update(long deltaTime) {
         for(Zombie zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
         }
         for(Projectile bullet: bullets){
             bullet.updateProjectile(deltaTime);
+            checkBulletsColisions();
         }
         bullets.removeIf(Projectile::isDestroyed);
     }
