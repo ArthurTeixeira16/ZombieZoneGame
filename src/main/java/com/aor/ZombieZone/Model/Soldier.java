@@ -1,5 +1,6 @@
 package com.aor.ZombieZone.Model;
 
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -14,15 +15,17 @@ public class Soldier extends Element implements HasLife,HasMovement{
         super(x, y);
     }
 
+
+
     @Override
     public Position getPosition() {
         return super.getPosition();
     }
 
-
+    @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
-        screen.putString(getPosition().getX(), getPosition().getY(), "@");
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()),"@");
     }
 
     @Override

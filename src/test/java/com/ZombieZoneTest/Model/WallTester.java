@@ -1,12 +1,10 @@
-package com.aor.ZombieZone.Model;
-import com.aor.ZombieZone.Model.Wall;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+package com.ZombieZoneTest.Model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.aor.ZombieZone.Model.Wall;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 public class WallTester {
     private final int width = 40; // Limite horizontal
     private final int height = 40; // Limite vertical
@@ -59,4 +57,3 @@ public class WallTester {
         Mockito.verify(graphics).putString(Mockito.eq(new TerminalPosition(10, 5)), Mockito.eq("█"));
     } */
 }
-

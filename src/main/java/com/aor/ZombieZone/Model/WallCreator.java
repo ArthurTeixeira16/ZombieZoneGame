@@ -28,7 +28,7 @@ public class WallCreator {
             int x = random.nextInt(width - 2) + 1;
             int y = random.nextInt(height - 2) + 1;
             Wall newWall = new Wall(x, y);
-            //apenas será adicionado se não estiver na lista walls, fazemos isso para evitar duplicados
+
             if (!walls.contains(newWall)) {
                 walls.add(newWall);
             } else {
@@ -38,7 +38,7 @@ public class WallCreator {
         return walls;
     }
     public static int wallsinternas(int width, int height) {
-        // calcula a quantidade de walls internas que serão feitas
+
         int area = width * height;
         if(area <9){
             return 0;

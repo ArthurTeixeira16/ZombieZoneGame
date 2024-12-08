@@ -1,5 +1,6 @@
-package com.aor.ZombieZone.Model;
+package com.ZombieZoneTest.Model;
 
+import com.aor.ZombieZone.Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

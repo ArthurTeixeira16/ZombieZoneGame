@@ -1,4 +1,7 @@
-package com.aor.ZombieZone.Model;
+package com.ZombieZoneTest.Model;
+import com.aor.ZombieZone.Model.Arena;
+import com.aor.ZombieZone.Model.Hud;
+import com.aor.ZombieZone.Model.Soldier;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;

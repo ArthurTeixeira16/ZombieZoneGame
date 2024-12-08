@@ -1,4 +1,6 @@
-package com.aor.ZombieZone.Model;
+package com.ZombieZoneTest.Model;
+import com.aor.ZombieZone.Model.Wall;
+import com.aor.ZombieZone.Model.WallCreator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
