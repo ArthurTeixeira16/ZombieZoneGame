@@ -28,6 +28,7 @@ public class ArenaViewerTester {
     private Hud hud;
     private GameView gameView;
     private TextGraphics textGraphics;
+    private List<Projectile> bullets;
 
     @BeforeEach
     public void setUp() {
@@ -41,7 +42,7 @@ public class ArenaViewerTester {
 
         hudView= new HudView(hud);
         arenaView = new ArenaView(arena);
-        gameView = new GameView(arenaView, soldier, zombies,walls,hudView);
+        gameView = new GameView(arenaView, soldier, zombies,walls,hudView,bullets);
         textGraphics = Mockito.mock(TextGraphics.class);
         gameView.render(textGraphics);
     }

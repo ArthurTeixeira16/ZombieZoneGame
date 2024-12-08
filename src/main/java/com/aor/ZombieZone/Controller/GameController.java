@@ -23,10 +23,14 @@ public class GameController {
 
     public void run() {
         try {
+            long lastTime = System.currentTimeMillis();
             while (true) {
+                long currentTime = System.currentTimeMillis();
+                long deltaTime = currentTime - lastTime;
+                lastTime = currentTime;
                 draw();
                 handleInput();
-                game.update();
+                game.update(deltaTime);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +55,7 @@ public class GameController {
                 
             } else if (key.getKeyType()==KeyType.ArrowLeft) {
                 game.shoot((new Position(-1,0)));
-                
+
             }else if(key.getKeyType()==KeyType.ArrowRight){
                 game.shoot(new Position(1,0));
             }
