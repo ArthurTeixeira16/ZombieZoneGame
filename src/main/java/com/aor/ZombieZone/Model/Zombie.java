@@ -6,8 +6,12 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Zombie extends Element implements HasLife,HasMovement {
     private int life;
-    public Zombie(int x,int y){
+    private int speed;
+    private long elapsed_time;
+
+    public Zombie(int x,int y,int speed){
         super(x,y);
+        this.speed = speed;
 
     }
 
@@ -20,6 +24,18 @@ public class Zombie extends Element implements HasLife,HasMovement {
         screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "Z");
     }
+
+    public void updateZombieWalk(Soldier soldier,Arena arena,long deltaTime){
+        elapsed_time += deltaTime;
+        int timeToMove = 1000/speed;
+
+        while(elapsed_time>=timeToMove){
+           track( soldier, arena);
+           elapsed_time -= timeToMove;
+        }
+
+    }
+
     public void track(Soldier soldier, Arena arena) {
         Position soldierPosition = soldier.getPosition();
         Position zombiePosition = getPosition();

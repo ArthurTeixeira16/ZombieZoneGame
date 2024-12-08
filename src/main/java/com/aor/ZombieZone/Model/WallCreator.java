@@ -29,7 +29,7 @@ public class WallCreator {
             int y = random.nextInt(height - 2) + 1;
             Wall newWall = new Wall(x, y);
 
-            if (!walls.contains(newWall)) {
+            if (!walls.contains(newWall) && !newWall.getPosition().equals(new Position(width/2,height/2))) {
                 walls.add(newWall);
             } else {
                 i--;

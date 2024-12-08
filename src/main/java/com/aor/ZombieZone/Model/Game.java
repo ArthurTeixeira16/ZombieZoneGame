@@ -83,7 +83,7 @@ public class Game {
 
     public void update(long deltaTime) {
         for(Zombie zombie : zombies){
-            zombie.track(soldier,arena);
+            zombie.updateZombieWalk(soldier,arena,deltaTime);
         }
         for(Projectile bullet: bullets){
             bullet.updateProjectile(deltaTime);

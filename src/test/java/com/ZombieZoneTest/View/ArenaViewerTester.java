@@ -35,7 +35,7 @@ public class ArenaViewerTester {
 
 
         soldier = new Soldier(15,10);
-        zombies = Arrays.asList(new Zombie(15,15), new Zombie(20,20));
+        zombies = Arrays.asList(new Zombie(15,15,1), new Zombie(20,20,1));
         walls = Arrays.asList(new Wall(0,0) , new Wall(10,10), new  Wall(25,5));
         arena = new Arena(30,20,zombies, walls);
         hud = new Hud(soldier,arena);
