@@ -89,8 +89,10 @@ public class Game {
         for(Projectile bullet: bullets){
             for(Zombie zombie:zombies){
                 if(bullet.getPosition().equals(zombie.getPosition())){
-                    bullet.destroy();
-                    zombie.hit();
+                    if(!bullet.isDestroyed()) {
+                        bullet.destroy();
+                        zombie.hit();
+                    }
                 }
             }
             for(Wall wall:walls){
@@ -115,6 +117,12 @@ public class Game {
         }
         bullets.removeIf(Projectile::isDestroyed);
         zombies.removeIf(Zombie::isDead);
+
+        if (zombies.isEmpty()) {
+            round.nextRound();
+            zombies.clear();
+            zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round));
+        }
     }
 
     public Arena getArena() {
