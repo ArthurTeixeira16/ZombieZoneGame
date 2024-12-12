@@ -30,7 +30,8 @@ public class Game {
     private List<Projectile> bullets;
     private Round round;
     private Score score;
-
+    private long lastShotTime = 0;
+    private int timetoShoot = 1000;
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -78,12 +79,22 @@ public class Game {
         return soldier;
     }
 
-    public void shoot(Position direction){
-        Position soldierposition = getSoldier().getPosition();
-        Projectile projectile = new Projectile(soldierposition.getX(),soldierposition.getY(),7,1);
-        projectile.setDirection(direction);
-        bullets.add(projectile);
+    public boolean canShoot(long currentTime){
+        if (currentTime - lastShotTime >= timetoShoot){
+            lastShotTime = currentTime;
+            return true;
+        }
+        return false;
     }
+
+    public void shoot(Position direction){
+            Position soldierposition = getSoldier().getPosition();
+            Projectile projectile = new Projectile(soldierposition.getX() + direction.getX(), soldierposition.getY() + direction.getY(), 7, 4);
+            projectile.setDirection(direction);
+            bullets.add(projectile);
+    }
+
+
 
     public void checkBulletsColisions(){
         for(Projectile bullet: bullets){
@@ -121,7 +132,7 @@ public class Game {
                 score.addScore();
             }
         }
-        zombies.removeIf(Zombie::isDead);
+        zombies.removeIf(Zombie::isDead);//não funcionou dentro da branch
         if (zombies.isEmpty()) {
             round.nextRound();
             zombies.clear();

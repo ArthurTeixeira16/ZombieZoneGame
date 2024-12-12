@@ -29,7 +29,6 @@ public class GameController {
                     long currentTime = System.currentTimeMillis();
                     long deltaTime = currentTime - lastTime;
                     lastTime = currentTime;
-
                     synchronized (game) {
                         try {
                             game.update(deltaTime);
@@ -66,17 +65,19 @@ public class GameController {
             Position currentPosition = game.getSoldier().getPosition();
             Position newPosition = null;
 
-            if(key.getKeyType()==KeyType.ArrowUp){
+            long currentTime = System.currentTimeMillis();
+            if (key.getKeyType() == KeyType.ArrowUp && game.canShoot(currentTime)) {
                 game.shoot(new Position(0, -1));
-            } else if (key.getKeyType()==KeyType.ArrowDown) {
+            } else if (key.getKeyType() == KeyType.ArrowDown && game.canShoot(currentTime)) {
                 game.shoot(new Position(0, 1));
-                
-            } else if (key.getKeyType()==KeyType.ArrowLeft) {
-                game.shoot((new Position(-1,0)));
 
-            }else if(key.getKeyType()==KeyType.ArrowRight){
-                game.shoot(new Position(1,0));
+            } else if (key.getKeyType() == KeyType.ArrowLeft && game.canShoot(currentTime)) {
+                game.shoot((new Position(-1, 0)));
+
+            } else if (key.getKeyType() == KeyType.ArrowRight && game.canShoot(currentTime)) {
+                game.shoot(new Position(1, 0));
             }
+
 
             if(key.getKeyType()==KeyType.Character && key.getCharacter()!= null) {
                 switch (key.getCharacter()) {
