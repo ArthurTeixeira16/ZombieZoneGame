@@ -1,9 +1,6 @@
 package com.ZombieZoneTest.Model;
 
-import com.aor.ZombieZone.Model.Position;
-import com.aor.ZombieZone.Model.Soldier;
-import com.aor.ZombieZone.Model.Spawn;
-import com.aor.ZombieZone.Model.Zombie;
+import com.aor.ZombieZone.Model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +12,11 @@ public class SpawnTester {
     private Spawn spawn;
     private List<Zombie> zombieList;
     private Soldier soldier;
+    private Round round;
     @BeforeEach
     public void setUp(){
         spawn = new Spawn(40,30,soldier);
-        zombieList = spawn.SpawnZombies();
+        zombieList = spawn.SpawnZombies(round);
     }
 
     @Test

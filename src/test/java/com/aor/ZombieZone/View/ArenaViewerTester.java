@@ -23,19 +23,21 @@ public class ArenaViewerTester {
     private List<Wall> walls;
     private HudView hudView;
     private Hud hud;
+    private  Score score;
+    private Round round;
     private GameView gameView;
     private TextGraphics textGraphics;
-
+    private List<Projectile> bullets;
     @BeforeEach
     public void setUp() {
-        arena = new Arena(30,20);
+        arena = new Arena(30,20,zombies,walls);
         arenaView = new ArenaView(arena);
         soldier = new Soldier(15,10);
-        zombies = Arrays.asList(new Zombie(15,15), new Zombie(20,20));
+        zombies = Arrays.asList(new Zombie(15,15,1,2), new Zombie(20,20,1,2));
         walls = Arrays.asList(new Wall(0,0) , new Wall(10,10), new  Wall(25,5));
-        hud = new Hud(soldier,arena);
+        hud = new Hud(soldier,arena,score,round);
         hudView= new HudView(hud);
-        gameView = new GameView(arenaView, soldier, zombies,walls,hudView);
+        gameView = new GameView(arenaView, soldier, zombies,walls,hudView,bullets);
         textGraphics = Mockito.mock(TextGraphics.class);
         gameView.render(textGraphics);
     }

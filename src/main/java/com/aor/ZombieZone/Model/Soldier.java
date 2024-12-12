@@ -13,6 +13,7 @@ public class Soldier extends Element implements HasLife,HasMovement{
 
     public Soldier(int x, int y) {
         super(x, y);
+
     }
 
 
