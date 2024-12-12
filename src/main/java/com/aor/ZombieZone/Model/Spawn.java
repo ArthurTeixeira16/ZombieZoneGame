@@ -9,7 +9,7 @@ public class Spawn {
     private int height;
     private int width;
     private Random random;
-    private int speed = 1;
+    private int speed = 2;
     private int life = 2;
     List<Position> occupiedPos = new ArrayList<>();
     public Spawn(int width,int height,Soldier soldier){

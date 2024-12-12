@@ -30,7 +30,8 @@ public class Game {
     private List<Projectile> bullets;
     private Round round;
     private Score score;
-
+    private long lastShotTime = 0;
+    private int timetoShoot = 1000;
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -78,11 +79,27 @@ public class Game {
         return soldier;
     }
 
+    public boolean canShoot(long currentTime){
+        if (currentTime - lastShotTime >= timetoShoot){
+            lastShotTime = currentTime;
+            return true;
+        }
+        return false;
+    }
+
     public void shoot(Position direction){
-        Position soldierposition = getSoldier().getPosition();
-        Projectile projectile = new Projectile(soldierposition.getX(),soldierposition.getY(),7,1);
-        projectile.setDirection(direction);
-        bullets.add(projectile);
+            Position soldierposition = getSoldier().getPosition();
+            Projectile projectile = new Projectile(soldierposition.getX() + direction.getX(), soldierposition.getY() + direction.getY(), 7, 4);
+            projectile.setDirection(direction);
+            bullets.add(projectile);
+    }
+
+    public void checkDamage(long deltaTime){
+        for(Zombie zombie: zombies){
+            if(zombie.getPosition().equals(soldier.getPosition())){
+                soldier.hit();
+            }
+        }
     }
 
     public void checkBulletsColisions(){
@@ -103,9 +120,15 @@ public class Game {
         }
     }
 
-    public void update(long deltaTime) {
+    public void update(long deltaTime) throws IOException {
+        if(soldier.isDead()){
+            screen.close();
+            System.exit(0);
+            return;
+        }
         for(Zombie zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
+            checkDamage(deltaTime);
         }
         if (zombies.isEmpty()){
             round.nextRound();
@@ -121,7 +144,7 @@ public class Game {
                 score.addScore();
             }
         }
-        zombies.removeIf(Zombie::isDead);
+        zombies.removeIf(Zombie::isDead);//não funcionou dentro da branch
         if (zombies.isEmpty()) {
             round.nextRound();
             zombies.clear();
