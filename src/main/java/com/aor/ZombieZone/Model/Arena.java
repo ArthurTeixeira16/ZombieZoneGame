@@ -2,6 +2,7 @@ package com.aor.ZombieZone.Model;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Arena {
@@ -22,6 +23,20 @@ public class Arena {
     }
     public int getHeight() {
         return height;
+    }
+    public List<Position> getPositionsWalls() {
+        List<Position> positions = new ArrayList<>();
+        for(Wall wall : walls) {
+            positions.add(wall.getPosition());
+        }
+        return positions;
+    }
+    public List<Position> getPositionsZombies() {
+        List<Position> positions = new ArrayList<>();
+        for(Zombie zombie : zombies) {
+            positions.add(zombie.getPosition());
+        }
+        return positions;
     }
 
     public int getWidth() {

@@ -4,6 +4,10 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class Zombie extends Element implements HasLife,HasMovement {
     private int life;
     private int speed;
@@ -38,34 +42,58 @@ public class Zombie extends Element implements HasLife,HasMovement {
     }
 
     public void track(Soldier soldier, Arena arena) {
+        int[][] places = new int[arena.getHeight()+10][arena.getWidth()+10];
+        List<Position> positionsOfWalls = arena.getPositionsWalls();
+        for(Position position : positionsOfWalls){
+            places[position.getX()][position.getY()] = 2;
+        }
+        List<Position> positionsOfZombies = arena.getPositionsZombies();
+        for(Position position : positionsOfZombies){
+            places[position.getX()][position.getY()] = 2;
+        }
+        places[this.getPosition().getX()][this.getPosition().getY()] = 1;
         Position soldierPosition = soldier.getPosition();
-        Position zombiePosition = getPosition();
-        int deltaX = soldierPosition.getX() - zombiePosition.getX();
-        int deltaY = soldierPosition.getY() - zombiePosition.getY();
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            if (deltaX > 0) {
-                Position nextPosition = new Position(zombiePosition.getX() + 1, zombiePosition.getY());
-                if (arena.canMoveTo(nextPosition)) {
-                    moveRight();
-                }
-            } else {
-                Position nextPosition = new Position(zombiePosition.getX() - 1, zombiePosition.getY());
-                if (arena.canMoveTo(nextPosition)) {
-                    moveLeft();
+
+        TraceToHero(this.getPosition(), soldierPosition , places , arena);
+    }
+    public void TraceToHero(Position zombiePosition, Position soldierPosition, int[][] places, Arena arena) {
+        int[] dx = {1, -1, 0, 0};
+        int[] dy = {0, 0, 1, -1};
+        //Resolução feita por BFS, kkk demos isso em AED na semana que estou fazendo isso, e realmente ajudou !
+        Queue<Position> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[places.length][places[0].length];
+        Position[][] predecessor = new Position[places.length][places[0].length];
+
+        queue.add(zombiePosition);
+        visited[zombiePosition.getX()][zombiePosition.getY()] = true;
+        predecessor[zombiePosition.getX()][zombiePosition.getY()] = null;
+        while (!queue.isEmpty()) {
+            Position current = queue.poll();
+
+            if (current.equals(soldierPosition)) {
+                break;
+            }
+            for (int i = 0; i < 4; i++) {
+                int newX = current.getX() + dx[i];
+                int newY = current.getY() + dy[i];
+                Position nextPosition = new Position(newX, newY);
+
+                if (newX >= 0 && newY >= 0 && newX < places.length && newY < places[0].length &&
+                        arena.canMoveTo(nextPosition) && places[newX][newY] != 2 && !visited[newX][newY]) {
+
+                    visited[newX][newY] = true;
+                    predecessor[newX][newY] = current;
+                    queue.add(nextPosition);
                 }
             }
-        } else {
-            if (deltaY > 0) {
-                Position nextPosition = new Position(zombiePosition.getX(), zombiePosition.getY() + 1);
-                if (arena.canMoveTo(nextPosition)) {
-                    moveDown();
-                }
-            } else {
-                Position nextPosition = new Position(zombiePosition.getX(), zombiePosition.getY() - 1);
-                if (arena.canMoveTo(nextPosition)) {
-                    moveUp();
-                }
-            }
+        }
+        //Descontrução do step até o player
+        Position step = soldierPosition;
+        while (predecessor[step.getX()][step.getY()] != null && !predecessor[step.getX()][step.getY()].equals(zombiePosition)) {
+            step = predecessor[step.getX()][step.getY()];
+        }
+        if (step != null) {
+            this.setPosition(step);
         }
     }
     public void moveUp() {

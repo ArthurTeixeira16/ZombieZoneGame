@@ -1,5 +1,7 @@
 package com.aor.ZombieZone;
+import com.aor.ZombieZone.Controller.LeadBoardController;
 import com.aor.ZombieZone.Controller.MenuController;
+import com.aor.ZombieZone.View.LeadBoardView;
 import com.aor.ZombieZone.View.MenuView;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
@@ -14,6 +16,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.aor.ZombieZone.Controller.LeadBoardController.addToMapDoLead;
 
 public class Menu {
     private Screen screen;
@@ -42,9 +46,19 @@ public class Menu {
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
-            this.entries = Arrays.asList("Start", "Exit");
+            this.entries = Arrays.asList("Start", "Exit", "Lead");
             menuView = new MenuView(this);
             menuController= new MenuController(this,menuView,screen);
+            addToMapDoLead(10,"Divaldo");
+            addToMapDoLead(11,"Divaldo");
+            addToMapDoLead(54,"Arthur");
+            addToMapDoLead(41,"Pedro");
+            addToMapDoLead(102,"Gokturk Empire");
+            addToMapDoLead(402,"Roman Empire");
+            addToMapDoLead(82,"São Tomé e Príncipe");
+            addToMapDoLead(200, "Brazil");
+            LeadBoardView leadBoardView = new LeadBoardView();
+            LeadBoardController leadBoardController = new LeadBoardController(leadBoardView, screen);
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -83,6 +97,8 @@ public class Menu {
     public boolean isSelectedStart() {
         return isSelected(0);
     }
+
+    public boolean isSelectedLead() {return isSelected(2);}
 
     public int getNumberEntries() {
         return this.entries.size();
