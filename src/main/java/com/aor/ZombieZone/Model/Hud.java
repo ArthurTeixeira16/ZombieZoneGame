@@ -16,8 +16,8 @@ public class Hud {
     }
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#0000FF"));
-        graphics.putString(1, arena.getHeight(), "Score: " + score.getScore());
-        graphics.putString(10, arena.getHeight(), "Rounds: " + round.getRound());
+        graphics.putString(1, arena.getHeight(), "Score:" + score.getScore());
+        graphics.putString(10, arena.getHeight(), "Round: " + round.getRound());
         graphics.putString(20, arena.getHeight(), "Lives: " + soldier.getLife());
     }
 }

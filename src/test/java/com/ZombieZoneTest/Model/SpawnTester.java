@@ -12,6 +12,7 @@ public class SpawnTester {
     private Spawn spawn;
     private List<Zombie> zombieList;
     private Soldier soldier;
+    private Score score;
     private Round round;
     @BeforeEach
     public void setUp(){

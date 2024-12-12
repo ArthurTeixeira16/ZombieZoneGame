@@ -116,8 +116,12 @@ public class Game {
             checkBulletsColisions();
         }
         bullets.removeIf(Projectile::isDestroyed);
+        for(Zombie zombie : zombies){
+            if(zombie.isDead()){
+                score.addScore();
+            }
+        }
         zombies.removeIf(Zombie::isDead);
-
         if (zombies.isEmpty()) {
             round.nextRound();
             zombies.clear();

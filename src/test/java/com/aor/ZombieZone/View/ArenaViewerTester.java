@@ -23,11 +23,11 @@ public class ArenaViewerTester {
     private List<Wall> walls;
     private HudView hudView;
     private Hud hud;
-    private  Score score;
-    private Round round;
     private GameView gameView;
     private TextGraphics textGraphics;
     private List<Projectile> bullets;
+    private Score score;
+    private Round round;
     @BeforeEach
     public void setUp() {
         arena = new Arena(30,20,zombies,walls);

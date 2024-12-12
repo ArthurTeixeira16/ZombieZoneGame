@@ -29,8 +29,8 @@ public class ArenaViewerTester {
     private GameView gameView;
     private TextGraphics textGraphics;
     private List<Projectile> bullets;
-    private Round round;
     private Score score;
+    private Round round;
     @BeforeEach
     public void setUp() {
 
