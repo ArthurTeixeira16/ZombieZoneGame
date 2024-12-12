@@ -1,4 +1,5 @@
 package com.aor.ZombieZone.Controller;
+import com.aor.ZombieZone.Menu;
 import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.Model.Projectile;
@@ -94,9 +95,8 @@ public class GameController {
                         break;
 
                     case 'q':
-                        screen.close();
-                        System.exit(0);
-                        return;
+                        Menu menu = new Menu();
+                        menu.run();
                 }
             }
 
