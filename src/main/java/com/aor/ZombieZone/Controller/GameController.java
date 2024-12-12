@@ -32,7 +32,7 @@ public class GameController {
                     lastTime = currentTime;
                     synchronized (game) {
                         try {
-                            game.update(deltaTime);
+                            game.update(deltaTime,currentTime);//mudei aqui pra pegar os parametros do tempo absoluto também
                             draw();
                         } catch (IOException e) {
                             e.printStackTrace();
