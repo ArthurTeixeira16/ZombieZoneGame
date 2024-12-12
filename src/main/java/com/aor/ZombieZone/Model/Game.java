@@ -94,7 +94,13 @@ public class Game {
             bullets.add(projectile);
     }
 
-
+    public void checkDamage(long deltaTime){
+        for(Zombie zombie: zombies){
+            if(zombie.getPosition().equals(soldier.getPosition())){
+                soldier.hit();
+            }
+        }
+    }
 
     public void checkBulletsColisions(){
         for(Projectile bullet: bullets){
@@ -114,9 +120,15 @@ public class Game {
         }
     }
 
-    public void update(long deltaTime) {
+    public void update(long deltaTime) throws IOException {
+        if(soldier.isDead()){
+            screen.close();
+            System.exit(0);
+            return;
+        }
         for(Zombie zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
+            checkDamage(deltaTime);
         }
         if (zombies.isEmpty()){
             round.nextRound();

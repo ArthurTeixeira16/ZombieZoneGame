@@ -55,11 +55,11 @@ public class Soldier extends Element implements HasLife,HasMovement{
 
     @Override
     public void hit() {
-
+        life--;
     }
 
     @Override
     public boolean isDead() {
-        return false;
+        return life <= 0;
     }
 }
