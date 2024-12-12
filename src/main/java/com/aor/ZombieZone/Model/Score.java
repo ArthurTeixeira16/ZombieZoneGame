@@ -5,8 +5,8 @@ public class Score {
     public Score() {
         this.score = 0;
     }
-    public void addScore(int n){
-        score=score+n;
+    public void addScore(){
+        score+=1;
     }
     public int getScore() {
         return score;

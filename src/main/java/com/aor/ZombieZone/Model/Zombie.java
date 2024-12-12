@@ -97,7 +97,6 @@ public class Zombie extends Element implements HasLife,HasMovement {
     }
 
     @Override
-    public boolean isDead() {
-        return life == 0;
+    public boolean isDead() {return life <= 0;
     }
 }

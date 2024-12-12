@@ -1,7 +1,5 @@
 package com.ZombieZoneTest.Model;
-import com.aor.ZombieZone.Model.Arena;
-import com.aor.ZombieZone.Model.Hud;
-import com.aor.ZombieZone.Model.Soldier;
+import com.aor.ZombieZone.Model.*;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -14,12 +12,14 @@ public class HudTester {
     private Arena arena;
     private Hud hud;
     private TextGraphics textGraphics;
+    private Score score;
+    private Round round;
     @BeforeEach
     public void setUp() {
         soldier = Mockito.mock(Soldier.class);
         arena = Mockito.mock(Arena.class);
         textGraphics = Mockito.mock(TextGraphics.class);
-        hud = new Hud(soldier,arena);
+        hud = new Hud(soldier,arena,score,round);
         hud.draw(textGraphics);
     }
     @Test
