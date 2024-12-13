@@ -9,12 +9,12 @@ import java.util.List;
     public class GameView {
         private ArenaView arenaView;
         private Soldier soldier;
-        private List<Zombie> zombies;
+        private List<Enemy> zombies;
         private List<Wall> walls;
         private List<Projectile> bullets;
         private HudView hudView;
 
-        public GameView(ArenaView arenaView, Soldier soldier, List<Zombie> zombies, List<Wall> walls, HudView hudView, List<Projectile> bullets) {
+        public GameView(ArenaView arenaView, Soldier soldier, List<Enemy> zombies, List<Wall> walls, HudView hudView, List<Projectile> bullets) {
             this.arenaView = arenaView;
             this.soldier = soldier;
             this.zombies = zombies;
@@ -35,7 +35,7 @@ import java.util.List;
                     bullet.draw(screen);
                 }
             }
-            for (Zombie zombie : zombies) {
+            for (Enemy zombie : zombies) {
                 zombie.draw(screen);
             }
 

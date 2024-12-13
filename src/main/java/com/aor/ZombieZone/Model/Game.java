@@ -21,7 +21,7 @@ public class Game {
     private Screen screen;
     private Arena arena;
     private Soldier soldier;
-    private List<Zombie> zombies;
+    private List<Enemy> zombies;
     private List<Wall> walls;
     private GameView gameView;
     private GameController gameController;
@@ -95,7 +95,7 @@ public class Game {
     }
 
     public void checkDamage(long deltaTime){
-        for(Zombie zombie: zombies){
+        for(Enemy zombie: zombies){
             if(zombie.getPosition().equals(soldier.getPosition())){
                 soldier.hit();
             }
@@ -104,7 +104,7 @@ public class Game {
 
     public void checkBulletsColisions(){
         for(Projectile bullet: bullets){
-            for(Zombie zombie:zombies){
+            for(Enemy zombie:zombies){
                 if(bullet.getPosition().equals(zombie.getPosition())){
                     if(!bullet.isDestroyed()) {
                         bullet.destroy();
@@ -126,7 +126,7 @@ public class Game {
             System.exit(0);
             return;
         }
-        for(Zombie zombie : zombies){
+        for(Enemy zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
             checkDamage(deltaTime);
         }
@@ -139,12 +139,12 @@ public class Game {
             checkBulletsColisions();
         }
         bullets.removeIf(Projectile::isDestroyed);
-        for(Zombie zombie : zombies){
+        for(Enemy zombie : zombies){
             if(zombie.isDead()){
                 score.addScore();
             }
         }
-        zombies.removeIf(Zombie::isDead);//não funcionou dentro da branch
+        zombies.removeIf(Enemy::isDead);//não funcionou dentro da branch
         if (zombies.isEmpty()) {
             round.nextRound();
             zombies.clear();

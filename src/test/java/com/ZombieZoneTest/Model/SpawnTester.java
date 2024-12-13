@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SpawnTester {
     private Spawn spawn;
-    private List<Zombie> zombieList;
+    private List<Enemy> zombieList;
     private Soldier soldier;
     private Score score;
     private Round round;
@@ -40,7 +40,7 @@ public class SpawnTester {
     }
     @Test
     public void testZombieSpawnInLimits(){
-        for(Zombie zombie:zombieList){
+        for(Enemy zombie:zombieList){
             Position pos = zombie.getPosition();
 
             Assertions.assertTrue(pos.getX() > 0 && pos.getX() < 40);
