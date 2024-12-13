@@ -15,18 +15,27 @@ import java.util.*;
 public class LeadBoardController {
     private static LeadBoardView leadBoardView;
     private static Screen screen;
-    private static Map<Integer, String> mapDoLead = new TreeMap<>();
+    private static List<Integer> mapDoLead = new ArrayList<>();
     private static boolean continuaLead = true;
     public LeadBoardController(LeadBoardView leadBoardView, Screen screen) {
         this.leadBoardView = leadBoardView;
         this.screen = screen;
     }
 
-    public static void addToMapDoLead(Integer value, String key) {
-        mapDoLead.put(value, key);
+    public void addToMapDoLead(Integer value) {
+        List<Integer> copiaDolead = new ArrayList<>(mapDoLead);
+        copiaDolead.sort(Comparator.naturalOrder());
+        for(int i = 0; i < 5; i++) {
+            mapDoLead.set(i, copiaDolead.get(i));
+        }
     }
-    public static Map<Integer, String> getMapDoLead() {
+    public static List<Integer> getMapDoLead() {
+        organizarMapDoLead();
         return mapDoLead;
+    }
+    public static void organizarMapDoLead(){
+        mapDoLead.sort(Comparator.reverseOrder());
+
     }
 
     public static void setTruetoLead(){
@@ -38,14 +47,19 @@ public class LeadBoardController {
 
     public static void runLeadBoard() {
         try{
-            mapDoLead.put(10,"Divaldo");
-            mapDoLead.put(11,"Divaldo");
-            mapDoLead.put(54,"Arthur");
-            mapDoLead.put(41,"Pedro");
-            mapDoLead.put(102,"Gokturk Empire");
-            mapDoLead.put(402,"Roman Empire");
-            mapDoLead.put(82,"São Tomé e Príncipe");
-            mapDoLead.put(200, "Brazil");
+            mapDoLead.add(10);
+            mapDoLead.add(100);
+            mapDoLead.add(341);
+            mapDoLead.add(43);
+            mapDoLead.add(2);
+            mapDoLead.add(912);
+            mapDoLead.add(10023);
+            mapDoLead.add(73);
+            mapDoLead.add(77);
+            mapDoLead.add(422);
+            mapDoLead.add(333);
+
+
             while(continuaLead){
                 LeadBoardController.draw();
                 handleInput();
@@ -61,11 +75,7 @@ public class LeadBoardController {
     }
     private static void handleInput() throws IOException {
         KeyStroke key = screen.readInput();
-        if (key.getKeyType() == KeyType.ArrowUp) {
-            leadBoardView.scrollUp();
-        } else if (key.getKeyType() == KeyType.ArrowDown) {
-            leadBoardView.scrollDown();
-        } else if (key.getKeyType() == KeyType.Character) {
+         if (key.getKeyType() == KeyType.Character) {
             if (key.getCharacter() == 'q') {
                 continuaLead = false;
             }

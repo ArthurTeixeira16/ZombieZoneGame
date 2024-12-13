@@ -12,7 +12,6 @@ import java.util.Map;
 import static com.aor.ZombieZone.Controller.LeadBoardController.getMapDoLead;
 
 public class LeadBoardView {
-    private int scrollPosition = 0;
     private int linesToShow = 5;
     private int terminalWidth = 30;
     private int terminalHeight = 20;
@@ -25,31 +24,18 @@ public class LeadBoardView {
         screen.setBackgroundColor(TextColor.Factory.fromString("#000000"));
         screen.putString(xPosition, yPosition, text, SGR.BOLD);
 
-        Map<Integer, String> leads = getMapDoLead();
+        List<Integer> leads = getMapDoLead();
         //Queremos apenas os Keys em uma list pq
         // acessamos o Map como bilioteca do python, com o key,
         // então as long nós temos o key temos o value
-        List<Integer> keys = new ArrayList<>(leads.keySet());
-        for(int i = 0; i<linesToShow && scrollPosition + i < leads.size() ; i++) {
-            String lead = leads.get(keys.get(scrollPosition + i));
-            int scoree = keys.get(scrollPosition + i);
+        for(int i = 0; i< linesToShow ; i++) {
+            int lead = i+1;
+            int scoree = leads.get(i);
             String scoreestr = String.valueOf(scoree);
+            String leadstr = String.valueOf(lead);
 
-            screen.putString(xPosition - text.length(), (int) (5+(((double)terminalHeight/4) * i)), scoreestr, SGR.BOLD);
-            screen.putString(xPosition + text.length(), (int) (5+(((double)terminalHeight/4) * i)), lead);
-        }
-    }
-    public int getScrollPosition() {
-        return scrollPosition;
-    }
-    public void scrollUp() {
-        if (scrollPosition > 0) {
-            scrollPosition--;
-        }
-    }
-    public void scrollDown() {
-        if (scrollPosition + linesToShow < getMapDoLead().size()) {
-            scrollPosition++;
+            screen.putString(xPosition + text.length(), (int) (5+(((double)terminalHeight/4) * i)), scoreestr, SGR.BOLD);
+            screen.putString(xPosition - text.length(), (int) (5+(((double)terminalHeight/4) * i)), leadstr, SGR.BOLD);
         }
     }
 }

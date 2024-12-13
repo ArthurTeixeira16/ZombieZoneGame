@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.aor.ZombieZone.Controller.LeadBoardController.addToMapDoLead;
+import com.aor.ZombieZone.Controller.LeadBoardController;
 
 public class Menu {
     private Screen screen;
@@ -49,16 +49,10 @@ public class Menu {
             this.entries = Arrays.asList("Start", "Exit", "Lead");
             menuView = new MenuView(this);
             menuController= new MenuController(this,menuView,screen);
-            addToMapDoLead(10,"Divaldo");
-            addToMapDoLead(11,"Divaldo");
-            addToMapDoLead(54,"Arthur");
-            addToMapDoLead(41,"Pedro");
-            addToMapDoLead(102,"Gokturk Empire");
-            addToMapDoLead(402,"Roman Empire");
-            addToMapDoLead(82,"São Tomé e Príncipe");
-            addToMapDoLead(200, "Brazil");
+
             LeadBoardView leadBoardView = new LeadBoardView();
             LeadBoardController leadBoardController = new LeadBoardController(leadBoardView, screen);
+
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
