@@ -23,12 +23,11 @@ public class Spawn {
         this.random = new Random();
         this.soldier = soldier;
     }
-    public List<Enemy> SpawnZombies(Round round){
+    public List<Enemy> SpawnZombies(int round){
         occupiedPos.clear();
         occupiedPos.add(soldier.getPosition());
-
         List<Enemy> zombies = new ArrayList<>();
-        int zombiequantity = (round.getRound() * zombies_per_round);
+        int zombiequantity = (round * zombies_per_round);
 
         while(zombiequantity > 0) {
             Position current_position = GeneratePositions();
@@ -41,13 +40,13 @@ public class Spawn {
             }
             else{
                 int chance = random.nextInt(101);
-                if(chance < speedzombie_percentage * round.getRound()) {
+                if(chance < speedzombie_percentage * round) {
                     Enemy zombie = new ZombieSpeed(current_position.getX(),current_position.getY());
                     zombies.add(zombie);
                     occupiedPos.add(current_position);
                     zombiequantity-=2;
                 }
-                else if(chance < heavyzombie_percentage * round.getRound()){
+                else if(chance < heavyzombie_percentage * round){
                     Enemy zombie = new ZombieHeavy(current_position.getX(),current_position.getY());
                     zombies.add(zombie);
                     occupiedPos.add(current_position);

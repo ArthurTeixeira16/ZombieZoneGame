@@ -27,7 +27,7 @@ public class Game {
         soldier = new Soldier(15,10);
         round = new Round();
         score = new Score();
-        zombies = new Spawn(30,20,soldier).SpawnZombies(round);
+        zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
         walls = WallCreator.createWalls(30,20);
         arena = new Arena(30,20);
         bullets = new ArrayList<>();
@@ -121,7 +121,7 @@ public class Game {
         }
         if (zombies.isEmpty()){
             round.nextRound();
-            zombies = new Spawn(30,20,soldier).SpawnZombies(round);
+            zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
         }
         for(Projectile bullet: bullets){
             bullet.updateProjectile(deltaTime);
@@ -130,14 +130,16 @@ public class Game {
         bullets.removeIf(Projectile::isDestroyed);
         for(Enemy zombie : zombies){
             if(zombie.isDead()){
-               hud.getScore().addScore();
+                score.addScore();
+                hud.getScore().addScore();
             }
         }
         zombies.removeIf(Enemy::isDead);
         if (zombies.isEmpty()) {
+            round.nextRound();
             hud.getRound().nextRound();
             zombies.clear();
-            zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round));
+            zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round.getRound()));
         }
     }
     public boolean canMoveTo(Position position) {
@@ -167,9 +169,7 @@ public class Game {
     public List<Wall> getWalls() {
         return walls;
     }
-    public Hud getHud() {
-        return hud;
-    }
+    public Hud getHud() { return hud;}
     public List<Projectile> getBullets() {
         return bullets;
     }
