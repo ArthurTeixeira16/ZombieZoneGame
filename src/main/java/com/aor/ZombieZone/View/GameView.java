@@ -8,34 +8,31 @@ import java.util.List;
 
     public class GameView {
         private ArenaView arenaView;
-        private Soldier soldier;
-        private List<Enemy> zombies;
-        private List<Wall> walls;
-        private List<Projectile> bullets;
         private HudView hudView;
+        private Game game;
 
-        public GameView(ArenaView arenaView, Soldier soldier, List<Enemy> zombies, List<Wall> walls, HudView hudView, List<Projectile> bullets) {
+        public GameView(ArenaView arenaView, Game game) {
             this.arenaView = arenaView;
-            this.soldier = soldier;
-            this.zombies = zombies;
-            this.walls = walls;
-            this.hudView = hudView;
-            this.bullets = bullets;
+            this.game = game;
         }
+        public void setHudView(HudView hudView) {
+            this.hudView = hudView;
+        }
+
 
         public void render(TextGraphics screen) {
             arenaView.render(screen);
             hudView.render(screen);
-            soldier.draw(screen);
-            for (Wall wall : walls) {
+            game.getSoldier().draw(screen);
+            for (Wall wall : game.getWalls()) {
                 wall.draw(screen);
             }
-            if(bullets!=null && !bullets.isEmpty()) {
-                for (Projectile bullet : bullets) {
+            if(game.getBullets()!=null && !game.getBullets().isEmpty()) {
+                for (Projectile bullet : game.getBullets()) {
                     bullet.draw(screen);
                 }
             }
-            for (Enemy zombie : zombies) {
+            for (Enemy zombie : game.getZombies()) {
                 zombie.draw(screen);
             }
 

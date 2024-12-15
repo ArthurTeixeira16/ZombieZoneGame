@@ -12,7 +12,7 @@ public class Spawn {
     private Random random;
     private int speed = 2;
     private int life = 2;
-    List<Position> occupiedPos = new ArrayList<>();
+    private List<Position> occupiedPos = new ArrayList<>();
     public Spawn(int width,int height,Soldier soldier){
         this.height = height;
         this.width = width;

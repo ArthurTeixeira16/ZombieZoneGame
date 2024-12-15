@@ -1,82 +1,56 @@
 package com.aor.ZombieZone.Model;
-import com.aor.ZombieZone.Controller.GameController;
-import com.aor.ZombieZone.View.ArenaView;
-import com.aor.ZombieZone.View.GameView;
-import com.aor.ZombieZone.View.HudView;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private Screen screen;
     private Arena arena;
     private Soldier soldier;
     private List<Enemy> zombies;
     private List<Wall> walls;
-    private GameView gameView;
-    private GameController gameController;
     private Hud hud;
-    private HudView hudView;
     private List<Projectile> bullets;
     private Round round;
     private Score score;
     private long lastShotTime = 0;
     private int timetoShoot = 1000;
+    private List<GameListener> gameListeners = new ArrayList<>();
     public Game() {
-        try {
-            URL resource = getClass().getClassLoader().getResource("square.ttf");
-            if (resource == null) {
-                throw new RuntimeException("Font resource not found!");
-            }
-            File fontFile = new File(resource.toURI());
-            Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(font);
-            DefaultTerminalFactory factory = new DefaultTerminalFactory();
-            Font loadedFont = font.deriveFont(Font.PLAIN, 25);
-            AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
-            factory.setTerminalEmulatorFontConfiguration(fontConfig);
-            factory.setForceAWTOverSwing(true);
-            factory.setInitialTerminalSize(new TerminalSize(40, 40));
-            Terminal terminal = factory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
-            soldier = new Soldier(15,10);
-            round = new Round();
-            score = new Score();
-            zombies = new Spawn(30,20,soldier).SpawnZombies(round);
-            walls = WallCreator.createWalls(30,20);
-            arena = new Arena(30,20,zombies,walls);
-            hud = new Hud(soldier,arena,score,round);
-            hudView= new HudView(hud);
-            bullets = new ArrayList<>();
-            gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView,bullets);
-            gameController = new GameController(this, gameView, screen);
+            resetGame();
+    }
+    // Quando ele morrer nós resetamos essa arena
+    public void resetGame(){
+        soldier = new Soldier(15,10);
+        round = new Round();
+        score = new Score();
+        zombies = new Spawn(30,20,soldier).SpawnZombies(round);
+        walls = WallCreator.createWalls(30,20);
+        arena = new Arena(30,20);
+        bullets = new ArrayList<>();
+    }
+    public void setHud(Hud hud) {
+        this.hud = hud;
+    }
 
-        } catch (URISyntaxException | FontFormatException | IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+    // qm quer saber se o heroi morreu
+    public void addListener(GameListener gameListener){
+        gameListeners.add(gameListener);
+    }
+    public List<Position> getPositionsWalls() {
+        List<Position> positions = new ArrayList<>();
+        for(Wall wall : walls) {
+            positions.add(wall.getPosition());
         }
+        return positions;
     }
-
-    public void run() {
-        gameController.run();
-    }
-
-    public Soldier getSoldier() {
-        return soldier;
+    public List<Position> getPositionsZombies() {
+        List<Position> positions = new ArrayList<>();
+        for(Enemy zombie : zombies) {
+            positions.add(zombie.getPosition());
+        }
+        return positions;
     }
 
     public boolean canShoot(long currentTime){
@@ -120,14 +94,14 @@ public class Game {
         }
     }
 
-    public void update(long deltaTime) throws IOException {
+    public void update(long deltaTime, long currentTime) throws IOException {
         if(soldier.isDead()){
-            screen.close();
-            System.exit(0);
-            return;
+            for(GameListener gameListener: gameListeners){
+                gameListener.EndGame();
+            }
         }
         for(Enemy zombie : zombies){
-            zombie.updateZombieWalk(soldier,arena,deltaTime);
+            zombie.updateZombieWalk(soldier,this,deltaTime);
             checkDamage(deltaTime);
         }
         if (zombies.isEmpty()){
@@ -151,8 +125,46 @@ public class Game {
             zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round));
         }
     }
+    public boolean canMoveTo(Position position) {
+        for (Wall wall : walls) {
+            if (wall.getPosition().equals(position)) {
+                return false;
+            }
+        }
+        for (Enemy zombie : zombies) {
+            if (zombie.getPosition().equals(position)) {
+                return false;
+            }
+        }
 
+        return true;
+    }
+
+    public Soldier getSoldier() {
+        return soldier;
+    }
     public Arena getArena() {
         return arena;
     }
+    public List<Enemy> getZombies() {
+        return zombies;
+    }
+    public List<Wall> getWalls() {
+        return walls;
+    }
+    public Hud getHud() {
+        return hud;
+    }
+    public List<Projectile> getBullets() {
+        return bullets;
+    }
+    /*
+    public Round getRound() {
+        return round;
+    }
+    public Score getScore() {
+        return score;
+    } */
+
+
 }

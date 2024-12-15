@@ -1,20 +1,24 @@
 package com.aor.ZombieZone.Controller;
-import com.aor.ZombieZone.Menu;
+import com.aor.ZombieZone.DivisionObserver;
 import com.aor.ZombieZone.Model.Game;
+import com.aor.ZombieZone.Model.GameListener;
+import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.Model.Position;
-import com.aor.ZombieZone.Model.Projectile;
 import com.aor.ZombieZone.View.GameView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class GameController {
+public class GameController implements GameListener {
     private Game game;
     private GameView gameView;
     private Screen screen;
-
+    private boolean running = true;
+    List<DivisionObserver> obersers = new ArrayList<>();
 
     public GameController(Game game, GameView gameView, Screen screen) {
         this.game = game;
@@ -22,11 +26,14 @@ public class GameController {
         this.screen = screen;
     }
 
+    public void addoberser(DivisionObserver observer) {
+        obersers.add(observer);
+    }
     public void run() {
         try {
             new Thread(() -> {
                 long lastTime = System.currentTimeMillis();
-                while (true) {
+                while (running) {
                     long currentTime = System.currentTimeMillis();
                     long deltaTime = currentTime - lastTime;
                     lastTime = currentTime;
@@ -47,18 +54,27 @@ public class GameController {
                 }
             }).start();
 
-            while (true) {
+            while (running) {
                 handleInput();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    @Override
+    public void EndGame(){
+        obersers.getFirst().changed(0);
+        running = false;
+        game.resetGame();
+    }
 
     private void draw() throws IOException {
         screen.clear();
         gameView.render(screen.newTextGraphics());
         screen.refresh();
+    }
+    public void setRunningTrue(){
+        running = true;
     }
 
     private void handleInput() throws IOException {
@@ -96,12 +112,12 @@ public class GameController {
                         break;
 
                     case 'q':
-                        Menu menu = new Menu();
-                        menu.run();
+                        obersers.getFirst().changed(0);
+                        running = false;
                 }
             }
 
-            if (newPosition != null && game.getArena().canMoveTo(newPosition)) {
+            if (newPosition != null && game.canMoveTo(newPosition)) {
                 game.getSoldier().setPosition(newPosition);
             }
     }

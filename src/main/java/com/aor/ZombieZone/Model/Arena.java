@@ -10,33 +10,15 @@ public class Arena {
     private int height;
     private char[][] tiles;
     private TextColor[][] colors;
-    private List<Enemy> zombies;
-    private List<Wall> walls;
-    public Arena(int width, int height, List<Enemy> zombies, List<Wall> walls) {
+    public Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        this.zombies = zombies;
-        this.walls = walls;
         this.tiles = new char[height][width];
         this.colors = new TextColor[height][width];
         initializeArena();
     }
     public int getHeight() {
         return height;
-    }
-    public List<Position> getPositionsWalls() {
-        List<Position> positions = new ArrayList<>();
-        for(Wall wall : walls) {
-            positions.add(wall.getPosition());
-        }
-        return positions;
-    }
-    public List<Position> getPositionsZombies() {
-        List<Position> positions = new ArrayList<>();
-        for(Enemy zombie : zombies) {
-            positions.add(zombie.getPosition());
-        }
-        return positions;
     }
 
     public int getWidth() {
@@ -52,38 +34,16 @@ public class Arena {
         }
     }
 
-    public void draw(TextGraphics screen) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                screen.setBackgroundColor(colors[y][x]);
-                TextColor foregroundColor = colors[y][x];
-                screen.setForegroundColor(foregroundColor);
-                screen.putString(x, y, String.valueOf(tiles[y][x]));
-            }
-        }
-    }
 
     private TextColor randomGrayShade() {
         int grayValue = 180 + (int) (Math.random() * 50);
         String hexGray = String.format("#%02X%02X%02X", grayValue, grayValue, grayValue);
         return TextColor.Factory.fromString(hexGray);
     }
-    public boolean canMoveTo(Position position) {
-        if (position.getX() < 0 || position.getX() >= width ||
-                position.getY() < 0 || position.getY() >= height) {
-            return false;
-        }
-        for (Wall wall : walls) {
-            if (wall.getPosition().equals(position)) {
-                return false;
-            }
-        }
-        for (Enemy zombie : zombies) {
-            if (zombie.getPosition().equals(position)) {
-                return false;
-            }
-        }
-
-        return true;
+    public TextColor[][] getColors() {
+        return colors;
+    }
+    public char[][] getTiles() {
+        return tiles;
     }
 }
