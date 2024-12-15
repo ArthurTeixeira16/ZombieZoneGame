@@ -50,7 +50,10 @@ public class GameOverView {
             }
         }*/
         int text = ("GAME OVER").length();
-        screen.putString(gameOver.getWidth()/2-text/2, gameOver.getHeight()/18, "GAME OVER", SGR.BOLD);
+        screen.setBackgroundColor(TextColor.Factory.fromString("#000000"));
+        screen.fill(' ');
+        screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+        screen.putString(gameOver.getWidth()/2-text/2, gameOver.getHeight()/2-3, "GAME OVER", SGR.BOLD);
         for (int i = 0; i < gameOver.getNumberEntries(); i++) {
             if (gameOver.isSelected(i)) {
                 screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
@@ -58,7 +61,7 @@ public class GameOverView {
                 screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
             }
             int text2 = (gameOver.getEntry(i)).length();
-            screen.putString(gameOver.getWidth()/2-text2/2,gameOver.getHeight()/18+ 3*i , gameOver.getEntry(i));
+            screen.putString(gameOver.getWidth()/2-text2/2,gameOver.getHeight()/2+(3*i) , gameOver.getEntry(i));
         }
 
     }
