@@ -108,7 +108,8 @@ public class Inicializer implements StatsObserver{
             leadBoard = new LeadBoard();
             leadBoardView = new LeadBoardView(30,21 , leadBoard);
             leadBoardController = new LeadBoardController(leadBoardView , leadBoard , screen);
-            leadBoardController.addobserver(this);
+            leadBoardController.addObserver(this);
+            game.addScoreObserver(leadBoard);
             /*
              * Definição Do GameOver
              * GameOverView
