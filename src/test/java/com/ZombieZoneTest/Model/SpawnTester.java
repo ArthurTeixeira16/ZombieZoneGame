@@ -17,7 +17,7 @@ public class SpawnTester {
     @BeforeEach
     public void setUp(){
         spawn = new Spawn(40,30,soldier);
-        zombieList = spawn.SpawnZombies(round);
+        zombieList = spawn.SpawnZombies(round.getRound());
     }
 
     @Test
