@@ -32,6 +32,8 @@ public class Game {
     private Score score;
     private long lastShotTime = 0;
     private int timetoShoot = 1000;
+    private long lastHit = 0;
+    private int SafeTime = 5000;// não sei se isso fica aqui, mas o deixo for now
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -87,6 +89,14 @@ public class Game {
         return false;
     }
 
+    public boolean canHit(long currentTime){
+        if(currentTime - lastHit >= SafeTime){
+            lastHit = currentTime;
+            return true;
+        }
+        return false;
+    }
+
     public void shoot(Position direction){
             Position soldierposition = getSoldier().getPosition();
             Projectile projectile = new Projectile(soldierposition.getX() + direction.getX(), soldierposition.getY() + direction.getY(), 7, 4);
@@ -94,10 +104,12 @@ public class Game {
             bullets.add(projectile);
     }
 
-    public void checkDamage(long deltaTime){
+    public void checkDamage(long currentTime){
         for(Enemy zombie: zombies){
             if(zombie.getPosition().equals(soldier.getPosition())){
-                soldier.hit();
+                if(canHit(currentTime)) {
+                    soldier.hit();
+                }
             }
         }
     }
@@ -120,7 +132,7 @@ public class Game {
         }
     }
 
-    public void update(long deltaTime) throws IOException {
+    public void update(long deltaTime,long currentTime) throws IOException {
         if(soldier.isDead()){
             screen.close();
             System.exit(0);
@@ -128,7 +140,7 @@ public class Game {
         }
         for(Enemy zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
-            checkDamage(deltaTime);
+            checkDamage(currentTime);//agora o tempo absoluto permite a gente calcular os intervalos entre hits
         }
         if (zombies.isEmpty()){
             round.nextRound();
