@@ -17,7 +17,7 @@ public class Game {
     private long lastShotTime = 0;
     private int timetoShoot = 1000;
     private long lastHit = 0;
-    private int SafeTime = 5000;// não sei se isso fica aqui, mas o deixo for now
+    private int SafeTime = 1000;// não sei se isso fica aqui, mas o deixo for now
     private List<GameListener> gameListeners = new ArrayList<>();
     public Game() {
             resetGame();

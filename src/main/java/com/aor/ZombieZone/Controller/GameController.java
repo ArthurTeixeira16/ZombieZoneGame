@@ -87,49 +87,67 @@ public class GameController implements GameListener {
     }
 
     private void handleInput() throws IOException {
-            KeyStroke key = screen.readInput();
-            Position currentPosition = game.getSoldier().getPosition();
-            Position newPosition = null;
+            KeyStroke key;
+            while(isRunning()) {
+                key = screen.pollInput();
+                if(key != null){
+                    Position currentPosition = game.getSoldier().getPosition();
+                    Position newPosition = null;
 
-            long currentTime = System.currentTimeMillis();
-            if (key.getKeyType() == KeyType.ArrowUp && game.canShoot(currentTime)) {
-                game.shoot(new Position(0, -1));
-            } else if (key.getKeyType() == KeyType.ArrowDown && game.canShoot(currentTime)) {
-                game.shoot(new Position(0, 1));
+                    long currentTime = System.currentTimeMillis();
+                    if (key.getKeyType() == KeyType.ArrowUp && game.canShoot(currentTime)) {
+                        game.shoot(new Position(0, -1));
+                    } else if (key.getKeyType() == KeyType.ArrowDown && game.canShoot(currentTime)) {
+                        game.shoot(new Position(0, 1));
 
-            } else if (key.getKeyType() == KeyType.ArrowLeft && game.canShoot(currentTime)) {
-                game.shoot((new Position(-1, 0)));
+                    } else if (key.getKeyType() == KeyType.ArrowLeft && game.canShoot(currentTime)) {
+                        game.shoot((new Position(-1, 0)));
 
-            } else if (key.getKeyType() == KeyType.ArrowRight && game.canShoot(currentTime)) {
-                game.shoot(new Position(1, 0));
-            }
+                    } else if (key.getKeyType() == KeyType.ArrowRight && game.canShoot(currentTime)) {
+                        game.shoot(new Position(1, 0));
+                    }
 
-            if(key.getKeyType()==KeyType.Character && key.getCharacter()!= null) {
-                switch (key.getCharacter()) {
-                    case 'w':
-                        newPosition = currentPosition.up();
-                        break;
-                    case 's':
-                        newPosition = currentPosition.down();
-                        break;
-                    case 'a':
-                        newPosition = currentPosition.left();
-                        break;
-                    case 'd':
-                        newPosition = currentPosition.right();
-                        break;
-                    case 'q':
-                        EndGame();
-                    case 'p':
-                        obersers.getFirst().changed(0);
-                        running = false;
-                        break;
+                    if(key.getKeyType()==KeyType.Character && key.getCharacter()!= null) {
+                        switch (key.getCharacter()) {
+                            case 'w':
+                                newPosition = currentPosition.up();
+                                break;
+                            case 's':
+                                newPosition = currentPosition.down();
+                                break;
+                            case 'a':
+                                newPosition = currentPosition.left();
+                                break;
+                            case 'd':
+                                newPosition = currentPosition.right();
+                                break;
+                            case 'q':
+                                EndGame();
+                            case 'p':
+                                obersers.getFirst().changed(0);
+                                synchronized (this) {
+                                    running = false;
+                                }
+                                break;
+                        }
+                    }
+
+                    if (newPosition != null && game.canMoveTo(newPosition)) {
+                        game.getSoldier().setPosition(newPosition);
+                    }
                 }
-            }
-
-            if (newPosition != null && game.canMoveTo(newPosition)) {
-                game.getSoldier().setPosition(newPosition);
+                try {
+                    Thread.sleep(16);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
     }
 }
+
+
+
+
+
+
 
