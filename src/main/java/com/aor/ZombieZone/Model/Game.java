@@ -21,7 +21,7 @@ public class Game {
     private Screen screen;
     private Arena arena;
     private Soldier soldier;
-    private List<Zombie> zombies;
+    private List<Enemy> zombies;
     private List<Wall> walls;
     private GameView gameView;
     private GameController gameController;
@@ -32,8 +32,6 @@ public class Game {
     private Score score;
     private long lastShotTime = 0;
     private int timetoShoot = 1000;
-    private long lastHit = 0;
-    private int SafeTime = 5000;// não sei se isso fica aqui, mas o deixo for now
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -95,27 +93,18 @@ public class Game {
             projectile.setDirection(direction);
             bullets.add(projectile);
     }
-    public boolean canHit(long currentTime){
-        if(currentTime - lastHit >= SafeTime){
-            lastHit = currentTime;
-            return true;
-        }
-        return false;
-    }
-    public void checkDamage(long currentTime){
-        for(Zombie zombie: zombies){
+
+    public void checkDamage(long deltaTime){
+        for(Enemy zombie: zombies){
             if(zombie.getPosition().equals(soldier.getPosition())){
-                if(canHit(currentTime)) {
-                    soldier.hit();
-                    System.out.println("soldado atingido");
-                }
+                soldier.hit();
             }
         }
     }
 
     public void checkBulletsColisions(){
         for(Projectile bullet: bullets){
-            for(Zombie zombie:zombies){
+            for(Enemy zombie:zombies){
                 if(bullet.getPosition().equals(zombie.getPosition())){
                     if(!bullet.isDestroyed()) {
                         bullet.destroy();
@@ -131,15 +120,15 @@ public class Game {
         }
     }
 
-    public void update(long deltaTime,long currentTime) throws IOException {
+    public void update(long deltaTime) throws IOException {
         if(soldier.isDead()){
             screen.close();
             System.exit(0);
             return;
         }
-        for(Zombie zombie : zombies){
+        for(Enemy zombie : zombies){
             zombie.updateZombieWalk(soldier,arena,deltaTime);
-            checkDamage(currentTime);//agora o tempo absoluto permite a gente calcular os intervalos entre hits
+            checkDamage(deltaTime);
         }
         if (zombies.isEmpty()){
             round.nextRound();
@@ -150,12 +139,12 @@ public class Game {
             checkBulletsColisions();
         }
         bullets.removeIf(Projectile::isDestroyed);
-        for(Zombie zombie : zombies){
+        for(Enemy zombie : zombies){
             if(zombie.isDead()){
                 score.addScore();
             }
         }
-        zombies.removeIf(Zombie::isDead);//não funcionou dentro da branch
+        zombies.removeIf(Enemy::isDead);//não funcionou dentro da branch
         if (zombies.isEmpty()) {
             round.nextRound();
             zombies.clear();

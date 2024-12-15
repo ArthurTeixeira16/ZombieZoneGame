@@ -2,6 +2,7 @@ package com.aor.ZombieZone.Model;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Arena {
@@ -9,9 +10,9 @@ public class Arena {
     private int height;
     private char[][] tiles;
     private TextColor[][] colors;
-    private List<Zombie> zombies;
+    private List<Enemy> zombies;
     private List<Wall> walls;
-    public Arena(int width, int height, List<Zombie> zombies, List<Wall> walls) {
+    public Arena(int width, int height, List<Enemy> zombies, List<Wall> walls) {
         this.width = width;
         this.height = height;
         this.zombies = zombies;
@@ -22,6 +23,20 @@ public class Arena {
     }
     public int getHeight() {
         return height;
+    }
+    public List<Position> getPositionsWalls() {
+        List<Position> positions = new ArrayList<>();
+        for(Wall wall : walls) {
+            positions.add(wall.getPosition());
+        }
+        return positions;
+    }
+    public List<Position> getPositionsZombies() {
+        List<Position> positions = new ArrayList<>();
+        for(Enemy zombie : zombies) {
+            positions.add(zombie.getPosition());
+        }
+        return positions;
     }
 
     public int getWidth() {
@@ -63,7 +78,7 @@ public class Arena {
                 return false;
             }
         }
-        for (Zombie zombie : zombies) {
+        for (Enemy zombie : zombies) {
             if (zombie.getPosition().equals(position)) {
                 return false;
             }

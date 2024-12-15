@@ -19,7 +19,7 @@ public class ArenaViewerTester {
     private Arena arena;
     private ArenaView arenaView;
     private Soldier soldier;
-    private List<Zombie> zombies;
+    private List<Enemy> zombies;
     private List<Wall> walls;
     private HudView hudView;
     private Hud hud;
