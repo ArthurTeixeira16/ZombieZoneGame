@@ -71,7 +71,7 @@ public class GameController implements GameListener {
         synchronized (this) {
             running = false;
         }
-        obersers.getFirst().changed(0);
+        obersers.getFirst().changed(3);
         synchronized (game) {
             game.resetGame();
         }
@@ -122,7 +122,13 @@ public class GameController implements GameListener {
                                 newPosition = currentPosition.right();
                                 break;
                             case 'q':
-                                EndGame();
+                                synchronized (this) {
+                                    running = false;
+                                }
+                                obersers.getFirst().changed(0);
+                                synchronized (game) {
+                                    game.resetGame();
+                                }
                             case 'p':
                                 obersers.getFirst().changed(0);
                                 synchronized (this) {

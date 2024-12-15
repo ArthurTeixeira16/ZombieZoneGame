@@ -1,5 +1,6 @@
 package com.aor.ZombieZone;
 import com.aor.ZombieZone.Controller.GameController;
+import com.aor.ZombieZone.Controller.GameOverController;
 import com.aor.ZombieZone.Controller.LeadBoardController;
 import com.aor.ZombieZone.Controller.MenuController;
 import com.aor.ZombieZone.Model.*;
@@ -44,6 +45,14 @@ public class Inicializer implements StatsObserver{
     private LeadBoard leadBoard;
     private LeadBoardView leadBoardView;
     private LeadBoardController leadBoardController;
+    /*
+     * Definição Do LeadBoard
+     * LeadBoardView
+     * e o LeadBoardController
+     */
+    private GameOver gameOver;
+    private GameOverView gameOverView;
+    private GameOverController gameOverController;
 
     public Inicializer() {
         try {
@@ -68,7 +77,7 @@ public class Inicializer implements StatsObserver{
             screen.startScreen();
             screen.doResizeIfNecessary();
 
-            this.entries = Arrays.asList("Menu", "Start", "Lead");
+            this.entries = Arrays.asList("Menu", "Start", "Lead", "Game Over");
             /*
             * Definição Do Menu, MenuView e MenuController
             */
@@ -99,7 +108,15 @@ public class Inicializer implements StatsObserver{
             leadBoardView = new LeadBoardView(30,21 , leadBoard);
             leadBoardController = new LeadBoardController(leadBoardView , leadBoard , screen);
             leadBoardController.addobserver(this);
-
+            /*
+             * Definição Do GameOver
+             * GameOverView
+             * e o GameViewController
+             */
+            gameOver = new GameOver(30,21);
+            gameOverView = new GameOverView(gameOver);
+            gameOverController = new GameOverController(gameOver, gameOverView, screen);
+            gameOverController.addObserver(this);
 
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
@@ -117,9 +134,13 @@ public class Inicializer implements StatsObserver{
                     gameController.setRunningTrue();
                     gameController.run();
                 }
-                else{
+                else if(this.currentEntry == 2){
                     leadBoardController.setTruetoLead();
                     leadBoardController.run();
+                }
+                else if(this.currentEntry == 3){
+                    gameOverController.setRunningTrue();
+                    gameOverController.run();
                 }
             }
     }
