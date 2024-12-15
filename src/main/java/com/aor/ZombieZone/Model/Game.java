@@ -34,6 +34,7 @@ public class Game {
     private int timetoShoot = 1000;
     private long lastHit = 0;
     private int SafeTime = 5000;// não sei se isso fica aqui, mas o deixo for now
+
     public Game() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
@@ -66,6 +67,7 @@ public class Game {
             bullets = new ArrayList<>();
             gameView = new GameView(new ArenaView(arena), soldier, zombies,walls,hudView,bullets);
             gameController = new GameController(this, gameView, screen);
+
 
         } catch (URISyntaxException | FontFormatException | IOException e) {
             e.printStackTrace();
@@ -160,6 +162,7 @@ public class Game {
         if (zombies.isEmpty()) {
             round.nextRound();
             zombies.clear();
+
             zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round));
         }
     }
