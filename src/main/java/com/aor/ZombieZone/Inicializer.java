@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 
 public class Inicializer implements StatsObserver{
@@ -41,7 +40,7 @@ public class Inicializer implements StatsObserver{
      * LeadBoardView
      * e o GameController
      */
-    private LeadBoard leadBoard;
+    public LeadBoard leadBoard;
     private LeadBoardView leadBoardView;
     private LeadBoardController leadBoardController;
 
@@ -67,15 +66,13 @@ public class Inicializer implements StatsObserver{
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
-
-            this.entries = Arrays.asList("Menu", "Start", "Lead");
             /*
             * Definição Do Menu, MenuView e MenuController
             */
             menu = new Menu();
             menuView = new MenuView(menu);
             menuController = new MenuController(menu,menuView,screen);
-            menuController.addobserver(this);
+            menuController.addControllerObserver(this);
             /*
              * Definição Do Game, GameView e GameController
              */
@@ -89,7 +86,7 @@ public class Inicializer implements StatsObserver{
             gameView.setHudView(hudView);
             gameController = new GameController( game , gameView , screen);
             game.addListener(gameController);
-            gameController.addoberser(this);
+            gameController.addControllerObserver(this);
             /*
              * Definição Do LeadBoard
              * LeadBoardView
@@ -98,7 +95,8 @@ public class Inicializer implements StatsObserver{
             leadBoard = new LeadBoard();
             leadBoardView = new LeadBoardView(30,21 , leadBoard);
             leadBoardController = new LeadBoardController(leadBoardView , leadBoard , screen);
-            leadBoardController.addobserver(this);
+            leadBoardController.addObserver(this);
+            game.addScoreObserver(leadBoard);
 
 
         } catch (URISyntaxException | FontFormatException | IOException e) {

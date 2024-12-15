@@ -1,7 +1,5 @@
 package com.aor.ZombieZone.Model;
-import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class Game {
     private long lastHit = 0;
     private int SafeTime = 1000;// não sei se isso fica aqui, mas o deixo for now
     private List<GameListener> gameListeners = new ArrayList<>();
+    private List<ScoreObserver> scoreObservers = new ArrayList<>();
     public Game() {
             resetGame();
     }
@@ -40,7 +39,9 @@ public class Game {
     public void addListener(GameListener gameListener){
         gameListeners.add(gameListener);
     }
-
+    public void addScoreObserver(ScoreObserver scoreObserver) {
+        scoreObservers.add(scoreObserver);
+    }
     public boolean canHit(long currentTime){
         if(currentTime - lastHit >= SafeTime){
             lastHit = currentTime;
@@ -91,7 +92,7 @@ public class Game {
         }
     }
 
-    public void checkBulletsColisions(){
+    public void checkBulletsCollisions(){
         for(Projectile bullet: bullets){
             for(Enemy zombie:zombies){
                 if(bullet.getPosition().equals(zombie.getPosition())){
@@ -111,6 +112,9 @@ public class Game {
 
     public void update(long deltaTime, long currentTime) throws IOException {
         if(soldier.isDead()){
+            for(ScoreObserver scoreObserver:scoreObservers){
+                scoreObserver.onGameEnd(score.getScore());
+            }
             for(GameListener gameListener: gameListeners){
                 gameListener.EndGame();
             }
@@ -125,7 +129,7 @@ public class Game {
         }
         for(Projectile bullet: bullets){
             bullet.updateProjectile(deltaTime);
-            checkBulletsColisions();
+            checkBulletsCollisions();
         }
         bullets.removeIf(Projectile::isDestroyed);
         for(Enemy zombie : zombies){
@@ -153,7 +157,6 @@ public class Game {
                 return false;
             }
         }
-
         return true;
     }
 
