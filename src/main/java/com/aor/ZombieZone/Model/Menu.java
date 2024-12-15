@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
-    private List<String> entries = Arrays.asList("Start" , "Exit" , "Lead");
+    private List<String> entries = Arrays.asList("Start" , "Lead" , "Exit");
     private int currentEntry = 0;
 
     public Menu() {
@@ -32,7 +32,7 @@ public class Menu {
     }
 
     public boolean isSelectedExit() {
-        return isSelected(1);
+        return isSelected(2);
     }
 
     public boolean isSelectedStart() {
@@ -40,7 +40,7 @@ public class Menu {
     }
 
     public boolean isSelectedLead() {
-        return isSelected(2);
+        return isSelected(1);
     }
 
     public int getNumberEntries() {

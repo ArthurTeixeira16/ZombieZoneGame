@@ -61,7 +61,7 @@ public class Inicializer implements StatsObserver{
             AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
             factory.setTerminalEmulatorFontConfiguration(fontConfig);
             factory.setForceAWTOverSwing(true);
-            factory.setInitialTerminalSize(new TerminalSize(40, 40));
+            factory.setInitialTerminalSize(new TerminalSize(30, 21));
             Terminal terminal = factory.createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null);
@@ -96,7 +96,7 @@ public class Inicializer implements StatsObserver{
              * e o LeadBoardController
              */
             leadBoard = new LeadBoard();
-            leadBoardView = new LeadBoardView(40,40 , leadBoard);
+            leadBoardView = new LeadBoardView(30,21 , leadBoard);
             leadBoardController = new LeadBoardController(leadBoardView , leadBoard , screen);
             leadBoardController.addobserver(this);
 

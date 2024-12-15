@@ -13,16 +13,17 @@ public class MenuView {
     }
 
     public void render(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         screen.setBackgroundColor(TextColor.Factory.fromString("#000000"));
-        screen.putString(5, 5, "Menu", SGR.BOLD);
+        screen.fill(' ');
+        screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+        screen.putString(10, 5, "Zombie Zone", SGR.BOLD);
         for (int i = 0; i < menu.getNumberEntries(); i++) {
             if (menu.isSelected(i)) {
-                screen.setForegroundColor(TextColor.Factory.fromString("#FFD700"));
+                screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
             } else {
                 screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
             }
-            screen.putString(5, 8 + i * 3, menu.getEntry(i));
+            screen.putString(13, 8 + i * 3, menu.getEntry(i));
         }
     }
 }

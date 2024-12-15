@@ -13,7 +13,7 @@ public class ZombieHeavy extends Enemy {
     }
     @Override
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
+        screen.setForegroundColor(TextColor.Factory.fromString("#4B5320"));
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "T");
     }
 }
