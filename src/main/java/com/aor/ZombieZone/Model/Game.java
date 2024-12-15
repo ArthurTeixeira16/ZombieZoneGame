@@ -130,12 +130,12 @@ public class Game {
         bullets.removeIf(Projectile::isDestroyed);
         for(Enemy zombie : zombies){
             if(zombie.isDead()){
-                score.addScore();
+               hud.getScore().addScore();
             }
         }
-        zombies.removeIf(Enemy::isDead);//não funcionou dentro da branch
+        zombies.removeIf(Enemy::isDead);
         if (zombies.isEmpty()) {
-            round.nextRound();
+            hud.getRound().nextRound();
             zombies.clear();
             zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round));
         }
@@ -173,13 +173,5 @@ public class Game {
     public List<Projectile> getBullets() {
         return bullets;
     }
-    /*
-    public Round getRound() {
-        return round;
-    }
-    public Score getScore() {
-        return score;
-    } */
-
 
 }
