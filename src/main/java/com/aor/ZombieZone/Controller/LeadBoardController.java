@@ -1,8 +1,10 @@
 package com.aor.ZombieZone.Controller;
-import com.aor.ZombieZone.Menu;
+import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.Model.Game;
+import com.aor.ZombieZone.Model.LeadBoard;
 import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.Model.Projectile;
+import com.aor.ZombieZone.StatsObserver;
 import com.aor.ZombieZone.View.GameView;
 import com.aor.ZombieZone.View.LeadBoardView;
 import com.aor.ZombieZone.View.MenuView;
@@ -13,73 +15,63 @@ import java.io.IOException;
 import java.util.*;
 
 public class LeadBoardController {
-    private static LeadBoardView leadBoardView;
-    private static Screen screen;
-    private static List<Integer> mapDoLead = new ArrayList<>();
-    private static boolean continuaLead = true;
-    public LeadBoardController(LeadBoardView leadBoardView, Screen screen) {
+    private LeadBoardView leadBoardView;
+    private LeadBoard leadBoard;
+    private Screen screen;
+    private boolean continuaLead = true;
+    private List<StatsObserver> Observers = new ArrayList<>();
+    public LeadBoardController(LeadBoardView leadBoardView, LeadBoard leadBoard, Screen screen) {
         this.leadBoardView = leadBoardView;
+        this.leadBoard = leadBoard;
         this.screen = screen;
     }
-
-    public void addToMapDoLead(Integer value) {
-        List<Integer> copiaDolead = new ArrayList<>(mapDoLead);
-        copiaDolead.sort(Comparator.naturalOrder());
-        for(int i = 0; i < 5; i++) {
-            mapDoLead.set(i, copiaDolead.get(i));
-        }
+    public void addobserver(StatsObserver divisionObserver) {
+        Observers.add(divisionObserver);
     }
-    public static List<Integer> getMapDoLead() {
-        organizarMapDoLead();
-        return mapDoLead;
-    }
-    public static void organizarMapDoLead(){
-        mapDoLead.sort(Comparator.reverseOrder());
-
-    }
-
-    public static void setTruetoLead(){
+    public void setTruetoLead(){
         continuaLead = true;
     }
-    public static void setFalsetoLead(){
+    public void setFalsetoLead(){
         continuaLead = false;
     }
 
-    public static void runLeadBoard() {
+    public void run() {
         try{
-            mapDoLead.add(10);
-            mapDoLead.add(100);
-            mapDoLead.add(341);
-            mapDoLead.add(43);
-            mapDoLead.add(2);
-            mapDoLead.add(912);
-            mapDoLead.add(10023);
-            mapDoLead.add(73);
-            mapDoLead.add(77);
-            mapDoLead.add(422);
-            mapDoLead.add(333);
-
+            leadBoard.addToListOfScore(10);
+            leadBoard.addToListOfScore(100);
+            leadBoard.addToListOfScore(341);
+            leadBoard.addToListOfScore(43);
+            leadBoard.addToListOfScore(2);
+            leadBoard.addToListOfScore(912);
+            leadBoard.addToListOfScore(10023);
+            leadBoard.addToListOfScore(73);
+            leadBoard.addToListOfScore(77);
+            leadBoard.addToListOfScore(422);
+            leadBoard.addToListOfScore(333);
 
             while(continuaLead){
-                LeadBoardController.draw();
+                draw();
                 handleInput();
             }
         } catch(IOException e){
             e.printStackTrace();
         }
     }
-    private static void draw() throws IOException {
+    private void draw() throws IOException {
         screen.clear();
         leadBoardView.render(screen.newTextGraphics());
         screen.refresh();
     }
-    private static void handleInput() throws IOException {
+    private void handleInput() throws IOException {
         KeyStroke key = screen.readInput();
-         if (key.getKeyType() == KeyType.Character) {
+        if (key.getKeyType() == KeyType.Character) {
             if (key.getCharacter() == 'q') {
-                continuaLead = false;
+                System.out.println("FORAAAAA");
+                Observers.getFirst().changed(0);
+                screen.clear();
+                setFalsetoLead();
             }
         }
-}
+    }
 
 }

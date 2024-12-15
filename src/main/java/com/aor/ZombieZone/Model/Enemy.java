@@ -24,17 +24,17 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
 
     public abstract void draw(TextGraphics screen);
 
-    public void updateZombieWalk(Soldier soldier,Arena arena,long deltaTime){
+    public void updateZombieWalk(Soldier soldier,Game game,long deltaTime){
         elapsed_time += deltaTime;
         int timeToMove = 1000/speed;
 
         while(elapsed_time>=timeToMove){
-            track(soldier, arena);
+            track(soldier, game);
             elapsed_time -= timeToMove;
         }
     }
 
-    public void track(Soldier soldier, Arena arena) {
+    /*public void track(Soldier soldier, Game game) {
         Position soldierPosition = soldier.getPosition();
         Position zombiePosition = getPosition();
         int deltaX = soldierPosition.getX() - zombiePosition.getX();
@@ -42,39 +42,39 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 0) {
                 Position nextPosition = new Position(zombiePosition.getX() + 1, zombiePosition.getY());
-                if (arena.canMoveTo(nextPosition)) {
+                if (game.canMoveTo(nextPosition)) {
                     moveRight();
                 }
             } else {
                 Position nextPosition = new Position(zombiePosition.getX() - 1, zombiePosition.getY());
-                if (arena.canMoveTo(nextPosition)) {
+                if (game.canMoveTo(nextPosition)) {
                     moveLeft();
                 }
             }
         } else {
             if (deltaY > 0) {
                 Position nextPosition = new Position(zombiePosition.getX(), zombiePosition.getY() + 1);
-                if (arena.canMoveTo(nextPosition)) {
+                if (game.canMoveTo(nextPosition)) {
                     moveDown();
                 }
             } else {
                 Position nextPosition = new Position(zombiePosition.getX(), zombiePosition.getY() - 1);
-                if (arena.canMoveTo(nextPosition)) {
+                if (game.canMoveTo(nextPosition)) {
                     moveUp();
                 }
             }
         }
-    }
+    } */
 
 
 
-    /*public void track(Soldier soldier, Arena arena) {
-        int[][] places = new int[arena.getHeight()+10][arena.getWidth()+10];
-        List<Position> positionsOfWalls = arena.getPositionsWalls();
+    public void track(Soldier soldier, Game game) {
+        int[][] places = new int[game.getArena().getHeight()+10][game.getArena().getWidth()+10];
+        List<Position> positionsOfWalls = game.getPositionsWalls();
         for(Position position : positionsOfWalls){
             places[position.getX()][position.getY()] = 2;
         }
-        List<Position> positionsOfZombies = arena.getPositionsZombies();
+        List<Position> positionsOfZombies = game.getPositionsZombies();
         for(Position position : positionsOfZombies){
             places[position.getX()][position.getY()] = 2;
         }
@@ -82,9 +82,9 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         Position soldierPosition = soldier.getPosition();
         places[soldierPosition.getX()][soldierPosition.getY()] = 3;
 
-        //TraceToHero(this.getPosition(), soldierPosition , places , arena);
+        TraceToHero(this.getPosition(), soldierPosition , places , game);
     }
-    public void TraceToHero(Position zombiePosition, Position soldierPosition, int[][] places, Arena arena) {
+    public void TraceToHero(Position zombiePosition, Position soldierPosition, int[][] places, Game game) {
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, 1, -1};
         //Resolução feita por BFS, kkk demos isso em AED na semana que estou fazendo isso, e realmente ajudou !
@@ -107,7 +107,7 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
                 Position nextPosition = new Position(newX, newY);
 
                 if (newX >= 0 && newY >= 0 && newX < places.length && newY < places[0].length &&
-                        arena.canMoveTo(nextPosition) && places[newX][newY] != 2 && !visited[newX][newY]) {
+                        game.canMoveTo(nextPosition) && places[newX][newY] != 2 && !visited[newX][newY]) {
 
                     visited[newX][newY] = true;
                     predecessor[newX][newY] = current;
@@ -123,7 +123,8 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         if (step != null) {
             this.setPosition(step);
         }
-    }*/
+    }
+    @Override
     public void moveUp() {
         Position newPosition = new Position(getPosition().x, getPosition().y - 1);
         this.setPosition(newPosition);
