@@ -4,9 +4,7 @@ import com.aor.ZombieZone.Controller.GameOverController;
 import com.aor.ZombieZone.Controller.GameOverController;
 import com.aor.ZombieZone.Controller.LeadBoardController;
 import com.aor.ZombieZone.Controller.MenuController;
-import com.aor.ZombieZone.Model.*;
-import com.aor.ZombieZone.Model.Menu;
-import com.aor.ZombieZone.View.*;
+import com.aor.ZombieZone.State.*;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -26,33 +24,19 @@ public class Inicializer implements StatsObserver{
     private Screen screen;
     private List<String> entries;
     private int currentEntry = 0;
-    /*
-    * Valores privado Do Menu, MenuView e o Menu Controller
-    */
-    private Menu menu;
-    private MenuView menuView;
+    private GameContext gameContext;
+
     private MenuController menuController;
-    /*
-    * Valores privado Do Game, GameView e o GameController
-     */
-    private Game game;
-    private GameView gameView;
+    private MenuState menuState;
+
     private GameController gameController;
-    /*
-     * Valores privado Do LeadBoard
-     * LeadBoardView
-     * e o GameController
-     */
-    private LeadBoard leadBoard;
-    private LeadBoardView leadBoardView;
+    private GameState gameState;
+
     private LeadBoardController leadBoardController;
-    /*
-     * Definição Do LeadBoard
-     * LeadBoardView
-     * e o LeadBoardController
-     */
-    private GameOver gameOver;
-    private GameOverView gameOverView;
+    private LeadBoardState leadBoardState;
+
+    private GameOverState gameOverState;
+
     private GameOverController gameOverController;
 
     public Inicializer() {
@@ -78,46 +62,27 @@ public class Inicializer implements StatsObserver{
             screen.startScreen();
             screen.doResizeIfNecessary();
 
-            this.entries = Arrays.asList("Menu", "Start", "Lead", "Game Over");
-            /*
-            * Definição Do Menu, MenuView e MenuController
-            */
-            menu = new Menu();
-            menuView = new MenuView(menu);
-            menuController = new MenuController(menu,menuView,screen);
+            this.entries = Arrays.asList("Menu", "Start", "Lead");
+
+            menuState = new MenuState(screen);
+            menuController = menuState.getController();
             menuController.addControllerObserver(this);
-            /*
-             * Definição Do Game, GameView e GameController
-             */
-            game = new Game();
-            Hud hud = new Hud(game);
-            HudView hudView = new HudView(hud);
-            game.setHud(hud);
-            Arena arena = new Arena(30,20);
-            ArenaView arenaView = new ArenaView(arena);
-            gameView = new GameView( arenaView , game);
-            gameView.setHudView(hudView);
-            gameController = new GameController( game , gameView , screen);
-            game.addListener(gameController);
+
+            gameContext = new GameContext(menuState);
+
+            gameState = new GameState(screen);
+            gameController = gameState.getController();
+            gameController.getGame().addListener(gameController);
             gameController.addControllerObserver(this);
-            /*
-             * Definição Do LeadBoard
-             * LeadBoardView
-             * e o LeadBoardController
-             */
-            leadBoard = new LeadBoard();
-            leadBoardView = new LeadBoardView(30,21 , leadBoard);
-            leadBoardController = new LeadBoardController(leadBoardView , leadBoard , screen);
+
+            leadBoardState = new LeadBoardState(screen);
+            leadBoardController = leadBoardState.getController();
             leadBoardController.addObserver(this);
-            game.addScoreObserver(leadBoard);
-            /*
-             * Definição Do GameOver
-             * GameOverView
-             * e o GameViewController
-             */
-            gameOver = new GameOver(30,21);
-            gameOverView = new GameOverView(gameOver);
-            gameOverController = new GameOverController(gameOver, gameOverView, screen);
+
+            gameController.getGame().addScoreObserver(leadBoardController.getLeadBoard());
+
+            gameOverState = new GameOverState(screen);
+            gameOverController = gameOverState.getGameOverController();
             gameOverController.addObserver(this);
 
         } catch (URISyntaxException | FontFormatException | IOException e) {
@@ -127,29 +92,24 @@ public class Inicializer implements StatsObserver{
     }
 
     public void run() {
-            while(true){
-                if(this.currentEntry == 0){
-                    menuController.setRunningTrue();
-                    menuController.run();
-                }
-                else if(this.currentEntry == 1){
-                    gameController.setRunningTrue();
-                    gameController.run();
-                }
-                else if(this.currentEntry == 2){
-                    leadBoardController.setTruetoLead();
-                    leadBoardController.run();
-                }
-                else if(this.currentEntry == 3){
-                    gameOverController.setRunningTrue();
-                    gameOverController.run();
-                }
-            }
+        try{
+            gameContext.run();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void changed(int where){
-        this.currentEntry = where;
+        if(where==0){
+            gameContext.setCurrentState(menuState);
+        } else if (where == 1) {
+            gameContext.setCurrentState(gameState);
+        }else if(where == 2){
+            gameContext.setCurrentState(leadBoardState);
+        }else if (where == 3){
+            gameContext.setCurrentState(gameOverState);
+        }
 
 
     }

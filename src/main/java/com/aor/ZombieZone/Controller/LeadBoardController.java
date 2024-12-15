@@ -48,7 +48,7 @@ public class LeadBoardController {
         leadBoardView.render(screen.newTextGraphics());
         screen.refresh();
     }
-    private void handleInput() throws IOException {
+    public void handleInput() throws IOException {
         KeyStroke key = screen.readInput();
         if (key.getKeyType() == KeyType.Character) {
             if (key.getCharacter() == 'q') {
@@ -59,4 +59,11 @@ public class LeadBoardController {
         }
     }
 
+    public LeadBoard getLeadBoard() {
+        return leadBoard;
+    }
+
+    public void setRunningTrue() {
+        running = true;
+    }
 }

@@ -7,7 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public class ZombieHeavy extends Enemy {
     public ZombieHeavy(int x,int y){
         super(x,y);
-        this.life = 6;
+        this.life = 5;
         this.speed = 1;
 
     }

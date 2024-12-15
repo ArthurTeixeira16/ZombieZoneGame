@@ -85,7 +85,11 @@ public class GameController implements GameListener {
         running = true;
     }
 
-    private void handleInput() throws IOException {
+    public Game getGame() {
+        return game;
+    }
+
+    public void handleInput() throws IOException {
             KeyStroke key;
             while(isRunning()) {
                 key = screen.pollInput();

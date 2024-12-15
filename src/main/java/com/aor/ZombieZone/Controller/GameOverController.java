@@ -50,7 +50,7 @@ public class GameOverController {
         gameOverView.render(screen.newTextGraphics());
         screen.refresh();
     }
-    private void handleInput() throws IOException {
+    public void handleInput() throws IOException {
         KeyStroke key = screen.readInput();
         if(key.getKeyType()== KeyType.ArrowUp){
             gameOver.moveUp();
@@ -65,10 +65,8 @@ public class GameOverController {
                 }
             }
             if (gameOver.isSelectedTryAgain()){
-                System.out.println("ALLOOOO");
                 setRunningFalse();
                 for(StatsObserver observer : observers) {
-                    System.out.println("BANANAN");
                     observer.changed(1);
                 }
             }

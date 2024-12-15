@@ -45,7 +45,7 @@ public class MenuController {
             screen.refresh();
         }
 
-        private void handleInput() throws IOException {
+        public void handleInput() throws IOException {
             KeyStroke key = screen.readInput();
 
             if(key.getKeyType()== KeyType.ArrowUp){

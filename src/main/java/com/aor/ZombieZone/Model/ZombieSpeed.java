@@ -8,7 +8,7 @@ public class ZombieSpeed extends Enemy {
     public ZombieSpeed(int x,int y){
         super(x,y);
         this.life = 1;
-        this.speed = 5;
+        this.speed = 4;
 
     }
     @Override

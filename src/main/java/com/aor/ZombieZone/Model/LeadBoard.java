@@ -18,7 +18,6 @@ public class LeadBoard implements ScoreObserver {
     }
     public void addToListOfScore(Integer value) {
         listOfScore.add(value);
-        System.out.println(listOfScore);
         listOfScore.sort(Comparator.reverseOrder());
         if (listOfScore.size() > 5) {
             listOfScore = listOfScore.subList(0, 5);
