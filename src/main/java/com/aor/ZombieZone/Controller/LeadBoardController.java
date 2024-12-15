@@ -1,10 +1,10 @@
 package com.aor.ZombieZone.Controller;
-import com.aor.ZombieZone.DivisionObserver;
 import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.LeadBoard;
 import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.Model.Projectile;
+import com.aor.ZombieZone.StatsObserver;
 import com.aor.ZombieZone.View.GameView;
 import com.aor.ZombieZone.View.LeadBoardView;
 import com.aor.ZombieZone.View.MenuView;
@@ -19,13 +19,13 @@ public class LeadBoardController {
     private LeadBoard leadBoard;
     private Screen screen;
     private boolean continuaLead = true;
-    private List<DivisionObserver> Observers = new ArrayList<>();
+    private List<StatsObserver> Observers = new ArrayList<>();
     public LeadBoardController(LeadBoardView leadBoardView, LeadBoard leadBoard, Screen screen) {
         this.leadBoardView = leadBoardView;
         this.leadBoard = leadBoard;
         this.screen = screen;
     }
-    public void addobserver(DivisionObserver divisionObserver) {
+    public void addobserver(StatsObserver divisionObserver) {
         Observers.add(divisionObserver);
     }
     public void setTruetoLead(){

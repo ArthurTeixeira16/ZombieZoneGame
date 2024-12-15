@@ -1,9 +1,9 @@
 package com.aor.ZombieZone.Controller;
-import com.aor.ZombieZone.DivisionObserver;
 import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.GameListener;
 import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.Model.Position;
+import com.aor.ZombieZone.StatsObserver;
 import com.aor.ZombieZone.View.GameView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -17,23 +17,28 @@ public class GameController implements GameListener {
     private Game game;
     private GameView gameView;
     private Screen screen;
-    private boolean running = true;
-    List<DivisionObserver> obersers = new ArrayList<>();
+    private volatile boolean running;
+    List<StatsObserver> obersers = new ArrayList<>();
 
     public GameController(Game game, GameView gameView, Screen screen) {
         this.game = game;
         this.gameView = gameView;
         this.screen = screen;
     }
+    private boolean isRunning() {
+        synchronized (this) {
+            return running;
+        }
+    }
 
-    public void addoberser(DivisionObserver observer) {
+    public void addoberser(StatsObserver observer) {
         obersers.add(observer);
     }
     public void run() {
         try {
             new Thread(() -> {
                 long lastTime = System.currentTimeMillis();
-                while (running) {
+                while ( isRunning()) {
                     long currentTime = System.currentTimeMillis();
                     long deltaTime = currentTime - lastTime;
                     lastTime = currentTime;
@@ -54,7 +59,7 @@ public class GameController implements GameListener {
                 }
             }).start();
 
-            while (running) {
+            while (isRunning()) {
                 handleInput();
             }
         } catch (IOException e) {
@@ -62,10 +67,14 @@ public class GameController implements GameListener {
         }
     }
     @Override
-    public void EndGame(){
+    public void EndGame() {
+        synchronized (this) {
+            running = false;
+        }
         obersers.getFirst().changed(0);
-        running = false;
-        game.resetGame();
+        synchronized (game) {
+            game.resetGame();
+        }
     }
 
     private void draw() throws IOException {
@@ -95,7 +104,6 @@ public class GameController implements GameListener {
                 game.shoot(new Position(1, 0));
             }
 
-
             if(key.getKeyType()==KeyType.Character && key.getCharacter()!= null) {
                 switch (key.getCharacter()) {
                     case 'w':
@@ -110,10 +118,12 @@ public class GameController implements GameListener {
                     case 'd':
                         newPosition = currentPosition.right();
                         break;
-
                     case 'q':
+                        EndGame();
+                    case 'p':
                         obersers.getFirst().changed(0);
                         running = false;
+                        break;
                 }
             }
 

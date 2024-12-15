@@ -1,8 +1,8 @@
 package com.aor.ZombieZone.Controller;
 
-import com.aor.ZombieZone.DivisionObserver;
 import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.Menu;
+import com.aor.ZombieZone.StatsObserver;
 import com.aor.ZombieZone.View.MenuView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -16,13 +16,13 @@ public class MenuController {
         private Screen screen;
         private Menu menu;
         private boolean running = true;
-        List<DivisionObserver> observers = new ArrayList<>();
+        List<StatsObserver> observers = new ArrayList<>();
         public MenuController(Menu menu, MenuView menuView, Screen screen) {
             this.menuView = menuView;
             this.screen = screen;
             this.menu = menu;
         }
-        public void addobserver(DivisionObserver observer) {
+        public void addobserver(StatsObserver observer) {
             observers.add(observer);
         }
 

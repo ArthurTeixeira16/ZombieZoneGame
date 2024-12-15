@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-public class Inicializer implements DivisionObserver{
+public class Inicializer implements StatsObserver{
     private Screen screen;
     private List<String> entries;
     private int currentEntry = 0;
@@ -77,7 +77,7 @@ public class Inicializer implements DivisionObserver{
             menuController = new MenuController(menu,menuView,screen);
             menuController.addobserver(this);
             /*
-             * Definição Do Gaem, GameView e GameController
+             * Definição Do Game, GameView e GameController
              */
             game = new Game();
             Hud hud = new Hud(game);
