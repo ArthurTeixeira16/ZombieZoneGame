@@ -4,8 +4,6 @@ import com.aor.ZombieZone.Menu;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.SGR;
 
 public class MenuView {
     private Menu menu;

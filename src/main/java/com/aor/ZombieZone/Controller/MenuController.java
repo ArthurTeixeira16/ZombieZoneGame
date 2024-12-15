@@ -2,11 +2,15 @@ package com.aor.ZombieZone.Controller;
 
 import com.aor.ZombieZone.Menu;
 import com.aor.ZombieZone.Model.Game;
+import com.aor.ZombieZone.View.LeadBoardView;
 import com.aor.ZombieZone.View.MenuView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import java.io.IOException;
+
+import static com.aor.ZombieZone.Controller.LeadBoardController.runLeadBoard;
+import static com.aor.ZombieZone.Controller.LeadBoardController.setTruetoLead;
 
 public class MenuController {
         private MenuView menuView;
@@ -52,6 +56,10 @@ public class MenuController {
                 if (menu.isSelectedStart()){
                     Game game = new Game();
                     game.run();
+                }
+                if (menu.isSelectedLead()) {
+                    setTruetoLead();
+                    runLeadBoard();
                 }
             }
     }
