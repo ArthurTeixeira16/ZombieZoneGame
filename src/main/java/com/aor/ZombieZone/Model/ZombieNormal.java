@@ -14,6 +14,6 @@ public class ZombieNormal extends Enemy {
     @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "N");
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "Z");
     }
 }

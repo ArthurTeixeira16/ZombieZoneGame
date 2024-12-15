@@ -14,6 +14,6 @@ public class ZombieHeavy extends Enemy {
     @Override
     public void draw(TextGraphics screen) {
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "H");
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "T");
     }
 }

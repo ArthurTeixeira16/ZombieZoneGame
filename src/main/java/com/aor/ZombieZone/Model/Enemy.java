@@ -29,12 +29,46 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         int timeToMove = 1000/speed;
 
         while(elapsed_time>=timeToMove){
-            track( soldier, arena);
+            track(soldier, arena);
             elapsed_time -= timeToMove;
         }
     }
 
     public void track(Soldier soldier, Arena arena) {
+        Position soldierPosition = soldier.getPosition();
+        Position zombiePosition = getPosition();
+        int deltaX = soldierPosition.getX() - zombiePosition.getX();
+        int deltaY = soldierPosition.getY() - zombiePosition.getY();
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                Position nextPosition = new Position(zombiePosition.getX() + 1, zombiePosition.getY());
+                if (arena.canMoveTo(nextPosition)) {
+                    moveRight();
+                }
+            } else {
+                Position nextPosition = new Position(zombiePosition.getX() - 1, zombiePosition.getY());
+                if (arena.canMoveTo(nextPosition)) {
+                    moveLeft();
+                }
+            }
+        } else {
+            if (deltaY > 0) {
+                Position nextPosition = new Position(zombiePosition.getX(), zombiePosition.getY() + 1);
+                if (arena.canMoveTo(nextPosition)) {
+                    moveDown();
+                }
+            } else {
+                Position nextPosition = new Position(zombiePosition.getX(), zombiePosition.getY() - 1);
+                if (arena.canMoveTo(nextPosition)) {
+                    moveUp();
+                }
+            }
+        }
+    }
+
+
+
+    /*public void track(Soldier soldier, Arena arena) {
         int[][] places = new int[arena.getHeight()+10][arena.getWidth()+10];
         List<Position> positionsOfWalls = arena.getPositionsWalls();
         for(Position position : positionsOfWalls){
@@ -46,8 +80,9 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         }
         places[this.getPosition().getX()][this.getPosition().getY()] = 1;
         Position soldierPosition = soldier.getPosition();
+        places[soldierPosition.getX()][soldierPosition.getY()] = 3;
 
-        TraceToHero(this.getPosition(), soldierPosition , places , arena);
+        //TraceToHero(this.getPosition(), soldierPosition , places , arena);
     }
     public void TraceToHero(Position zombiePosition, Position soldierPosition, int[][] places, Arena arena) {
         int[] dx = {1, -1, 0, 0};
@@ -88,7 +123,7 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         if (step != null) {
             this.setPosition(step);
         }
-    }
+    }*/
     public void moveUp() {
         Position newPosition = new Position(getPosition().x, getPosition().y - 1);
         this.setPosition(newPosition);
