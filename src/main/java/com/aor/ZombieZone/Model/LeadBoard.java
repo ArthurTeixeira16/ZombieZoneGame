@@ -4,23 +4,31 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class LeadBoard {
-    private List<Integer> ListOfScore = new ArrayList<Integer>();
-    public LeadBoard(){}
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
-    public void addToListOfScore(Integer value) {
-        if (ListOfScore.size() >= 5) {
-            List<Integer> copiaDolead = new ArrayList<>(ListOfScore);
-            copiaDolead.sort(Comparator.reverseOrder());
-            for (int i = 0; i < ListOfScore.size(); i++) {
-                ListOfScore.set(i, copiaDolead.get(i));
-            }
+public class LeadBoard implements ScoreObserver {
+    private List<Integer> listOfScore;
+    public LeadBoard() {
+        listOfScore = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            listOfScore.add(0);
         }
-        else{
-            ListOfScore.add(value);
+    }
+    public void addToListOfScore(Integer value) {
+        listOfScore.add(value);
+        System.out.println(listOfScore);
+        listOfScore.sort(Comparator.reverseOrder());
+        if (listOfScore.size() > 5) {
+            listOfScore = listOfScore.subList(0, 5);
         }
     }
     public List<Integer> getListOfScore() {
-        return ListOfScore;
+        return new ArrayList<>(listOfScore);
+    }
+    @Override
+    public void onGameEnd(int score) {
+        this.addToListOfScore(score);
     }
 }

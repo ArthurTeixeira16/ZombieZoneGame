@@ -12,7 +12,7 @@ public class Wall extends Element {
     } // construtor da Função Wall
     @Override  //draw da Função Wall
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#38291A"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#4B2E1F"));
         graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "█");
     }
     @Override

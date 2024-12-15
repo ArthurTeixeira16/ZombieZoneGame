@@ -1,7 +1,6 @@
 package com.aor.ZombieZone.Controller;
 import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.GameListener;
-import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.StatsObserver;
 import com.aor.ZombieZone.View.GameView;
@@ -31,7 +30,7 @@ public class GameController implements GameListener {
         }
     }
 
-    public void addoberser(StatsObserver observer) {
+    public void addControllerObserver(StatsObserver observer) {
         obersers.add(observer);
     }
     public void run() {

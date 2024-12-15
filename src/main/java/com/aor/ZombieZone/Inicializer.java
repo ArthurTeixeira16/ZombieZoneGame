@@ -1,6 +1,7 @@
 package com.aor.ZombieZone;
 import com.aor.ZombieZone.Controller.GameController;
 import com.aor.ZombieZone.Controller.GameOverController;
+import com.aor.ZombieZone.Controller.GameOverController;
 import com.aor.ZombieZone.Controller.LeadBoardController;
 import com.aor.ZombieZone.Controller.MenuController;
 import com.aor.ZombieZone.Model.*;
@@ -84,7 +85,7 @@ public class Inicializer implements StatsObserver{
             menu = new Menu();
             menuView = new MenuView(menu);
             menuController = new MenuController(menu,menuView,screen);
-            menuController.addobserver(this);
+            menuController.addControllerObserver(this);
             /*
              * Definição Do Game, GameView e GameController
              */
@@ -98,7 +99,7 @@ public class Inicializer implements StatsObserver{
             gameView.setHudView(hudView);
             gameController = new GameController( game , gameView , screen);
             game.addListener(gameController);
-            gameController.addoberser(this);
+            gameController.addControllerObserver(this);
             /*
              * Definição Do LeadBoard
              * LeadBoardView

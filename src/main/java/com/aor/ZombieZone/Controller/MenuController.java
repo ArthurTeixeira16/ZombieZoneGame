@@ -1,6 +1,5 @@
 package com.aor.ZombieZone.Controller;
 
-import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.StatsObserver;
 import com.aor.ZombieZone.View.MenuView;
@@ -22,7 +21,7 @@ public class MenuController {
             this.screen = screen;
             this.menu = menu;
         }
-        public void addobserver(StatsObserver observer) {
+        public void addControllerObserver(StatsObserver observer) {
             observers.add(observer);
         }
 
