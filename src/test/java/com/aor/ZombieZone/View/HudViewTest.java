@@ -29,10 +29,10 @@ public class HudViewTest {
 
         textGraphics = Mockito.mock(TextGraphics.class);
 
-        hudView.render(textGraphics);
     }
     @Test
     public void renderTest(){
+        hudView.render(textGraphics);
         Mockito.verify(textGraphics , times(1)).setForegroundColor(TextColor.Factory.fromString("#0000FF"));
         Mockito.verify(textGraphics , times(1)).putString(0, hud.getHeight(), " Score:" + hud.getScore().getScore()+"  ");
         Mockito.verify(textGraphics , times(1)).putString(10, hud.getHeight(), "Round: " + hud.getRound().getRound()+"  ");

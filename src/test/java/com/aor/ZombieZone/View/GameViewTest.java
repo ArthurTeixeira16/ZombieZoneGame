@@ -58,10 +58,11 @@ public class GameViewTest {
         Mockito.when(game.getWalls()).thenReturn(walls);
         Mockito.when(game.getZombies()).thenReturn(enemies);
         Mockito.when(game.getProjectiles()).thenReturn(projectiles);
-        gameView.render(textGraphics);
+
     }
     @Test
     public void renderTest(){
+        gameView.render(textGraphics);
         Mockito.verify(arenaView, times(1)).render(textGraphics);
         Mockito.verify(hudView, times(1)).render(textGraphics);
 

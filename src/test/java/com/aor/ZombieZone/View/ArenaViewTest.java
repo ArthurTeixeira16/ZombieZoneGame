@@ -18,11 +18,11 @@ public class ArenaViewTest {
         arena = new Arena(30,20);
         arenaView = new ArenaView(arena);
         textGraphics = Mockito.mock(TextGraphics.class);
-        arenaView.render(textGraphics);
     }
     @Test
     public void renderTest1(){
         SetUp1();
+        arenaView.render(textGraphics);
         for( int y = 0; y< arena.getHeight(); y++){
             for( int x = 0; x< arena.getWidth(); x++){
                 Mockito.verify(textGraphics, atMost((arena.getWidth()) * arena.getHeight())).setBackgroundColor(arena.getColors()[y][x]);
@@ -47,10 +47,10 @@ public class ArenaViewTest {
             Mockito.when(arena.getTiles()).thenReturn(tiles);
             arenaView = new ArenaView(arena);
             textGraphics = Mockito.mock(TextGraphics.class);
-            arenaView.render(textGraphics);
     }
     public void RenderTest2(){
         SetUp2();
+        arenaView.render(textGraphics);
         for( int y = 0; y< arena.getHeight(); y++){
             for( int x = 0; x< arena.getWidth(); x++){
                 Mockito.verify(textGraphics, times(1)).setForegroundColor(arena.getColors()[y][x]);
