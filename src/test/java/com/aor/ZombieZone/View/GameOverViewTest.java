@@ -11,13 +11,13 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.times;
 
 public class GameOverViewTest {
-    private static final String GAME_OVER_TEXT = "GAME OVER";
-    private static final String TRY_AGAIN = "Try Again";
-    private static final String MENU = "Menu";
-    private static final TextColor BACKGROUND_COLOR = TextColor.Factory.fromString("#000000");
-    private static final TextColor GAME_OVER_COLOR = TextColor.Factory.fromString("#00FF00");
-    private static final TextColor SELECTED_COLOR = TextColor.Factory.fromString("#FF0000");
-    private static final TextColor DEFAULT_COLOR = TextColor.Factory.fromString("#FFFFFF");
+    private final String GAME_OVER_TEXT = "GAME OVER";
+    private final String TRY_AGAIN = "Try Again";
+    private final String MENU = "Menu";
+    private final TextColor BACKGROUND_COLOR = TextColor.Factory.fromString("#000000");
+    private final TextColor GAME_OVER_COLOR = TextColor.Factory.fromString("#00FF00");
+    private final TextColor SELECTED_COLOR = TextColor.Factory.fromString("#FF0000");
+    private final TextColor DEFAULT_COLOR = TextColor.Factory.fromString("#FFFFFF");
 
     private GameOver gameOver;
     private GameOverView gameOverView;
