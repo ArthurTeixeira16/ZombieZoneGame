@@ -25,8 +25,8 @@ public class Game {
         soldier = new Soldier(15,10);
         round = new Round();
         score = new Score();
-        zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
         walls = WallCreator.createWalls(30,20);
+        zombies = new Spawn(30,20,soldier,walls).SpawnZombies(round.getRound());
         arena = new Arena(30,20);
         projectiles = new ArrayList<>();
         if(hud!=null){
@@ -126,7 +126,7 @@ public class Game {
         }
         if (zombies.isEmpty()){
             round.nextRound();
-            zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
+            zombies = new Spawn(30,20,soldier,walls).SpawnZombies(round.getRound());
         }
         for(Projectile bullet: projectiles){
             bullet.updateProjectile(deltaTime);
@@ -144,7 +144,7 @@ public class Game {
             round.nextRound();
             hud.getRound().nextRound();
             zombies.clear();
-            zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round.getRound()));
+            zombies.addAll(new Spawn(30, 20, soldier,walls).SpawnZombies(round.getRound()));
         }
     }
     public boolean canMoveTo(Position position) {

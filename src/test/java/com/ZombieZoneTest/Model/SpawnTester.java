@@ -16,7 +16,8 @@ public class SpawnTester {
     private Round round;
     @BeforeEach
     public void setUp(){
-        spawn = new Spawn(40,30,soldier);
+        List<Wall> walls = List.of();
+        spawn = new Spawn(40,30,soldier,walls);
         zombieList = spawn.SpawnZombies(round.getRound());
     }
 
