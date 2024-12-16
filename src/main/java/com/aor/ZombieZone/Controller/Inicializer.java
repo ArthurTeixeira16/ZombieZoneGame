@@ -55,8 +55,6 @@ public class Inicializer implements StateObserver {
             screen.startScreen();
             screen.doResizeIfNecessary();
 
-            this.entries = Arrays.asList("Menu", "Start", "Lead");
-
             menuState = new MenuState(screen);
             menuController = menuState.getController();
             menuController.addControllerObserver(this);

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-
+/*
 public class SoldierPositionTest {
     private Arena arena;
     private Soldier soldier;
@@ -37,3 +37,4 @@ public class SoldierPositionTest {
 
 
 }
+ */

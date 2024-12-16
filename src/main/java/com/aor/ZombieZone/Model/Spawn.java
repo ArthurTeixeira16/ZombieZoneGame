@@ -11,21 +11,26 @@ public class Spawn {
     private int width;
     private Random random;
     public List<Position> occupiedPos = new ArrayList<>();
+    private List<Wall> walls;
     private Soldier soldier;
 
     private int zombies_per_round = 3;
     private int speedzombie_percentage = 5;
     private int  heavyzombie_percentage = 10;
 
-    public Spawn(int width,int height,Soldier soldier){
+    public Spawn(int width,int height,Soldier soldier,List<Wall> walls){
         this.height = height;
         this.width = width;
         this.random = new Random();
         this.soldier = soldier;
+        this.walls=walls;
     }
     public List<Enemy> SpawnZombies(int round){
         occupiedPos.clear();
-        occupiedPos.add(soldier.getPosition());
+        for (Wall wall:walls) {
+            occupiedPos.add(wall.getPosition());
+        }
+
         List<Enemy> zombies = new ArrayList<>();
         int zombiequantity = (round * zombies_per_round);
 
@@ -74,10 +79,10 @@ public class Spawn {
     }
     private boolean isOccupied(Position position){
         for(Position pos:occupiedPos){
-            if(Math.abs(position.getX() - position.getX()) < 3 && Math.abs(position.getY() - pos.getY()) < 3){
-                return true;
+            if((Math.abs(pos.getX()-position.getX()) == 1 && Math.abs(pos.getY()-position.getY()) == 1)&&(Math.abs(pos.getX()-soldier.getPosition().getX()) < 3 && Math.abs(pos.getY()-soldier.getPosition().getY()) < 3)){
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }

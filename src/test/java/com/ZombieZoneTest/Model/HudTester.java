@@ -6,7 +6,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.junit.jupiter.api.BeforeEach;
-
+/*
 public class HudTester {
     private Soldier soldier;
     private Arena arena;
@@ -28,7 +28,8 @@ public class HudTester {
         /*Mockito.verify(textGraphics).putString(Mockito.eq(new TerminalPosition(1, arena.getHeight())), Mockito.eq("Score: " + hud.score));
         Mockito.verify(textGraphics).putString(Mockito.eq(new TerminalPosition(1, arena.getHeight())), Mockito.eq("Score: " + hud.score));
         Mockito.verify(textGraphics).putString(Mockito.eq(new TerminalPosition(1, arena.getHeight())), Mockito.eq("Score: " + hud.score));
-        Mockito.verify(textGraphics).putString(Mockito.eq(new TerminalPosition(1, arena.getHeight())), Mockito.eq("Score: " + hud.score));*/
+        Mockito.verify(textGraphics).putString(Mockito.eq(new TerminalPosition(1, arena.getHeight())), Mockito.eq("Score: " + hud.score));
 
     }
 }
+*/

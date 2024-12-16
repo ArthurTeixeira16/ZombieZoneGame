@@ -19,22 +19,32 @@ import com.googlecode.lanterna.graphics.TextGraphics;
             this.hudView = hudView;
         }
 
+        private void renderWalls(TextGraphics textGraphics) {
+            for (Wall wall : game.getWalls()) {
+                wall.draw(textGraphics);
+            }
+        }
+        private void renderEnemies(TextGraphics textGraphics) {
+            for (Enemy zombie : game.getZombies()) {
+                zombie.draw(textGraphics);
+            }
+        }
+        private void renderProjectiles(TextGraphics textGraphics){
+            if(game.getProjectiles()!=null && !game.getProjectiles().isEmpty()) {
+                for (Projectile projectile : game.getProjectiles()) {
+                    projectile.draw(textGraphics);
+                }
+            }
+        }
 
         public void render(TextGraphics screen) {
             arenaView.render(screen);
             hudView.render(screen);
             game.getSoldier().draw(screen);
-            for (Wall wall : game.getWalls()) {
-                wall.draw(screen);
-            }
-            if(game.getProjectiles()!=null && !game.getProjectiles().isEmpty()) {
-                for (Projectile bullet : game.getProjectiles()) {
-                    bullet.draw(screen);
-                }
-            }
-            for (Enemy zombie : game.getZombies()) {
-                zombie.draw(screen);
-            }
+            renderWalls(screen);
+            renderEnemies(screen);
+            renderProjectiles(screen);
+
 
         }
     }

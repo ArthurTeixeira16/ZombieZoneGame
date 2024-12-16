@@ -15,7 +15,7 @@ public class Game {
     private long lastShotTime = 0;
     private int timetoShoot = 1000;
     private long lastHit = 0;
-    private int SafeTime = 1000;// não sei se isso fica aqui, mas o deixo for now
+    private int SafeTime = 3000;// não sei se isso fica aqui, mas o deixo for now
     private List<GameListener> gameListeners = new ArrayList<>();
     private List<ScoreObserver> scoreObservers = new ArrayList<>();
     public Game() {
@@ -25,11 +25,11 @@ public class Game {
         soldier = new Soldier(15,10);
         round = new Round();
         score = new Score();
-        zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
         walls = WallCreator.createWalls(30,20);
+        zombies = new Spawn(30,20,soldier,walls).SpawnZombies(round.getRound());
         arena = new Arena(30,20);
         projectiles = new ArrayList<>();
-        if(hud != null){
+        if(hud!=null){
             hud.resetHud();
         }
     }
@@ -87,6 +87,7 @@ public class Game {
             if(zombie.getPosition().equals(soldier.getPosition())){
                 if(canHit(currentTime)) {
                     soldier.hit();
+
                 }
             }
         }
@@ -125,7 +126,7 @@ public class Game {
         }
         if (zombies.isEmpty()){
             round.nextRound();
-            zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
+            zombies = new Spawn(30,20,soldier,walls).SpawnZombies(round.getRound());
         }
         for(Projectile bullet: projectiles){
             bullet.updateProjectile(deltaTime);
@@ -143,7 +144,7 @@ public class Game {
             round.nextRound();
             hud.getRound().nextRound();
             zombies.clear();
-            zombies.addAll(new Spawn(30, 20, soldier).SpawnZombies(round.getRound()));
+            zombies.addAll(new Spawn(30, 20, soldier,walls).SpawnZombies(round.getRound()));
         }
     }
     public boolean canMoveTo(Position position) {

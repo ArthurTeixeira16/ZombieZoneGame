@@ -18,7 +18,7 @@ public class GameController implements GameListener {
     private Game game;
     private GameView gameView;
     private Screen screen;
-    private volatile boolean running;
+    private boolean running;
     List<StateObserver> observers = new ArrayList<>();
 
     public GameController(Game game, GameView gameView, Screen screen) {
@@ -45,7 +45,7 @@ public class GameController implements GameListener {
                     lastTime = currentTime;
                     synchronized (game) {
                         try {
-                            game.update(deltaTime,currentTime);//mudei aqui pra pegar os parametros do tempo absoluto também
+                            game.update(deltaTime,currentTime);
                             draw();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -60,22 +60,18 @@ public class GameController implements GameListener {
                 }
             }).start();
 
-            while (isRunning()) {
+            do {
                 handleInput();
-            }
+            } while (isRunning());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     @Override
     public void EndGame() {
-        synchronized (this) {
-            running = false;
-        }
+        running = false;
         observers.getFirst().changed(3);
-        synchronized (game) {
-            game.resetGame();
-        }
+        game.resetGame();
     }
 
     private void draw() throws IOException {
@@ -134,12 +130,13 @@ public class GameController implements GameListener {
                                 synchronized (game) {
                                     game.resetGame();
                                 }
+                                return;
                             case 'p':
                                 observers.getFirst().changed(0);
                                 synchronized (this) {
                                     running = false;
                                 }
-                                break;
+                                return;
                         }
                     }
 
