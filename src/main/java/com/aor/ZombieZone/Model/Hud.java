@@ -28,4 +28,9 @@ public class Hud {
     public Soldier getSoldier() {
         return game.getSoldier();
     }
+
+    public void resetHud() {
+        score = new Score();
+        round = new Round();
+    }
 }

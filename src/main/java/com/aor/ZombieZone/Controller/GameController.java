@@ -45,7 +45,7 @@ public class GameController implements GameListener {
                     lastTime = currentTime;
                     synchronized (game) {
                         try {
-                            game.update(deltaTime,currentTime);//mudei aqui pra pegar os parametros do tempo absoluto também
+                            game.update(deltaTime,currentTime);
                             draw();
                         } catch (IOException e) {
                             e.printStackTrace();
