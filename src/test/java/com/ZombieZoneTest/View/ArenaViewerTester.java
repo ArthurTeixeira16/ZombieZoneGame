@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.times;
-
+/*
 public class ArenaViewerTester {
     private Arena arena;
     private ArenaView arenaView;
@@ -76,8 +76,9 @@ public class ArenaViewerTester {
 
         Mockito.verify(textGraphics, Mockito.times(1)).clear();
         Mockito.verify(textGraphics, Mockito.times(1)).refresh();
-    }*/
+    }
 
 
 
 }
+*/

@@ -5,6 +5,10 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
+
+
+import static java.lang.Math.sqrt;
 
 public abstract class Enemy extends Element implements HasLife,HasMovement {
     protected int life;
@@ -83,8 +87,18 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         while (predecessor[step.getX()][step.getY()] != null && !predecessor[step.getX()][step.getY()].equals(zombiePosition)) {
             step = predecessor[step.getX()][step.getY()];
         }
+        Random random = new Random();
         if (step != null) {
-            this.setPosition(step);
+            if ( step == soldierPosition){
+            if(sqrt(Math.pow(step.getX() - zombiePosition.getX(),2) +Math.pow(step.getY() - zombiePosition.getY(),2)) < 2){
+            this.setPosition(step); }
+            else{
+                this.setPosition(new Position(zombiePosition.getX() + dx[random.nextInt(4)], zombiePosition.getY() + dy[random.nextInt(4)]));
+            }
+            }
+            else{
+                this.setPosition(step);
+            }
         }
     }
     @Override
