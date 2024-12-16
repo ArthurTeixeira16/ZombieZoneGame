@@ -29,6 +29,9 @@ public class Game {
         walls = WallCreator.createWalls(30,20);
         arena = new Arena(30,20);
         projectiles = new ArrayList<>();
+        if(hud != null){
+            hud.resetHud();
+        }
     }
     public void setHud(Hud hud) {
         this.hud = hud;
@@ -84,7 +87,6 @@ public class Game {
             if(zombie.getPosition().equals(soldier.getPosition())){
                 if(canHit(currentTime)) {
                     soldier.hit();
-
                 }
             }
         }

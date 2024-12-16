@@ -7,6 +7,10 @@ public class Hud {
     public Hud(Game game) {
         this.game = game;
     }
+    public void resetHud(){
+        score = new Score();
+        round = new Round();
+    }
     public Score getScore() {
         return score;
     }
