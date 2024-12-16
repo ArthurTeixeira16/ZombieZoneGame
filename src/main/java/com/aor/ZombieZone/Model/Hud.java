@@ -33,8 +33,4 @@ public class Hud {
         return game.getSoldier();
     }
 
-    public void resetHud() {
-        score = new Score();
-        round = new Round();
-    }
 }
