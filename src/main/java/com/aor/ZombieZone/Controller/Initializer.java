@@ -15,9 +15,9 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-public class Inicializer implements StateObserver {
+public class Initializer implements StateObserver {
     private Screen screen;
-    private List<String> entries;
+
     private GameContext gameContext;
 
     private MenuController menuController;
@@ -30,10 +30,9 @@ public class Inicializer implements StateObserver {
     private LeadBoardState leadBoardState;
 
     private GameOverState gameOverState;
-
     private GameOverController gameOverController;
 
-    public Inicializer() {
+    public Initializer() {
         try {
             URL resource = getClass().getClassLoader().getResource("square.ttf");
             if (resource == null) {
@@ -54,6 +53,7 @@ public class Inicializer implements StateObserver {
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
+
 
             menuState = new MenuState(screen);
             menuController = menuState.getController();
