@@ -74,10 +74,10 @@ public class Spawn {
     }
     private boolean isOccupied(Position position){
         for(Position pos:occupiedPos){
-            if(Math.abs(position.getX() - position.getX()) < 3 && Math.abs(position.getY() - pos.getY()) < 3){
-                return true;
+            if(Math.abs(pos.getX()-position.getX()) < 3 && Math.abs(pos.getY()-position.getY()) < 3){
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
