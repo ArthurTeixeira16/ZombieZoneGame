@@ -18,7 +18,7 @@ public class GameController implements GameListener {
     private Game game;
     private GameView gameView;
     private Screen screen;
-    private volatile boolean running;
+    private boolean running;
     List<StateObserver> observers = new ArrayList<>();
 
     public GameController(Game game, GameView gameView, Screen screen) {
@@ -69,13 +69,9 @@ public class GameController implements GameListener {
     }
     @Override
     public void EndGame() {
-        synchronized (this) {
-            running = false;
-        }
+        running = false;
         observers.getFirst().changed(3);
-        synchronized (game) {
-            game.resetGame();
-        }
+        game.resetGame();
     }
 
     private void draw() throws IOException {
@@ -134,12 +130,13 @@ public class GameController implements GameListener {
                                 synchronized (game) {
                                     game.resetGame();
                                 }
+                                return;
                             case 'p':
                                 observers.getFirst().changed(0);
                                 synchronized (this) {
                                     running = false;
                                 }
-                                break;
+                                return;
                         }
                     }
 
