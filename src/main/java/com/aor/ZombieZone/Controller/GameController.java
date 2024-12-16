@@ -60,9 +60,9 @@ public class GameController implements GameListener {
                 }
             }).start();
 
-            while (isRunning()) {
+            do {
                 handleInput();
-            }
+            } while (isRunning());
         } catch (IOException e) {
             e.printStackTrace();
         }
