@@ -1,8 +1,5 @@
 package com.aor.ZombieZone.Model;
 
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-
 public class Hud {
     private Score score = new Score();
     private Round round = new Round();

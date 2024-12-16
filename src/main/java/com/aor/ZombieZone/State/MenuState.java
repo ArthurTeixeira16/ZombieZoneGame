@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class MenuState implements State{
     private MenuController menuController;
-    private Screen screen;
     private Menu menu;
     private MenuView menuView;
 

@@ -1,13 +1,7 @@
 package com.aor.ZombieZone.Controller;
-import com.aor.ZombieZone.Model.Menu;
-import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.LeadBoard;
-import com.aor.ZombieZone.Model.Position;
-import com.aor.ZombieZone.Model.Projectile;
-import com.aor.ZombieZone.StatsObserver;
-import com.aor.ZombieZone.View.GameView;
+import com.aor.ZombieZone.State.StateObserver;
 import com.aor.ZombieZone.View.LeadBoardView;
-import com.aor.ZombieZone.View.MenuView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -19,17 +13,17 @@ public class LeadBoardController {
     private LeadBoard leadBoard;
     private Screen screen;
     private boolean running = true;
-    private List<StatsObserver> Observers = new ArrayList<>();
+    private List<StateObserver> Observers = new ArrayList<>();
     public LeadBoardController(LeadBoardView leadBoardView, LeadBoard leadBoard, Screen screen) {
         this.leadBoardView = leadBoardView;
         this.leadBoard = leadBoard;
         this.screen = screen;
     }
-    public void addObserver(StatsObserver divisionObserver) {
+    public void addObserver(StateObserver divisionObserver) {
         Observers.add(divisionObserver);
     }
-    public void setTruetoLead(){ running = true;}
-    public void setFalsetoLead(){
+    public void setTrueLead(){ running = true;}
+    public void setFalseLead(){
         running = false;
     }
 
@@ -54,7 +48,7 @@ public class LeadBoardController {
             if (key.getCharacter() == 'q') {
                 Observers.getFirst().changed(0);
                 screen.clear();
-                setFalsetoLead();
+                setFalseLead();
             }
         }
     }

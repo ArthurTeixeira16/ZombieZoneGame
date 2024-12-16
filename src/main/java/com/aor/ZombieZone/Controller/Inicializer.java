@@ -1,9 +1,4 @@
-package com.aor.ZombieZone;
-import com.aor.ZombieZone.Controller.GameController;
-import com.aor.ZombieZone.Controller.GameOverController;
-import com.aor.ZombieZone.Controller.GameOverController;
-import com.aor.ZombieZone.Controller.LeadBoardController;
-import com.aor.ZombieZone.Controller.MenuController;
+package com.aor.ZombieZone.Controller;
 import com.aor.ZombieZone.State.*;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
@@ -20,10 +15,9 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-public class Inicializer implements StatsObserver{
+public class Inicializer implements StateObserver {
     private Screen screen;
     private List<String> entries;
-    private int currentEntry = 0;
     private GameContext gameContext;
 
     private MenuController menuController;
@@ -45,7 +39,6 @@ public class Inicializer implements StatsObserver{
             if (resource == null) {
                 throw new RuntimeException("Font resource not found!");
             }
-            //Definição da tela ;
             File fontFile = new File(resource.toURI());
             Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

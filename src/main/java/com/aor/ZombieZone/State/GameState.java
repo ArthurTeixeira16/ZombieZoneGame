@@ -17,7 +17,6 @@ public class GameState implements State{
     private GameView gameView;
     private Game game;
     private Hud hud;
-    private Screen screen;
 
     public GameState(Screen screen){
         this.game = new Game();

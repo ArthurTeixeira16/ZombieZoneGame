@@ -1,5 +1,4 @@
 package com.aor.ZombieZone.Model;
-import com.googlecode.lanterna.screen.Screen;
 
 import java.util.Arrays;
 import java.util.List;

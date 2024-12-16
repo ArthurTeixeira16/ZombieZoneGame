@@ -1,12 +1,14 @@
 package com.aor.ZombieZone.Controller;
+
 import com.aor.ZombieZone.Model.Game;
 import com.aor.ZombieZone.Model.GameListener;
 import com.aor.ZombieZone.Model.Position;
-import com.aor.ZombieZone.StatsObserver;
+import com.aor.ZombieZone.State.StateObserver;
 import com.aor.ZombieZone.View.GameView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public class GameController implements GameListener {
     private GameView gameView;
     private Screen screen;
     private volatile boolean running;
-    List<StatsObserver> obersers = new ArrayList<>();
+    List<StateObserver> observers = new ArrayList<>();
 
     public GameController(Game game, GameView gameView, Screen screen) {
         this.game = game;
@@ -30,8 +32,8 @@ public class GameController implements GameListener {
         }
     }
 
-    public void addControllerObserver(StatsObserver observer) {
-        obersers.add(observer);
+    public void addControllerObserver(StateObserver observer) {
+        observers.add(observer);
     }
     public void run() {
         try {
@@ -70,7 +72,7 @@ public class GameController implements GameListener {
         synchronized (this) {
             running = false;
         }
-        obersers.getFirst().changed(3);
+        observers.getFirst().changed(3);
         synchronized (game) {
             game.resetGame();
         }
@@ -128,12 +130,12 @@ public class GameController implements GameListener {
                                 synchronized (this) {
                                     running = false;
                                 }
-                                obersers.getFirst().changed(0);
+                                observers.getFirst().changed(0);
                                 synchronized (game) {
                                     game.resetGame();
                                 }
                             case 'p':
-                                obersers.getFirst().changed(0);
+                                observers.getFirst().changed(0);
                                 synchronized (this) {
                                     running = false;
                                 }

@@ -9,7 +9,7 @@ public class Game {
     private List<Enemy> zombies;
     private List<Wall> walls;
     private Hud hud;
-    private List<Projectile> bullets;
+    private List<Projectile> projectiles;
     private Round round;
     private Score score;
     private long lastShotTime = 0;
@@ -21,7 +21,6 @@ public class Game {
     public Game() {
             resetGame();
     }
-    // Quando ele morrer nós resetamos essa arena
     public void resetGame(){
         soldier = new Soldier(15,10);
         round = new Round();
@@ -29,13 +28,12 @@ public class Game {
         zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
         walls = WallCreator.createWalls(30,20);
         arena = new Arena(30,20);
-        bullets = new ArrayList<>();
+        projectiles = new ArrayList<>();
     }
     public void setHud(Hud hud) {
         this.hud = hud;
     }
 
-    // qm quer saber se o heroi morreu
     public void addListener(GameListener gameListener){
         gameListeners.add(gameListener);
     }
@@ -78,7 +76,7 @@ public class Game {
             Position soldierposition = getSoldier().getPosition();
             Projectile projectile = new Projectile(soldierposition.getX() + direction.getX(), soldierposition.getY() + direction.getY(), 7, 4);
             projectile.setDirection(direction);
-            bullets.add(projectile);
+            projectiles.add(projectile);
     }
 
     public void checkDamage(long currentTime){
@@ -93,7 +91,7 @@ public class Game {
     }
 
     public void checkBulletsCollisions(){
-        for(Projectile bullet: bullets){
+        for(Projectile bullet: projectiles){
             for(Enemy zombie:zombies){
                 if(bullet.getPosition().equals(zombie.getPosition())){
                     if(!bullet.isDestroyed()) {
@@ -127,11 +125,11 @@ public class Game {
             round.nextRound();
             zombies = new Spawn(30,20,soldier).SpawnZombies(round.getRound());
         }
-        for(Projectile bullet: bullets){
+        for(Projectile bullet: projectiles){
             bullet.updateProjectile(deltaTime);
             checkBulletsCollisions();
         }
-        bullets.removeIf(Projectile::isDestroyed);
+        projectiles.removeIf(Projectile::isDestroyed);
         for(Enemy zombie : zombies){
             if(zombie.isDead()){
                 score.addScore();
@@ -173,8 +171,8 @@ public class Game {
         return walls;
     }
     public Hud getHud() { return hud;}
-    public List<Projectile> getBullets() {
-        return bullets;
+    public List<Projectile> getProjectiles() {
+        return projectiles;
     }
 
 }

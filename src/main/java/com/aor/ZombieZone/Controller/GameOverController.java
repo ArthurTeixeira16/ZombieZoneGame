@@ -1,7 +1,7 @@
 package com.aor.ZombieZone.Controller;
 
 import com.aor.ZombieZone.Model.GameOver;
-import com.aor.ZombieZone.StatsObserver;
+import com.aor.ZombieZone.State.StateObserver;
 import com.aor.ZombieZone.View.GameOverView;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -11,21 +11,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.awt.SystemColor.menu;
-
 public class GameOverController {
     private GameOver gameOver;
     private GameOverView gameOverView;
     private Screen screen;
     private boolean running = true;
-    private List<StatsObserver> observers = new ArrayList<>();
+    private List<StateObserver> observers = new ArrayList<>();
 
     public GameOverController(GameOver gameOver, GameOverView gameOverView, Screen screen) {
         this.gameOver = gameOver;
         this.gameOverView = gameOverView;
         this.screen = screen;
     }
-    public void addObserver(StatsObserver observer) {
+    public void addObserver(StateObserver observer) {
         observers.add(observer);
     }
     public void setRunningTrue() {
@@ -60,13 +58,13 @@ public class GameOverController {
         } else if (key.getKeyType()==KeyType.Enter) {
             if (gameOver.isSelectedMenu()) {
                 setRunningFalse();
-                for(StatsObserver observer : observers) {
+                for(StateObserver observer : observers) {
                     observer.changed(0);
                 }
             }
             if (gameOver.isSelectedTryAgain()){
                 setRunningFalse();
-                for(StatsObserver observer : observers) {
+                for(StateObserver observer : observers) {
                     observer.changed(1);
                 }
             }

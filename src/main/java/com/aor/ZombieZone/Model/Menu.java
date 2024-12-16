@@ -1,5 +1,4 @@
 package com.aor.ZombieZone.Model;
-import com.googlecode.lanterna.screen.Screen;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,9 +7,7 @@ public class Menu {
     private List<String> entries = Arrays.asList("Start" , "Lead" , "Exit");
     private int currentEntry = 0;
 
-    public Menu() {
-
-    }
+    public Menu() {}
 
     public void moveDown() {
         currentEntry++;

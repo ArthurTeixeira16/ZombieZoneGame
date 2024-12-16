@@ -1,7 +1,5 @@
 package com.aor.ZombieZone.Model;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.LinkedList;
@@ -55,7 +53,6 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
     public void TraceToHero(Position zombiePosition, Position soldierPosition, int[][] places, Game game) {
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, 1, -1};
-        //Resolução feita por BFS, kkk demos isso em AED na semana que estou fazendo isso, e realmente ajudou !
         Queue<Position> queue = new LinkedList<>();
         boolean[][] visited = new boolean[places.length][places[0].length];
         Position[][] predecessor = new Position[places.length][places[0].length];
@@ -82,7 +79,6 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
                 }
             }
         }
-        //Descontrução do step até o player
         Position step = soldierPosition;
         while (predecessor[step.getX()][step.getY()] != null && !predecessor[step.getX()][step.getY()].equals(zombiePosition)) {
             step = predecessor[step.getX()][step.getY()];

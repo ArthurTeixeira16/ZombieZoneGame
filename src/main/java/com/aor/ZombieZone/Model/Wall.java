@@ -1,27 +1,24 @@
 package com.aor.ZombieZone.Model;
 
-import com.aor.ZombieZone.Controller.MenuController;
-import com.aor.ZombieZone.View.MenuView;
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 public class Wall extends Element {
     public Wall(int x, int y) {
         super(x, y);
-    } // construtor da Função Wall
-    @Override  //draw da Função Wall
+    }
+    @Override
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#4B2E1F"));
         graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "█");
     }
     @Override
-    public boolean equals(Object o) { // Override do Equals(função padrão usada pelo constains)
+    public boolean equals(Object o) {
         if (this == o)
         {return true;}
         if (o == null || getClass() != o.getClass())
         {return false;}
-        Wall wall = (Wall) o; // conversão do Objeto  para wall, não muito usado porque
+        Wall wall = (Wall) o;
         return getPosition().x == wall.getPosition().x && getPosition().y == wall.getPosition().y;
     }
 }

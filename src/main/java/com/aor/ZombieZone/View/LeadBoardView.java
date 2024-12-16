@@ -2,13 +2,10 @@ package com.aor.ZombieZone.View;
 
 import com.aor.ZombieZone.Model.LeadBoard;
 import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class LeadBoardView {

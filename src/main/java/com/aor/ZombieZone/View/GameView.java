@@ -1,10 +1,10 @@
 package com.aor.ZombieZone.View;
 
-import com.aor.ZombieZone.Model.*;
+import com.aor.ZombieZone.Model.Enemy;
+import com.aor.ZombieZone.Model.Game;
+import com.aor.ZombieZone.Model.Projectile;
+import com.aor.ZombieZone.Model.Wall;
 import com.googlecode.lanterna.graphics.TextGraphics;
-
-
-import java.util.List;
 
     public class GameView {
         private ArenaView arenaView;
@@ -27,8 +27,8 @@ import java.util.List;
             for (Wall wall : game.getWalls()) {
                 wall.draw(screen);
             }
-            if(game.getBullets()!=null && !game.getBullets().isEmpty()) {
-                for (Projectile bullet : game.getBullets()) {
+            if(game.getProjectiles()!=null && !game.getProjectiles().isEmpty()) {
+                for (Projectile bullet : game.getProjectiles()) {
                     bullet.draw(screen);
                 }
             }

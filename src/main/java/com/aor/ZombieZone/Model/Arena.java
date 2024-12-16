@@ -1,9 +1,6 @@
 package com.aor.ZombieZone.Model;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.googlecode.lanterna.TextColor;
 
 public class Arena {
     private int width;
@@ -33,7 +30,6 @@ public class Arena {
             }
         }
     }
-
 
     private TextColor randomGrayShade() {
         int grayValue = 180 + (int) (Math.random() * 50);

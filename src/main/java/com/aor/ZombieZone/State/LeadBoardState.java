@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class LeadBoardState implements State {
     private LeadBoardController leadBoardController;
-    private Screen screen;
     private LeadBoard leadBoard;
     private LeadBoardView leadBoardView;
 
