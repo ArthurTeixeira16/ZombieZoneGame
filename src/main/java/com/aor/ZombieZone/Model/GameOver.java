@@ -22,17 +22,17 @@ public class GameOver {
 
     public void moveDown() {
         currentEntry++;
-        if (currentEntry > this.entries.size() - 1)
+        if (currentEntry > getEntries().size() - 1)
             currentEntry = 0;
     }
 
     public void moveUp() {
         currentEntry--;
-        if (currentEntry < 0) currentEntry = this.entries.size() - 1;
+        if (currentEntry < 0) currentEntry = getEntries().size() - 1;
     }
 
     public String getEntry(int i) {
-        return entries.get(i);
+        return getEntries().get(i);
     }
 
     public boolean isSelected(int i) {
@@ -48,6 +48,10 @@ public class GameOver {
     }
 
     public int getNumberEntries() {
-        return this.entries.size();
+        return getEntries().size();
+    }
+
+    public List<String> getEntries() {
+        return entries;
     }
 }

@@ -1,16 +1,14 @@
-package com.aor.ZombieZone.View;
+package com.ZombieZoneTest.View;
 
 import com.aor.ZombieZone.Model.LeadBoard;
+import com.aor.ZombieZone.View.LeadBoardView;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.times;

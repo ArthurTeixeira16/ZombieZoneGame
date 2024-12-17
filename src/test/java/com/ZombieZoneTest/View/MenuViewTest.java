@@ -1,6 +1,7 @@
-package com.aor.ZombieZone.View;
+package com.ZombieZoneTest.View;
 
 import com.aor.ZombieZone.Model.Menu;
+import com.aor.ZombieZone.View.MenuView;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
