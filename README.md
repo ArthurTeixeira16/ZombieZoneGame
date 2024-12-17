@@ -10,6 +10,9 @@ With its action and difficulty, Zombie Zone tests your reflexes and resilience a
 
 This project was developed by *Arthur Teixeira* (*up202300368*@fe.up.pt), *Divaldo Dias* (*up202309923*@fe.up.pt) and *Pedro Gouveia* (*up202200045*@fe.up.pt) for LEIC.LTDS 2024⁄25.
 
+![](src/main/resources/ImagesForReadme/giflead.gif)
+![](src/main/resources/ImagesForReadme/gifgame.gif)
+
 ### IMPLEMENTED FEATURES
 - **Connected Menus** - The user has the capability of browsing through the different menus. (Ex: Menu, Play, Game over, Try again).
 - **Keyboard control** - The mouse and keyboard inputs are received through the respective events and interpreted according to the current game state.
@@ -36,7 +39,7 @@ This project was developed by *Arthur Teixeira* (*up202300368*@fe.up.pt), *Dival
 All the planned features were successfully implemented.
 
 ### DESIGN
-
+![](src/main/resources/ImagesForReadme/ZombieZoneDiagramFinal.png)
 > This section should be organized in different subsections, each describing a different design problem that you had to solve during the project. Each subsection should be organized in four different parts:
 
 - **Problem in Context.** The description of the design context and the concrete problem that motivated the instantiation of the pattern. Someone else other than the original developer should be able to read and understand all the motivations for the decisions made. When refering to the implementation before the pattern was applied, don’t forget to [link to the relevant lines of code](https://help.github.com/en/articles/creating-a-permanent-link-to-a-code-snippet) in the appropriate version.
@@ -91,9 +94,6 @@ The use of the State Pattern in the current design allows the following benefits
 
 ### SELF-EVALUATION
 
-> In this section describe how the work regarding the project was divided between the students. In the event that members of the group do not agree on a work distribution, the group should send an email to the teacher explaining the disagreement.
-
-**Example**:
-
-- John Doe: 40%
-- Jane Doe: 60%
+- Arthur Teixeira: 33.33%
+- Divaldo Dias: 33.33%%
+- Pedro Gouveia: 33.33%
