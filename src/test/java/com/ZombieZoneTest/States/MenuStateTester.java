@@ -46,6 +46,6 @@ public class MenuStateTester {
 
         state.handleInput();
 
-        verify(state).handleInput();
+        verify(controllerMock).handleInput();
     }
 }

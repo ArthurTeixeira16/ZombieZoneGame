@@ -10,8 +10,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class GameContextTester {
     private State state;
@@ -39,9 +38,15 @@ public class GameContextTester {
     @Test
     public void CurrentStateContextRun() throws IOException {
 
-        context.run();
+        doThrow(new IOException("Stop the loop")).when(state).run();
 
-        verify(state).run();
+        try {
+            context.run();
+        } catch (IOException e) {
+            assertEquals("Stop the loop", e.getMessage());
+        }
+
+        verify(state,times(1)).run();
     }
 
     @Test
@@ -49,6 +54,6 @@ public class GameContextTester {
 
         context.handleInput();
 
-        verify(state).handleInput();
+        verify(state,times(1)).handleInput();
     }
 }
