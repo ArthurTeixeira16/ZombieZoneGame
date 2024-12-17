@@ -14,35 +14,30 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class GameContextTester {
-
+    private State state;
+    private GameContext context;
 
     @BeforeEach
     public void setUp(){
+        state = mock(State.class);
+        context = new GameContext(state);
     }
 
     @Test
     public void testInitialState(){
 
-        State initialState = mock(State.class);
-        GameContext context = new GameContext(initialState);
-
-        assertEquals(initialState,context.getCurrentState());
+        assertEquals(state,context.getCurrentState());
     }
     @Test
     public void testSetStates(){
 
-        State initialState = mock(State.class);
         State otherState = mock(State.class);
-        GameContext context = new GameContext(initialState);
         context.setCurrentState(otherState);
 
-        assertEquals(context.getCurrentState(), otherState);
+        assertEquals(otherState,context.getCurrentState());
     }
     @Test
     public void CurrentStateContextRun() throws IOException {
-
-        State state = mock(State.class);
-        GameContext context = new GameContext(state);
 
         context.run();
 
@@ -51,12 +46,9 @@ public class GameContextTester {
 
     @Test
     public void CurrentStateHandleInputTest() throws IOException{
-        State state = mock(State.class);
-        KeyStroke key = mock(KeyStroke.class);
-        GameContext context = new GameContext(state);
 
-        context.handleInput(key);
+        context.handleInput();
 
-        verify(state).handleInput(key);
+        verify(state).handleInput();
     }
 }

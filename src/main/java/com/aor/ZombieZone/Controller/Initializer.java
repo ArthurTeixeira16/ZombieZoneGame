@@ -104,5 +104,6 @@ public class Initializer implements StateObserver {
 
 
     }
+    //TODO: implementar enum
 
 }

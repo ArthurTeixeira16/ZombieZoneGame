@@ -5,5 +5,5 @@ import java.io.IOException;
 
 public interface State {
     void run() throws IOException;
-    void handleInput(KeyStroke key) throws IOException;
+    void handleInput() throws IOException;
 }

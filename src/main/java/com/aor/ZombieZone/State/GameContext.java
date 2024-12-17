@@ -23,8 +23,8 @@ public class GameContext {
             currentState.run();
         }
     }
-    public void handleInput(KeyStroke key) throws IOException {
-        currentState.handleInput(key);
+    public void handleInput() throws IOException {
+        currentState.handleInput();
     }
 
 }

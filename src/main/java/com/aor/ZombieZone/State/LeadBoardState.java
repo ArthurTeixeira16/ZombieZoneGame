@@ -32,7 +32,7 @@ public class LeadBoardState implements State {
     }
 
     @Override
-    public void handleInput(KeyStroke key) throws IOException {
+    public void handleInput() throws IOException {
         getController().handleInput();
     }
 }
