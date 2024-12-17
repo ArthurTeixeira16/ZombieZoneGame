@@ -1,8 +1,9 @@
-package com.aor.ZombieZone.View;
+package com.ZombieZoneTest.View;
 import com.aor.ZombieZone.Model.Hud;
 import com.aor.ZombieZone.Model.Round;
 import com.aor.ZombieZone.Model.Score;
 import com.aor.ZombieZone.Model.Soldier;
+import com.aor.ZombieZone.View.HudView;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import org.junit.jupiter.api.BeforeEach;
