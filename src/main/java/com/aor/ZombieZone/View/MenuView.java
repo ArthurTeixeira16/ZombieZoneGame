@@ -17,6 +17,9 @@ public class MenuView {
         screen.fill(' ');
         screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
         screen.putString(10, 5, "Zombie Zone", SGR.BOLD);
+        renderEntries(screen);
+    }
+    public void renderEntries(TextGraphics screen) {
         for (int i = 0; i < menu.getNumberEntries(); i++) {
             if (menu.isSelected(i)) {
                 screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));

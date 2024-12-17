@@ -14,7 +14,7 @@ public class HudView {
 
     public void render(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#0000FF"));
-        graphics.putString(0, hud.getHeight(), " Score:" + hud.getScore().getScore()+"  ");
+        graphics.putString(0, hud.getHeight(), "Score: " + hud.getScore().getScore()+"  ");
         graphics.putString(10, hud.getHeight(), "Round: " + hud.getRound().getRound()+"  ");
         graphics.putString(20, hud.getHeight(), "Lives: " + hud.getSoldier().getLife()+"  ");
     }

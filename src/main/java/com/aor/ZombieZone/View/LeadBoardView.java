@@ -27,6 +27,9 @@ public class LeadBoardView {
         screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
         screen.setBackgroundColor(TextColor.Factory.fromString("#000000"));
         screen.putString(xPosition, yPosition, text, SGR.BOLD);
+        renderLeads(screen);
+    }
+    public void renderLeads(TextGraphics screen) {
         List<Integer> leads = leadBoard.getListOfScore();
         for (int i = 0; i < linesToShow && i < leads.size(); i++) {
             int lead = i + 1;
@@ -35,7 +38,7 @@ public class LeadBoardView {
             String scoreStr = String.valueOf(score);
             int yScorePosition = 5 +  (terminalHeight / 7) * i;
             int xScorePosition = (terminalWidth / 2)-2;
-            int xLeadPosition = xScorePosition - text.length();
+            int xLeadPosition = xScorePosition - ("LeadBoard").length();
             screen.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
             screen.putString(xLeadPosition, yScorePosition, leadStr, SGR.BOLD);
             screen.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));

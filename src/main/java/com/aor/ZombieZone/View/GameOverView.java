@@ -18,6 +18,10 @@ public class GameOverView {
         screen.fill(' ');
         screen.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
         screen.putString(gameOver.getWidth()/2-text/2, gameOver.getHeight()/2-3, "GAME OVER", SGR.BOLD);
+        renderEntries(screen);
+    }
+
+    public void renderEntries(TextGraphics screen) {
         for (int i = 0; i < gameOver.getNumberEntries(); i++) {
             if (gameOver.isSelected(i)) {
                 screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));

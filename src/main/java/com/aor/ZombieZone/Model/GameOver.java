@@ -1,5 +1,6 @@
 package com.aor.ZombieZone.Model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,10 +49,15 @@ public class GameOver {
     }
 
     public int getNumberEntries() {
-        return getEntries().size();
+        if(getEntries() !=null) {
+        return getEntries().size(); }
+        return 0;
     }
 
     public List<String> getEntries() {
+        if(entries == null) {
+            entries = new ArrayList<>();
+        }
         return entries;
     }
 }

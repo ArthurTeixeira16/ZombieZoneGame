@@ -10,33 +10,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 
 public class HudViewTest {
     private Hud hud;
     private HudView hudView;
     private TextGraphics textGraphics;
+    private final TextColor FOREGROUNDCOLOR = TextColor.Factory.fromString("#0000FF");
+
     @BeforeEach
     public void setUp() {
-        Score score = Mockito.mock(Score.class);
-        Round round = Mockito.mock(Round.class);
-        Soldier soldier = Mockito.mock(Soldier.class);
 
         hud = Mockito.mock(Hud.class);
         hudView = new HudView(hud);
-        Mockito.when(hud.getScore()).thenReturn(score);
-        Mockito.when(hud.getRound()).thenReturn(round);
-        Mockito.when(hud.getSoldier()).thenReturn(soldier);
-
         textGraphics = Mockito.mock(TextGraphics.class);
 
     }
     @Test
-    public void renderTest(){
+    public void renderTest_ValidAll(){
+        Mockito.when(hud.getScore()).thenReturn(Mockito.mock(Score.class));
+        Mockito.when(hud.getRound()).thenReturn(Mockito.mock(Round.class));
+        Mockito.when(hud.getSoldier()).thenReturn(Mockito.mock(Soldier.class));
+
+        Mockito.when(hud.getScore().getScore()).thenReturn(100);
+        Mockito.when(hud.getRound().getRound()).thenReturn(60);
+        Mockito.when(hud.getSoldier().getLife()).thenReturn(5);
+
         hudView.render(textGraphics);
-        Mockito.verify(textGraphics , times(1)).setForegroundColor(TextColor.Factory.fromString("#0000FF"));
-        Mockito.verify(textGraphics , times(1)).putString(0, hud.getHeight(), " Score:" + hud.getScore().getScore()+"  ");
-        Mockito.verify(textGraphics , times(1)).putString(10, hud.getHeight(), "Round: " + hud.getRound().getRound()+"  ");
-        Mockito.verify(textGraphics , times(1)).putString(20, hud.getHeight(), "Lives: " + hud.getSoldier().getLife()+"  ");
+
+        Mockito.verify(textGraphics , times(1)).setForegroundColor(FOREGROUNDCOLOR);
+        Mockito.verify(textGraphics , times(1)).putString(0, hud.getHeight(), "Score: 100  ");
+        Mockito.verify(textGraphics , times(1)).putString(10,hud.getHeight(), "Round: 60  ");
+        Mockito.verify(textGraphics , times(1)).putString(20, hud.getHeight(), "Lives: 5  ");
     }
 }
