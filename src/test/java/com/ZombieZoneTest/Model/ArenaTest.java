@@ -47,7 +47,7 @@ public class ArenaTest {
             for (int x = 0; x < WIDTH; x++) {
                 TextColor color = colors[y][x];
                 String hexColor = color.toString(); // TextColor.Factory creates from hex.
-                String temp = hexColor.substring(5,7);
+                String temp = hexColor.substring(5,8);
                 int temp_int = Integer.parseInt(temp);
                 assertTrue(temp_int >= 180 && temp_int <= 230 );
             }
