@@ -23,6 +23,15 @@ public class GameOverController {
         this.gameOverView = gameOverView;
         this.screen = screen;
     }
+
+    public List<StateObserver> getObservers() {
+        return observers;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
     public void addObserver(StateObserver observer) {
         observers.add(observer);
     }
@@ -35,7 +44,7 @@ public class GameOverController {
 
     public void run(){
         try{
-            while (running) {
+            while (isRunning()) {//mudei aqui -gouve
                 draw();
                 handleInput();
             }
@@ -43,7 +52,7 @@ public class GameOverController {
             e.printStackTrace();
         }
     }
-    private void draw() throws IOException{
+    public void draw() throws IOException{
         screen.clear();
         gameOverView.render(screen.newTextGraphics());
         screen.refresh();
@@ -62,7 +71,7 @@ public class GameOverController {
                     observer.changed(0);
                 }
             }
-            if (gameOver.isSelectedTryAgain()){
+            else if (gameOver.isSelectedTryAgain()){
                 setRunningFalse();
                 for(StateObserver observer : observers) {
                     observer.changed(1);

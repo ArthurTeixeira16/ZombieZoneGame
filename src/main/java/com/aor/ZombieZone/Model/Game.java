@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+
     private Arena arena;
     private Soldier soldier;
     private List<Enemy> zombies;
@@ -12,12 +13,15 @@ public class Game {
     private List<Projectile> projectiles;
     private Round round;
     private Score score;
+
     private long lastShotTime = 0;
     private int timetoShoot = 1000;
     private long lastHit = 0;
     private int SafeTime = 3000;// não sei se isso fica aqui, mas o deixo for now
+
     private List<GameListener> gameListeners = new ArrayList<>();
     private List<ScoreObserver> scoreObservers = new ArrayList<>();
+
     public Game() {
             resetGame();
     }
