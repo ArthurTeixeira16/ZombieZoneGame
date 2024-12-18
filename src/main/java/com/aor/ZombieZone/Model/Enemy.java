@@ -35,9 +35,25 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
             elapsed_time -= timeToMove;
         }
     }
+    public int[][] getPlaces(Soldier soldier, Game game){
+        int[][] places = new int[game.getArena().getWidth()][game.getArena().getHeight()];
+        List<Position> positionsOfWalls = game.getPositionsWalls();
 
+        Position soldierPosition = soldier.getPosition();
+
+        for(Position position : positionsOfWalls){
+            places[position.getX()][position.getY()] = 2;
+        }
+        List<Position> positionsOfZombies = game.getPositionsZombies();
+        for(Position position : positionsOfZombies){
+            if(position != soldierPosition) {
+                places[position.getX()][position.getY()] = 2;
+            }
+        }
+        return places;
+    }
     public void track(Soldier soldier, Game game) {
-        int[][] places = new int[game.getArena().getHeight()+10][game.getArena().getWidth()+10];
+        int[][] places = new int[game.getArena().getWidth()][game.getArena().getHeight()];
         List<Position> positionsOfWalls = game.getPositionsWalls();
 
         Position soldierPosition = soldier.getPosition();

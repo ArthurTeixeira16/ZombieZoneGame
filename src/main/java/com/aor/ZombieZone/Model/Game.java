@@ -25,9 +25,9 @@ public class Game {
         soldier = new Soldier(15,10);
         round = new Round();
         score = new Score();
-        walls = WallCreator.createWalls(30,20);
-        zombies = new Spawn(30,20,soldier,walls).SpawnZombies(round.getRound());
         arena = new Arena(30,20);
+        walls = WallCreator.createWalls(getArena().getWidth(),getArena().getHeight());
+        zombies = new Spawn(30,20,soldier,walls).SpawnZombies(round.getRound());
         projectiles = new ArrayList<>();
         if(hud!=null){
             hud.resetHud();
