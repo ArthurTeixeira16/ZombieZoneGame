@@ -40,53 +40,85 @@ All the planned features were successfully implemented.
 
 ### DESIGN
 ![](src/main/resources/ImagesForReadme/ZombieZoneDiagramFinal.png)
-> This section should be organized in different subsections, each describing a different design problem that you had to solve during the project. Each subsection should be organized in four different parts:
 
-- **Problem in Context.** The description of the design context and the concrete problem that motivated the instantiation of the pattern. Someone else other than the original developer should be able to read and understand all the motivations for the decisions made. When refering to the implementation before the pattern was applied, don’t forget to [link to the relevant lines of code](https://help.github.com/en/articles/creating-a-permanent-link-to-a-code-snippet) in the appropriate version.
-- **The Pattern.** Identify the design pattern to be applied, why it was selected and how it is a good fit considering the existing design context and the problem at hand.
-- **Implementation.** Show how the pattern roles, operations and associations were mapped to the concrete design classes. Illustrate it with a UML class diagram, and refer to the corresponding source code with links to the relevant lines (these should be [relative links](https://help.github.com/en/articles/about-readmes#relative-links-and-image-paths-in-readme-files). When doing this, always point to the latest version of the code.
-- **Consequences.** Benefits and liabilities of the design after the pattern instantiation, eventually comparing these consequences with those of alternative solutions.
-
-**Example of one of such subsections**:
-
-------
-
-#### THE JUMP ACTION OF THE KANGAROOBOY SHOULD BEHAVE DIFFERENTLY DEPENDING ON ITS STATE
-
+#### HANDLING THE DIFFERENT STATES OF THE GAME
 **Problem in Context**
 
-There was a lot of scattered conditional logic when deciding how the KangarooBoy should behave when jumping, as the jumps should be different depending on the items that came to his possession during the game (an helix will alow him to fly, driking a potion will allow him to jump double the height, etc.). This is a violation of the **Single Responsability Principle**. We could concentrate all the conditional logic in the same method to circumscribe the issue to that one method but the **Single Responsability Principle** would still be violated.
+In the game, the system must support multiple states: Game State, Leaderboard State, Menu State, and Game Over State. Each state requires different behaviors and functionalities. Before implementing a design pattern, the state logic could have been managed with long conditional checks or switch statements inside a single run() method. This approach violates the Single Responsibility Principle and is not scalable as new states are added.
 
 **The Pattern**
 
-We have applied the **State** pattern. This pattern allows you to represent different states with different subclasses. We can switch to a different state of the application by switching to another implementation (i.e., another subclass). This pattern allowed to address the identified problems because […].
+The State Pattern is applied to encapsulate state-specific behavior and allow transitioning between states dynamically. Each state implements the State<Interface> interface, which defines common operations like run() and getController(). The State Pattern makes it easier to add new states and removes scattered conditional logic.
 
 **Implementation**
 
-The following figure shows how the pattern’s roles were mapped to the application classes.
-
-![img](https://www.fe.up.pt/~arestivo/page/img/examples/lpoo/state.svg)
-
-These classes can be found in the following files:
-
-- [Character](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/Character.java)
-- [JumpAbilityState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/JumpAbilityState.java)
-- [DoubleJumpState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/DoubleJumpState.java)
-- [HelicopterState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/HelicopterState.java)
-- [IncreasedGravityState](https://web.fe.up.pt/~arestivo/page/courses/2021/lpoo/template/src/main/java/IncreasedGravityState.java)
+The State<Interface> defines the contract for the states. The states (GameState, MenuState, LeaderboardState, and GameOverState) implement this interface and provide unique behavior.
 
 **Consequences**
 
-The use of the State Pattern in the current design allows the following benefits:
+- Cleaner, modular code where each state is isolated.
+- Adding new states does not affect existing code.
+- Increases the number of classes.
 
-- The several states that represent the character’s hability to jump become explicit in the code, instead of relying on a series of flags.
-- We don’t need to have a long set of conditional if or switch statements associated with the various states; instead, polimorphism is used to activate the right behavior.
-- There are now more classes and instances to manage, but still in a reasonable number.
+#### MANAGING GAME EVENTS LIKE SCORE UPDATES AND GAME ENDING
+**Problem in Context**
+
+The game requires real-time updates for events like changes to the score, rounds, or game ending. Initially, the game logic likely relied on tightly coupled classes to manage these updates, which made the system harder to maintain or extend. This violated the Open/Closed Principle.
+
+**The Pattern**
+
+The Observer Pattern is applied to decouple the game events from the objects that react to those events. Observers like ScoreObserver<Interface> and GameObserver<Interface> listen for changes in the game, such as when a score is updated or the game ends.
+
+**Implementation**
+
+Classes like Game and Hud generate events and GameObserver<Interface> listens for endGame() events and ScoreObserver<Interface> listens for score-related events through onEndGame().
+
+**Consequences**
+
+- Decoupling between the game logic and observers.
+- New observers can be added without changing the existing code.
+- Increases the number of classes.
+
+#### CREATING DIFFERENT TYPES OF ZOMBIES
+**Problem in Context**
+
+The game features multiple types of enemies, such as ZombieNormal, ZombieSpeed, and ZombieHeavy. Initially, these zombies could have been created manually with specific constructors or hardcoded methods, leading to duplicated code and reduced flexibility.
+
+**The Pattern**
+
+The Factory Pattern is applied to encapsulate the creation logic of the enemy objects. This allows the game to create different types of zombies dynamically while centralizing the instantiation logic.
+
+**Implementation**
+
+The Enemy class serves as the base product with common attributes like life, speed, and elapsed_time.
+
+**Consequences**
+
+- Simplifies object creation logic.
+- Easy to add new enemy types without changing existing code.
+- The factory may need to handle many product types as the game expands.
+
+#### CONTINUOUS EXECUTION OF GAME LOGIC AND RENDERING
+**Problem in Context**
+
+The game requires continuous execution of logic, including updates and rendering. Without a centralized game loop, the system may have handled updates and rendering in an unreliable manner. 
+
+**The Pattern**
+
+The Game Loop Pattern is applied to centralize the execution of game updates and rendering. This ensures that all game components are updated in a synchronized manner within a single loop.
+
+**Implementation**
+
+Views like GameView, MenuView, and HudView implement the View<Interface> interface and render components through render(), and each state manages the controller logic getController().
+
+**Consequences**
+
+- Centralized game execution simplifies synchronization of updates and rendering.
+- Easy to manage frame rates and updates.
 
 #### KNOWN CODE SMELLS
 
-> This section should describe 3 to 5 different code smells that you have identified in your current implementation.
-
+The major code smell that was analyzed was in the class Game, it has too many attributes and methods that can complicate the design if we want to increase the number of features in the game.
 ### TESTING
 
 - Screenshot of coverage report.
