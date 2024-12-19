@@ -44,7 +44,7 @@ All the planned features were successfully implemented.
 #### HANDLING THE DIFFERENT STATES OF THE GAME
 **Problem in Context**
 
-In the game, the system must support multiple states: Game State, Leaderboard State, Menu State, and Game Over State. Each state requires different behaviors and functionalities. Before implementing a design pattern, the state logic could have been managed with long conditional checks or switch statements inside a single run() method. This approach violates the Single Responsibility Principle and is not scalable as new states are added.
+In the game, the system must support multiple states: Game State, Leaderboard State, Menu State, and Game Over State. Each state requires different behaviors and functionalities. Before implementing a design pattern, the state logic could have been managed with long conditional checks or switch statements inside a single run() method. This is not scalable as new states are added.
 
 **The Pattern**
 
@@ -63,7 +63,7 @@ The State<Interface> defines the contract for the states. The states (GameState,
 #### MANAGING GAME EVENTS LIKE SCORE UPDATES AND GAME ENDING
 **Problem in Context**
 
-The game requires real-time updates for events like changes to the score, rounds, or game ending. Initially, the game logic likely relied on tightly coupled classes to manage these updates, which made the system harder to maintain or extend. This violated the Open/Closed Principle.
+The game requires real-time updates for events like changes to the score, rounds, or game ending. Initially, the game logic likely relied on tightly coupled classes to manage these updates, which made the system harder to maintain or extend.
 
 **The Pattern**
 
@@ -119,6 +119,7 @@ Views like GameView, MenuView, and HudView implement the View<Interface> interfa
 #### KNOWN CODE SMELLS
 
 The major code smell that was analyzed was in the class Game, it has too many attributes and methods that can complicate the design if we want to increase the number of features in the game.
+
 ### TESTING
 
 - Screenshot of coverage report.
