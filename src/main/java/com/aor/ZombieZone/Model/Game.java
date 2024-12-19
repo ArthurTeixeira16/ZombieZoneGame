@@ -62,6 +62,7 @@ public class Game {
         }
         return positions;
     }
+
     public List<Position> getPositionsZombies() {
         List<Position> positions = new ArrayList<>();
         for(Enemy zombie : zombies) {
