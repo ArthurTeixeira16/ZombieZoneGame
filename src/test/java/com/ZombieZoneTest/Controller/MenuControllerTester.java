@@ -1,6 +1,5 @@
 package com.ZombieZoneTest.Controller;
 
-import com.aor.ZombieZone.Controller.GameOverController;
 import com.aor.ZombieZone.Controller.MenuController;
 import com.aor.ZombieZone.Model.Menu;
 import com.aor.ZombieZone.State.StateObserver;
@@ -9,6 +8,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -156,26 +156,4 @@ public class MenuControllerTester {
         verify(observers.getFirst()).changed(2);
         verify(menuMock).isSelectedLead();
     }
-    /*@Test
-    public void testHandleInput() throws IOException {
-        MenuController spycontroller = spy(menuController);
-        KeyStroke enter = mock(KeyStroke.class);
-        StateObserver observerMock = mock(StateObserver.class);
-
-        menuController.addObserver(observerMock);
-
-        when(enter.getKeyType()).thenReturn(KeyType.Enter);
-        when(screenMock.readInput()).thenReturn(enter);
-
-        when(menuMock.isSelectedLead()).thenReturn(false);
-        when(menuMock.isSelectedExit()).thenReturn(true);
-        when(menuMock.isSelectedStart()).thenReturn(false);
-
-        spycontroller.handleInput();
-        verify(screenMock).close();
-        verify(System).exit(0);
-
-        não sei testar system kk
-    }*/
-
 }

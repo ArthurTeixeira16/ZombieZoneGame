@@ -47,7 +47,6 @@ public class GameOverControllerTester {
         gameOverController.setRunningTrue();
         assertTrue(gameOverController.isRunning());
     }
-
     @Test
     public void testSetRunningFalseState(){
 
@@ -57,7 +56,6 @@ public class GameOverControllerTester {
         gameOverController.setRunningFalse();
         assertFalse(gameOverController.isRunning());
     }
-
     @Test
     public void testAddObserver(){
         StateObserver stateObserverMock = mock(StateObserver.class);
@@ -66,7 +64,6 @@ public class GameOverControllerTester {
         assertTrue(gameOverController.getObservers().contains(stateObserverMock));
 
     }
-
     @Test
     public void testGetObserver(){
         StateObserver stateObserverMock = mock(StateObserver.class);
@@ -76,7 +73,6 @@ public class GameOverControllerTester {
         assertEquals(1,observers.size());
         assertEquals(observers.getFirst(),stateObserverMock);
     }
-
     @Test
     public void testRun() throws IOException{
         GameOverController spycontroller = spy(gameOverController);
@@ -91,7 +87,6 @@ public class GameOverControllerTester {
         verify(spycontroller).draw();
         verify(spycontroller).handleInput();
     }
-
     @Test
     public void testDraw() throws IOException {
         GameOverController spycontroller = spy(gameOverController);
@@ -102,55 +97,6 @@ public class GameOverControllerTester {
         verify(gameOverViewMock).render(screenMock.newTextGraphics());
         verify(screenMock).refresh();
     }
-    /*@Test
-    public void testHandleInput() throws IOException {
-        GameOverController spycontroller = spy(gameOverController);
-        KeyStroke arrowUp = mock(KeyStroke.class);
-        StateObserver observerMock = mock(StateObserver.class);
-
-        gameOverController.addObserver(observerMock);
-
-        when(arrowUp.getKeyType()).thenReturn(KeyType.ArrowUp);
-        when(screenMock.readInput()).thenReturn(arrowUp);
-        spycontroller.handleInput();
-
-        verify(gameOverMock).moveUp();
-
-        KeyStroke arrowDown = mock(KeyStroke.class);
-
-        when(arrowDown.getKeyType()).thenReturn(KeyType.ArrowDown);
-        when(screenMock.readInput()).thenReturn(arrowDown);
-        spycontroller.handleInput();
-
-        verify(gameOverMock).moveDown();
-
-        KeyStroke enter = mock(KeyStroke.class);
-
-        when(enter.getKeyType()).thenReturn(KeyType.Enter);
-        when(screenMock.readInput()).thenReturn(enter);
-
-        when(gameOverMock.isSelectedMenu()).thenReturn(true);
-        when(gameOverMock.isSelectedTryAgain()).thenReturn(false);
-
-        spycontroller.handleInput();
-        verify(spycontroller,times(1)).setRunningFalse();
-        verify(gameOverMock).isSelectedMenu();
-        verify(observerMock).changed(0);
-
-        reset(gameOverMock);
-        reset(observerMock);
-        reset(spycontroller);// guys, tive que resetar aqui para poder testar sem que ele fosse chamado duas vezes
-
-        when(gameOverMock.isSelectedMenu()).thenReturn(false);
-        when(gameOverMock.isSelectedTryAgain()).thenReturn(true);
-
-        spycontroller.handleInput();
-        verify(spycontroller,times(1)).setRunningFalse();
-        verify(gameOverMock).isSelectedTryAgain();
-        verify(observerMock).changed(1);
-
-    }*/
-    //tem as duas soluções que eu pensei aí, uma das duas a gente apaga. acho que separa o b.o fica mais bonito
     @Test
     public void testHandleInputArrowUp() throws IOException {
         GameOverController spycontroller = spy(gameOverController);
