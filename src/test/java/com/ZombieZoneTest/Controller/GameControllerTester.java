@@ -41,6 +41,8 @@ public class GameControllerTester {
         assertTrue(gameController.isRunning());
     }
     @Test
+    public void testThreadIsRunning(){}
+    @Test
     public void testSetRunningTrueState(){
         gameController.setRunningFalse();
         assertFalse(gameController.isRunning());
