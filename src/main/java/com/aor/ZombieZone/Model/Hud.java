@@ -17,9 +17,6 @@ public class Hud {
     public void setScore(Score score) {
         this.score = score;
     }
-    public void setRound(Round round) {
-        this.round = round;
-    }
     public Round getRound() {
         return round;
     }
