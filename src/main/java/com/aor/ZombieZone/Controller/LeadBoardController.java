@@ -19,17 +19,28 @@ public class LeadBoardController {
         this.leadBoard = leadBoard;
         this.screen = screen;
     }
+    public void setFalseLead(){
+        running = false;
+    }
+    public void setTrueLead(){
+        running = true;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
     public void addObserver(StateObserver divisionObserver) {
         Observers.add(divisionObserver);
     }
-    public void setTrueLead(){ running = true;}
-    public void setFalseLead(){
-        running = false;
+
+    public List<StateObserver> getObservers() {
+        return Observers;
     }
 
     public void run() {
         try{
-            while(running){
+            while(isRunning()){
                 draw();
                 handleInput();
             }
@@ -37,7 +48,7 @@ public class LeadBoardController {
             e.printStackTrace();
         }
     }
-    private void draw() throws IOException {
+    public void draw() throws IOException {
         screen.clear();
         leadBoardView.render(screen.newTextGraphics());
         screen.refresh();
@@ -60,4 +71,5 @@ public class LeadBoardController {
     public void setRunningTrue() {
         running = true;
     }
+    public void setRunningFalse() { running = false;}
 }

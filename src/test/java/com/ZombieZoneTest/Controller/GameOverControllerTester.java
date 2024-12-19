@@ -86,7 +86,7 @@ public class GameOverControllerTester {
         doNothing().when(spycontroller).draw();
         doNothing().when(spycontroller).handleInput();
 
-        assertDoesNotThrow(() -> spycontroller.run());
+        assertDoesNotThrow(spycontroller::run);
 
         verify(spycontroller).draw();
         verify(spycontroller).handleInput();
