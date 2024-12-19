@@ -18,7 +18,7 @@ public class GameController implements GameListener {
     private Game game;
     private GameView gameView;
     private Screen screen;
-    private boolean running;
+    private boolean running = true;
     List<StateObserver> observers = new ArrayList<>();
 
     public GameController(Game game, GameView gameView, Screen screen) {
@@ -26,7 +26,7 @@ public class GameController implements GameListener {
         this.gameView = gameView;
         this.screen = screen;
     }
-    private boolean isRunning() {
+    public boolean isRunning() {
         synchronized (this) {
             return running;
         }
@@ -74,13 +74,17 @@ public class GameController implements GameListener {
         game.resetGame();
     }
 
-    private void draw() throws IOException {
+    public void draw() throws IOException {
         screen.clear();
         gameView.render(screen.newTextGraphics());
         screen.refresh();
     }
     public void setRunningTrue(){
         running = true;
+    }
+
+    public void setRunningFalse() {
+        running = false;
     }
 
     public Game getGame() {
