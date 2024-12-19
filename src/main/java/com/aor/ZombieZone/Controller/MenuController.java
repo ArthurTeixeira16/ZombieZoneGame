@@ -16,34 +16,46 @@ public class MenuController {
         private Menu menu;
         private boolean running = true;
         List<StateObserver> observers = new ArrayList<>();
+
         public MenuController(Menu menu, MenuView menuView, Screen screen) {
             this.menuView = menuView;
             this.screen = screen;
             this.menu = menu;
         }
-        public void addControllerObserver(StateObserver observer) {
+        public void addObserver(StateObserver observer) {
             observers.add(observer);
         }
 
-        public void run() {
-            try{
-                while (running) {
-                    draw();
-                    handleInput();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        public List<StateObserver> getObservers() {
+            return observers;
         }
+
+        public void run() {
+                try{
+                    while (isRunning()) {
+                        draw();
+                        handleInput();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        public boolean isRunning() {
+            return running;
+        }
+
         public void setRunningTrue() {
             running = true;
         }
 
-        private void draw() throws IOException {
-            screen.clear();
-            menuView.render(screen.newTextGraphics());
-            screen.refresh();
-        }
+        public void setRunningFalse() {running = false;}
+
+        public void draw() throws IOException {
+                screen.clear();
+                menuView.render(screen.newTextGraphics());
+                screen.refresh();
+            }
 
         public void handleInput() throws IOException {
             KeyStroke key = screen.readInput();
@@ -60,11 +72,11 @@ public class MenuController {
                 }
                 if (menu.isSelectedStart()){
                     observers.getFirst().changed(1);
-                    running = false;
+                    setRunningFalse();
                 }
                 if(menu.isSelectedLead()){
                     observers.getFirst().changed(2);
-                    running = false;
+                    setRunningFalse();
                 }
             }
     }

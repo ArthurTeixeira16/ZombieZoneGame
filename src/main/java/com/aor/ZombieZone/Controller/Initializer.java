@@ -42,29 +42,31 @@ public class Initializer implements StateObserver {
             Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
+
             DefaultTerminalFactory factory = new DefaultTerminalFactory();
             Font loadedFont = font.deriveFont(Font.PLAIN, 25);
             AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);
+
             factory.setTerminalEmulatorFontConfiguration(fontConfig);
             factory.setForceAWTOverSwing(true);
             factory.setInitialTerminalSize(new TerminalSize(30, 21));
             Terminal terminal = factory.createTerminal();
+
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
 
-
             menuState = new MenuState(screen);
             menuController = menuState.getController();
-            menuController.addControllerObserver(this);
+            menuController.addObserver(this);
 
             gameContext = new GameContext(menuState);
 
             gameState = new GameState(screen);
             gameController = gameState.getController();
             gameController.getGame().addListener(gameController);
-            gameController.addControllerObserver(this);
+            gameController.addObserver(this);
 
             leadBoardState = new LeadBoardState(screen);
             leadBoardController = leadBoardState.getController();

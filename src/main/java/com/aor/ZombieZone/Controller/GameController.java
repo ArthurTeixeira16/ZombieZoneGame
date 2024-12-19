@@ -32,7 +32,7 @@ public class GameController implements GameListener {
         }
     }
 
-    public void addControllerObserver(StateObserver observer) {
+    public void addObserver(StateObserver observer) {
         observers.add(observer);
     }
     public void run() {
