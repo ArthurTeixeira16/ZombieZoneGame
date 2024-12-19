@@ -4,23 +4,10 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Soldier extends Element implements HasLife,HasMovement{
-    private int life = 3;
-
-    public int getLife() {
-        return life;
-    }
-
+public class Soldier extends Entity {
     public Soldier(int x, int y) {
         super(x, y);
-
-    }
-
-
-
-    @Override
-    public Position getPosition() {
-        return super.getPosition();
+        this.life = 3;
     }
 
     @Override
@@ -28,36 +15,4 @@ public class Soldier extends Element implements HasLife,HasMovement{
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()),"@");
     }
-
-    @Override
-    public void moveUp() {
-        Position newPosition = new Position(getPosition().x, getPosition().y - 1);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void moveDown() {
-        Position newPosition = new Position(getPosition().x, getPosition().y + 1);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void moveLeft() {
-        Position newPosition = new Position(getPosition().x - 1, getPosition().y);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void moveRight() {
-        Position newPosition = new Position(getPosition().x + 1, getPosition().y);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void hit() {
-        life--;
-    }
-
-    @Override
-    public boolean isDead() { return life <= 0;}
 }

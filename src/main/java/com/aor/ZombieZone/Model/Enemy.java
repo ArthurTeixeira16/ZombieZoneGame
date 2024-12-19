@@ -10,21 +10,13 @@ import java.util.Random;
 
 import static java.lang.Math.sqrt;
 
-public abstract class Enemy extends Element implements HasLife,HasMovement {
-    protected int life;
+public abstract class Enemy extends Entity {
     protected int speed;
     protected long elapsed_time;
 
     public Enemy(int x,int y){
         super(x,y);
     }
-
-    @Override
-    public Position getPosition() {
-        return super.getPosition();
-    }
-
-    public abstract void draw(TextGraphics screen);
 
     public void updateZombieWalk(Soldier soldier,Game game,long deltaTime){
         elapsed_time += deltaTime;
@@ -116,37 +108,5 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
                 this.setPosition(step);
             }
         }
-    }
-    @Override
-    public void moveUp() {
-        Position newPosition = new Position(getPosition().x, getPosition().y - 1);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void moveDown() {
-        Position newPosition = new Position(getPosition().x, getPosition().y + 1);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void moveLeft() {
-        Position newPosition = new Position(getPosition().x - 1, getPosition().y);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void moveRight() {
-        Position newPosition = new Position(getPosition().x + 1, getPosition().y);
-        this.setPosition(newPosition);
-    }
-
-    @Override
-    public void hit() {
-        life --;
-    }
-
-    @Override
-    public boolean isDead() {return life <= 0;
     }
 }
