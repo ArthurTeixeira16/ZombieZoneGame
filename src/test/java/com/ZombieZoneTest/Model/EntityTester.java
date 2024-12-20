@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.invocation.MockHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,10 @@ public class EntityTester {
     @BeforeEach
     public void SetUp(){
         entity = Mockito.spy(new Soldier(2,2));
+    }
+    @Test
+    public void getLifeTest(){
+        assertEquals(3, entity.getLife());
     }
     @Test
     public void moveUpTest(){

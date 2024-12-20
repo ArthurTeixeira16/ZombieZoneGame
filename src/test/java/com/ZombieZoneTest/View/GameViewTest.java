@@ -85,7 +85,7 @@ public class GameViewTest {
 
     @Test
     public void testRenderProjectiles_HandlesEmptyList() {
-        when(game.getProjectiles()).thenReturn(List.of());
+        when(game.getProjectiles()).thenReturn(null);
 
         gameView.renderProjectiles(textGraphics);
 

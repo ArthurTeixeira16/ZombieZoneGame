@@ -38,7 +38,7 @@ public abstract class Enemy extends Entity {
         }
         List<Position> positionsOfZombies = game.getPositionsZombies();
         for(Position position : positionsOfZombies){
-            if(position != soldierPosition) {
+            if(!position.equals(soldierPosition)) {
                 places[position.getX()][position.getY()] = 2;
             }
         }
@@ -55,7 +55,7 @@ public abstract class Enemy extends Entity {
         }
         List<Position> positionsOfZombies = game.getPositionsZombies();
         for(Position position : positionsOfZombies){
-            if(position != soldierPosition) {
+            if(!position.equals(soldierPosition)) {
                 places[position.getX()][position.getY()] = 2;
             }
         }
@@ -84,7 +84,6 @@ public abstract class Enemy extends Entity {
                 Position nextPosition = new Position(newX, newY);
 
                 if (newX >= 0 && newY >= 0 && newX < places.length && newY < places[0].length && places[newX][newY] != 2 && !visited[newX][newY]) {
-
                     visited[newX][newY] = true;
                     predecessor[newX][newY] = current;
                     queue.add(nextPosition);
@@ -96,17 +95,10 @@ public abstract class Enemy extends Entity {
             step = predecessor[step.getX()][step.getY()];
         }
         Random random = new Random();
-        if (step != null) {
-            if ( step == soldierPosition){
-            if(sqrt(Math.pow(step.getX() - zombiePosition.getX(),2) +Math.pow(step.getY() - zombiePosition.getY(),2)) < 2){
-            this.setPosition(step); }
-            else{
-                this.setPosition(new Position(zombiePosition.getX() + dx[random.nextInt(4)], zombiePosition.getY() + dy[random.nextInt(4)]));
-            }
-            }
-            else{
-                this.setPosition(step);
-            }
+
+        if (sqrt(Math.pow(step.getX() - zombiePosition.getX(), 2) + Math.pow(step.getY() - zombiePosition.getY(), 2)) >= 2) {
+            step = (new Position(zombiePosition.getX() + dx[random.nextInt(4)], zombiePosition.getY() + dy[random.nextInt(4)]));
         }
+        this.setPosition(step);
     }
 }

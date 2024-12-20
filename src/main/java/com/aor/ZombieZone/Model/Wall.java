@@ -14,10 +14,8 @@ public class Wall extends Element {
     }
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-        {return true;}
-        if (o == null || getClass() != o.getClass())
-        {return false;}
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Wall wall = (Wall) o;
         return getPosition().x == wall.getPosition().x && getPosition().y == wall.getPosition().y;
     }
