@@ -30,7 +30,7 @@ public class Spawn {
         clearOccupiedGrid();
         markWallsAsOccupied();
 
-        List<Enemy> zombies = new ArrayList<>();
+        List<Enemy> zombiess = new ArrayList<>();
         int zombiequantity = (round * zombies_per_round);
 
         while(zombiequantity > 0) {
@@ -47,46 +47,38 @@ public class Spawn {
                 }
             }
             if(!available){
-                return zombies;
+                return zombiess;
             }
             Position current_position = GeneratePositions();
 
-            if(zombiequantity < 5) {
+            int chance = random.nextInt(101);
+            if(chance < speedzombie_percentage * round) {
+                Enemy zombie = new ZombieSpeed(current_position.getX(),current_position.getY());
+                zombiess.add(zombie);
+                markPositionAsOccupied(current_position);
+                zombiequantity-=2;
+            }
+            else if(chance < heavyzombie_percentage * round){
+                Enemy zombie = new ZombieHeavy(current_position.getX(),current_position.getY());
+                zombiess.add(zombie);
+                markPositionAsOccupied(current_position);
+                zombiequantity-=2;
+            } else{
                 Enemy zombie = new ZombieNormal(current_position.getX(),current_position.getY());
-                zombies.add(zombie);
+                zombiess.add(zombie);
                 markPositionAsOccupied(current_position);
                 zombiequantity--;
             }
-            else{
-                int chance = random.nextInt(101);
-                if(chance < speedzombie_percentage * round) {
-                    Enemy zombie = new ZombieSpeed(current_position.getX(),current_position.getY());
-                    zombies.add(zombie);
-                    markPositionAsOccupied(current_position);
-                    zombiequantity-=2;
-                }
-                else if(chance < heavyzombie_percentage * round){
-                    Enemy zombie = new ZombieHeavy(current_position.getX(),current_position.getY());
-                    zombies.add(zombie);
-                    markPositionAsOccupied(current_position);
-                    zombiequantity-=2;
-                } else{
-                    Enemy zombie = new ZombieNormal(current_position.getX(),current_position.getY());
-                    zombies.add(zombie);
-                    markPositionAsOccupied(current_position);
-                    zombiequantity--;
-                }
-            }
         }
-        return zombies;
+        return zombiess;
     }
 
     private Position GeneratePositions(){
         int x,y;
         Position position;
         do {
-            x = random.nextInt(2, width - 1);
-            y = random.nextInt(2, height - 1);
+            x = random.nextInt(0, width );
+            y = random.nextInt(0, height );
             position = new Position(x, y);
         } while(occupiedGrid[x][y]);
         return position;

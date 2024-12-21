@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 
-public class HudViewTest {
+public class HudViewTester {
     private Hud hud;
     private HudView hudView;
     private TextGraphics textGraphics;

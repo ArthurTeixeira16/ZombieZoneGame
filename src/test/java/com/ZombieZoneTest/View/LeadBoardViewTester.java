@@ -12,9 +12,8 @@ import org.mockito.Mockito;
 import java.util.List;
 
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
-public class LeadBoardViewTest {
+public class LeadBoardViewTester {
     private final int LINESTOSHOW = 5;
     private final int TERMINALWIDTH = 30;
     private final int TERMINALHEIGHT = 21;

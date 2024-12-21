@@ -14,8 +14,8 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
-public class GameOverViewTest {
+
+public class GameOverViewTester {
     private final String GAME_OVER_TEXT = "GAME OVER";
     private final TextColor BACKGROUND_COLOR = TextColor.Factory.fromString("#000000");
     private final TextColor GAME_OVER_COLOR = TextColor.Factory.fromString("#00FF00");

@@ -1,19 +1,17 @@
 package com.ZombieZoneTest.Model;
 
 import com.aor.ZombieZone.Model.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class EnemyTest {
+public class EnemyTester {
     private ZombieNormal enemy;
     private Soldier soldier;
     private Game game;

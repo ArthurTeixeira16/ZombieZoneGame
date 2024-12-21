@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 
 import static org.mockito.Mockito.times;
 
-public class ArenaViewTest {
+public class ArenaViewTester {
     private Arena arena;
     private TextGraphics textGraphics;
     private ArenaView arenaView;

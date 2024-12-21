@@ -14,7 +14,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 
-public class MenuViewTest {
+public class MenuViewTester {
     private Menu menu;
     private MenuView menuView;
     private TextGraphics textGraphics;

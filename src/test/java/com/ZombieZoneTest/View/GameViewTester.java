@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class GameViewTest {
+public class GameViewTester {
     private GameView gameView;
     private ArenaView arenaView;
     private HudView hudView;

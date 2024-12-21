@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ArenaTest {
+public class ArenaTester {
     private Arena arena;
     private final int WIDTH = 20;
     private final int HEIGHT = 20;

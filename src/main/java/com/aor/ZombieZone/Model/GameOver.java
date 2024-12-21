@@ -48,16 +48,15 @@ public class GameOver {
         return isSelected(1);
     }
 
+    public int getCurrentEntry() {
+        return currentEntry;
+    }
+
     public int getNumberEntries() {
-        if(getEntries() !=null) {
-        return getEntries().size(); }
-        return 0;
+        return getEntries().size();
     }
 
     public List<String> getEntries() {
-        if(entries == null) {
-            entries = new ArrayList<>();
-        }
-        return entries;
+            return entries;
     }
 }
