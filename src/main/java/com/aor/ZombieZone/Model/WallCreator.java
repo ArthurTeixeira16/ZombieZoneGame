@@ -11,7 +11,9 @@ public class WallCreator {
         random = new Random();
         for (int x = 0; x < width; x++) {
             walls.add(new Wall(x, 0));
-            walls.add(new Wall(x, height - 1));
+            if(!walls.contains(new Wall(x,height-1))){
+                walls.add(new Wall(x, height - 1));
+            }
         }
         for (int y = 0; y < height; y++) {
             Wall wallEsquerda = new Wall(0, y);
@@ -29,7 +31,7 @@ public class WallCreator {
             int y = random.nextInt(height - 2) + 1;
             Wall newWall = new Wall(x, y);
 
-            if (!walls.contains(newWall) && !newWall.getPosition().equals(new Position(width/2,height/2))) {
+            if ((!walls.contains(newWall)) || (!newWall.getPosition().equals(new Position(width/2,height/2)))) {
                 walls.add(newWall);
             } else {
                 i--;

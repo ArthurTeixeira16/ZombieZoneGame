@@ -1,16 +1,15 @@
 package com.aor.ZombieZone.Model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Random;
-
 
 public class Spawn {
     private int height;
     private int width;
     private Random random;
-    public List<Position> occupiedPos = new ArrayList<>();
+    private boolean[][] occupiedGrid;
     private List<Wall> walls;
     private Soldier soldier;
 
@@ -24,23 +23,38 @@ public class Spawn {
         this.random = new Random();
         this.soldier = soldier;
         this.walls=walls;
+
+        occupiedGrid = new boolean[width][height];
     }
     public List<Enemy> SpawnZombies(int round){
-        occupiedPos.clear();
-        for (Wall wall:walls) {
-            occupiedPos.add(wall.getPosition());
-        }
+        clearOccupiedGrid();
+        markWallsAsOccupied();
 
         List<Enemy> zombies = new ArrayList<>();
         int zombiequantity = (round * zombies_per_round);
 
         while(zombiequantity > 0) {
+            boolean available = false;
+            for (boolean[] booleans : occupiedGrid) {
+                for (boolean aBoolean : booleans) {
+                    if (!aBoolean) {
+                        available = true;
+                        break;
+                    }
+                }
+                if(available) {
+                    break;
+                }
+            }
+            if(!available){
+                return zombies;
+            }
             Position current_position = GeneratePositions();
 
             if(zombiequantity < 5) {
                 Enemy zombie = new ZombieNormal(current_position.getX(),current_position.getY());
                 zombies.add(zombie);
-                occupiedPos.add(current_position);
+                markPositionAsOccupied(current_position);
                 zombiequantity--;
             }
             else{
@@ -48,18 +62,18 @@ public class Spawn {
                 if(chance < speedzombie_percentage * round) {
                     Enemy zombie = new ZombieSpeed(current_position.getX(),current_position.getY());
                     zombies.add(zombie);
-                    occupiedPos.add(current_position);
+                    markPositionAsOccupied(current_position);
                     zombiequantity-=2;
                 }
                 else if(chance < heavyzombie_percentage * round){
                     Enemy zombie = new ZombieHeavy(current_position.getX(),current_position.getY());
                     zombies.add(zombie);
-                    occupiedPos.add(current_position);
+                    markPositionAsOccupied(current_position);
                     zombiequantity-=2;
                 } else{
                     Enemy zombie = new ZombieNormal(current_position.getX(),current_position.getY());
                     zombies.add(zombie);
-                    occupiedPos.add(current_position);
+                    markPositionAsOccupied(current_position);
                     zombiequantity--;
                 }
             }
@@ -73,16 +87,27 @@ public class Spawn {
         do {
             x = random.nextInt(2, width - 1);
             y = random.nextInt(2, height - 1);
-            position = new Position(x,y);
-        }while(!isOccupied(position));
+            position = new Position(x, y);
+        } while(occupiedGrid[x][y]);
         return position;
     }
-    private boolean isOccupied(Position position){
-        for(Position pos:occupiedPos){
-            if((Math.abs(pos.getX()-position.getX()) == 1 && Math.abs(pos.getY()-position.getY()) == 1)&&(Math.abs(pos.getX()-soldier.getPosition().getX()) < 3 && Math.abs(pos.getY()-soldier.getPosition().getY()) < 3)){
-                return false;
+
+    private void markPositionAsOccupied(Position position) {
+        occupiedGrid[position.getX()][position.getY()] = true;
+    }
+
+    private void markWallsAsOccupied() {
+        for (Wall wall : walls) {
+            Position pos = wall.getPosition();
+            occupiedGrid[pos.getX()][pos.getY()] = true;
+        }
+        markPositionAsOccupied(soldier.getPosition());
+    }
+    private void clearOccupiedGrid() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                occupiedGrid[x][y] = false; // Redefine todas as posições como livres
             }
         }
-        return true;
     }
 }
