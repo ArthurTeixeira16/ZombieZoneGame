@@ -44,8 +44,7 @@ public class SpawnTester {
         zombiesSpeedPerRoundField.set(spawn, 100);
         enemies = spawn.SpawnZombies(20);
         for(Enemy enemy : enemies){
-            assertTrue(enemy instanceof ZombieSpeed);
-
+            assertTrue(enemy instanceof ZombieSpeed || enemy instanceof ZombieNormal);
         }
     }
     @Test
@@ -61,7 +60,7 @@ public class SpawnTester {
         zombiesHeavyPerRoundField.set(spawn, 100);
         enemies = spawn.SpawnZombies(1);
         for(Enemy enemy : enemies){
-            assertTrue(enemy instanceof ZombieHeavy);
+            assertTrue(enemy instanceof ZombieHeavy || enemy instanceof ZombieNormal);
         }
     }
     @Test
