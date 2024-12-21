@@ -24,7 +24,7 @@ public class SpawnTester {
                 new Wall(2, 2),
                 new Wall(2, 0)
         );
-        spawn = spy(new Spawn( 4,4,soldier, walls));
+        spawn = spy(new Spawn( 5,5,soldier, walls));
     }
     @Test
     public void SpawnZombiesTest(){
@@ -33,22 +33,30 @@ public class SpawnTester {
         // SpawnZombies retorna o numero de zombies nos
         // lugares disponiveis
         enemies = spawn.SpawnZombies(100);
-        assertEquals(12 ,enemies.size());
+        assertEquals(21 ,enemies.size());
     }
     @Test
     public void SpawnZombiesSpeedTest() throws IllegalAccessException, NoSuchFieldException {
+        Field zombiesNormalIndexField = Spawn.class.getDeclaredField("MINZOMBIES");
+        zombiesNormalIndexField.setAccessible(true);
+        zombiesNormalIndexField.set(spawn, 0);
         //Field explicado pelo chatGPT para acessar/mudar
         // valores privados de um spy
         Field zombiesSpeedPerRoundField = Spawn.class.getDeclaredField("speedzombie_percentage");
         zombiesSpeedPerRoundField.setAccessible(true);
         zombiesSpeedPerRoundField.set(spawn, 100);
-        enemies = spawn.SpawnZombies(20);
+        enemies = spawn.SpawnZombies(2);
+
+
         for(Enemy enemy : enemies){
-            assertTrue(enemy instanceof ZombieSpeed || enemy instanceof ZombieNormal);
+            assertTrue(enemy instanceof ZombieSpeed);
         }
     }
     @Test
-    public void SpawnZombiesHeavyTest() throws IllegalAccessException, NoSuchFieldException {
+    public void SpawnZombiesHeavyTest() throws IllegalAccessException, NoSuchFieldException{
+        Field zombiesNormalIndexField = Spawn.class.getDeclaredField("MINZOMBIES");
+        zombiesNormalIndexField.setAccessible(true);
+        zombiesNormalIndexField.set(spawn, 0);
         //Field explicado pelo chatGPT para acessar/mudar
         // valores privados de um spy
         Field zombiesSpeedPerRoundField = Spawn.class.getDeclaredField("speedzombie_percentage");
@@ -58,13 +66,16 @@ public class SpawnTester {
         Field zombiesHeavyPerRoundField = Spawn.class.getDeclaredField("heavyzombie_percentage");
         zombiesHeavyPerRoundField.setAccessible(true);
         zombiesHeavyPerRoundField.set(spawn, 100);
-        enemies = spawn.SpawnZombies(1);
+        enemies = spawn.SpawnZombies(2);
         for(Enemy enemy : enemies){
-            assertTrue(enemy instanceof ZombieHeavy || enemy instanceof ZombieNormal);
+            assertTrue(enemy instanceof ZombieHeavy );
         }
     }
     @Test
     public void SpawnZombiesNormalTest() throws IllegalAccessException, NoSuchFieldException {
+        Field zombiesNormalIndexField = Spawn.class.getDeclaredField("MINZOMBIES");
+        zombiesNormalIndexField.setAccessible(true);
+        zombiesNormalIndexField.set(spawn, 5);
         //Field explicado pelo chatGPT para acessar/mudar
         // valores privados de um spy
         Field zombiesSpeedPerRoundField = Spawn.class.getDeclaredField("speedzombie_percentage");
@@ -74,7 +85,7 @@ public class SpawnTester {
         Field zombiesHeavyPerRoundField = Spawn.class.getDeclaredField("heavyzombie_percentage");
         zombiesHeavyPerRoundField.setAccessible(true);
         zombiesHeavyPerRoundField.set(spawn, 0);
-        enemies = spawn.SpawnZombies(1);
+        enemies = spawn.SpawnZombies(5);
         for(Enemy enemy : enemies){
             assertTrue(enemy instanceof ZombieNormal);
         }

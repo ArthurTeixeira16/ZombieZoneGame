@@ -103,8 +103,6 @@ public class Initializer implements StateObserver {
         }else if (where == 3){
             gameContext.setCurrentState(gameOverState);
         }
-
-
     }
     //TODO: implementar enum
 

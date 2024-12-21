@@ -16,6 +16,7 @@ public class Spawn {
     private int zombies_per_round = 3;
     private int speedzombie_percentage = 5;
     private int  heavyzombie_percentage = 10;
+    private int MINZOMBIES = 5;
 
     public Spawn(int width,int height,Soldier soldier,List<Wall> walls){
         this.height = height;
@@ -51,7 +52,7 @@ public class Spawn {
             }
             Position current_position = GeneratePositions();
 
-            if (zombiequantity < 5) {
+            if (zombiequantity < MINZOMBIES) {
                 Enemy zombie = new ZombieNormal(current_position.getX(), current_position.getY());
                 zombiess.add(zombie);
                 occupiedGrid[current_position.getX()][current_position.getY()] = true;
