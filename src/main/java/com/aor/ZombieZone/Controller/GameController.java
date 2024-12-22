@@ -79,12 +79,29 @@ public class GameController implements GameListener {
         gameView.render(screen.newTextGraphics());
         screen.refresh();
     }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+    }
+
     public void setRunningTrue(){
         running = true;
     }
 
     public void setRunningFalse() {
         running = false;
+    }
+
+    public List<StateObserver> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(List<StateObserver> observers) {
+        this.observers = observers;
     }
 
     public Game getGame() {

@@ -9,7 +9,7 @@ public class Projectile extends Element implements HasMovement{
     private int Travelled_distance = 0;
     private int speed;
     private long elapsedTime;
-    private Position direction;
+    public Position direction;
     private boolean isDestroyed = false;
 
     public Projectile(int x, int y, int range, int speed) {
