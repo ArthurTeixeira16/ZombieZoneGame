@@ -16,4 +16,9 @@ public class ZombieNormal extends Enemy {
         screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "Z");
     }
+
+    public int getLife() {
+        return life;
+    }
+
 }
