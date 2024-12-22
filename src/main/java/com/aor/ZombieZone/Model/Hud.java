@@ -20,6 +20,9 @@ public class Hud {
     public Round getRound() {
         return round;
     }
+    public void setRound(Round round) {
+        this.round = round;
+    }
     public int getHeight() {
         return game.getArena().getHeight();
     }
