@@ -1,4 +1,5 @@
 package com.ZombieZoneTest.Model;
+import com.aor.ZombieZone.Model.Position;
 import com.aor.ZombieZone.Model.Wall;
 
 import com.googlecode.lanterna.TerminalPosition;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -36,6 +38,12 @@ public class WallTester {
         Assertions.assertFalse(wall.equals(wall2));
         wall2 = new Wall(3,3);
         Assertions.assertTrue(wall.equals(wall2));
+        Assertions.assertTrue(wall.equals(wall));
+    }
+    @Test
+    public void positionNotEqualsTest(){
+        assertFalse(wall.equals(new Position(3,3)));
+        assertFalse(wall.equals(null));
     }
 
 }

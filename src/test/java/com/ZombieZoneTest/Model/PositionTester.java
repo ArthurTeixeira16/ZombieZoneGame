@@ -1,11 +1,11 @@
 package com.ZombieZoneTest.Model;
 
 import com.aor.ZombieZone.Model.Position;
+import com.aor.ZombieZone.Model.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PositionTester {
     private Position pos;
@@ -41,5 +41,10 @@ public class PositionTester {
     @Test
     public void positionEqualsTest(){
         assertTrue(pos.equals(new Position(x,y)));
+    }
+    @Test
+    public void positionNotEqualsTest(){
+        assertFalse(pos.equals(new Wall(x,y)));
+        assertFalse(pos.equals(null));
     }
 }

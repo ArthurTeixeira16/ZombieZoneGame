@@ -4,23 +4,11 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Soldier extends Element implements HasLife,HasMovement{
-    private int life = 3;
-
-    public int getLife() {
-        return life;
-    }
-
+public class Soldier extends Element implements HasLife,HasMovement {
+    private int life;
     public Soldier(int x, int y) {
         super(x, y);
-
-    }
-
-
-
-    @Override
-    public Position getPosition() {
-        return super.getPosition();
+        this.life = 3;
     }
 
     @Override
@@ -28,36 +16,29 @@ public class Soldier extends Element implements HasLife,HasMovement{
         screen.setForegroundColor(TextColor.Factory.fromString("#000000"));
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()),"@");
     }
-
+    public int getLife() {return this.life;}
     @Override
-    public void moveUp() {
-        Position newPosition = new Position(getPosition().x, getPosition().y - 1);
-        this.setPosition(newPosition);
+    public void hit(){
+        this.life--;
     }
-
     @Override
-    public void moveDown() {
-        Position newPosition = new Position(getPosition().x, getPosition().y + 1);
-        this.setPosition(newPosition);
+    public boolean isDead(){
+        return this.life <= 0;
     }
-
     @Override
-    public void moveLeft() {
-        Position newPosition = new Position(getPosition().x - 1, getPosition().y);
-        this.setPosition(newPosition);
+    public void moveUp(){
+        this.setPosition(new Position(this.getPosition().getX() , this.getPosition().getY() -1 ));
     }
-
     @Override
-    public void moveRight() {
-        Position newPosition = new Position(getPosition().x + 1, getPosition().y);
-        this.setPosition(newPosition);
+    public void moveDown(){
+        this.setPosition(new Position(this.getPosition().getX() , this.getPosition().getY() + 1 ));
     }
-
     @Override
-    public void hit() {
-        life--;
+    public void moveLeft(){
+        this.setPosition(new Position(this.getPosition().getX() -1 , this.getPosition().getY() ));
     }
-
     @Override
-    public boolean isDead() { return life <= 0;}
+    public void moveRight(){
+        this.setPosition(new Position(this.getPosition().getX() + 1 , this.getPosition().getY() ));
+    }
 }

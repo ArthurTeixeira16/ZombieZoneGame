@@ -47,4 +47,8 @@ public class Menu {
     public List<String> getEntries(){
         return entries;
     }
+
+    public int getCurrentEntry(){
+        return currentEntry;
+    }
 }

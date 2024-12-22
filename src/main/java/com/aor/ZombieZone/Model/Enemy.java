@@ -11,20 +11,13 @@ import java.util.Random;
 import static java.lang.Math.sqrt;
 
 public abstract class Enemy extends Element implements HasLife,HasMovement {
-    protected int life;
     protected int speed;
     protected long elapsed_time;
+    protected int life;
 
     public Enemy(int x,int y){
         super(x,y);
     }
-
-    @Override
-    public Position getPosition() {
-        return super.getPosition();
-    }
-
-    public abstract void draw(TextGraphics screen);
 
     public void updateZombieWalk(Soldier soldier,Game game,long deltaTime){
         elapsed_time += deltaTime;
@@ -46,7 +39,7 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         }
         List<Position> positionsOfZombies = game.getPositionsZombies();
         for(Position position : positionsOfZombies){
-            if(position != soldierPosition) {
+            if(!position.equals(soldierPosition)) {
                 places[position.getX()][position.getY()] = 2;
             }
         }
@@ -63,7 +56,7 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
         }
         List<Position> positionsOfZombies = game.getPositionsZombies();
         for(Position position : positionsOfZombies){
-            if(position != soldierPosition) {
+            if(!position.equals(soldierPosition)) {
                 places[position.getX()][position.getY()] = 2;
             }
         }
@@ -92,7 +85,6 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
                 Position nextPosition = new Position(newX, newY);
 
                 if (newX >= 0 && newY >= 0 && newX < places.length && newY < places[0].length && places[newX][newY] != 2 && !visited[newX][newY]) {
-
                     visited[newX][newY] = true;
                     predecessor[newX][newY] = current;
                     queue.add(nextPosition);
@@ -104,49 +96,35 @@ public abstract class Enemy extends Element implements HasLife,HasMovement {
             step = predecessor[step.getX()][step.getY()];
         }
         Random random = new Random();
-        if (step != null) {
-            if ( step == soldierPosition){
-            if(sqrt(Math.pow(step.getX() - zombiePosition.getX(),2) +Math.pow(step.getY() - zombiePosition.getY(),2)) < 2){
-            this.setPosition(step); }
-            else{
-                this.setPosition(new Position(zombiePosition.getX() + dx[random.nextInt(4)], zombiePosition.getY() + dy[random.nextInt(4)]));
-            }
-            }
-            else{
-                this.setPosition(step);
-            }
+
+        if (sqrt(Math.pow(step.getX() - zombiePosition.getX(), 2) + Math.pow(step.getY() - zombiePosition.getY(), 2)) >= 2) {
+            step = (new Position(zombiePosition.getX() + dx[random.nextInt(4)], zombiePosition.getY() + dy[random.nextInt(4)]));
         }
+        this.setPosition(step);
+    }
+    public int getLife() {return this.life;}
+    @Override
+    public void hit(){
+        this.life--;
     }
     @Override
-    public void moveUp() {
-        Position newPosition = new Position(getPosition().x, getPosition().y - 1);
-        this.setPosition(newPosition);
+    public boolean isDead(){
+        return this.life <= 0;
     }
-
     @Override
-    public void moveDown() {
-        Position newPosition = new Position(getPosition().x, getPosition().y + 1);
-        this.setPosition(newPosition);
+    public void moveUp(){
+        this.setPosition(new Position(this.getPosition().getX() , this.getPosition().getY() -1 ));
     }
-
     @Override
-    public void moveLeft() {
-        Position newPosition = new Position(getPosition().x - 1, getPosition().y);
-        this.setPosition(newPosition);
+    public void moveDown(){
+        this.setPosition(new Position(this.getPosition().getX() , this.getPosition().getY() + 1 ));
     }
-
     @Override
-    public void moveRight() {
-        Position newPosition = new Position(getPosition().x + 1, getPosition().y);
-        this.setPosition(newPosition);
+    public void moveLeft(){
+        this.setPosition(new Position(this.getPosition().getX() -1 , this.getPosition().getY() ));
     }
-
     @Override
-    public void hit() {
-        life --;
-    }
-
-    @Override
-    public boolean isDead() {return life <= 0;
+    public void moveRight(){
+        this.setPosition(new Position(this.getPosition().getX() + 1 , this.getPosition().getY() ));
     }
 }
