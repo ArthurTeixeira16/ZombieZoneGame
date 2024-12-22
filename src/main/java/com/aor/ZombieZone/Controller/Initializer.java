@@ -104,6 +104,6 @@ public class Initializer implements StateObserver {
             gameContext.setCurrentState(gameOverState);
         }
     }
-    //TODO: implementar enum
 
+    public Screen getScreen() {return screen;}
 }
