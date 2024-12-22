@@ -94,5 +94,42 @@ public class EnemyTester {
         enemy.track(soldier,game);
         Mockito.verify( enemy , times(0)).setPosition(soldierPosition);
     }
+    @Test
+    public void getLifeTest(){
+        assertEquals(2, enemy.getLife());
+    }
+    @Test
+    public void moveUpTest(){
+        enemy = Mockito.spy(new ZombieNormal(2,2));
+        enemy.moveUp();
+        verify(enemy,times(1)).setPosition(new Position(2, 1));
+    }
+    @Test
+    public void moveDownTest(){
+        enemy = Mockito.spy(new ZombieNormal(2,2));
+        enemy.moveDown();
+        verify(enemy,times(1)).setPosition(new Position(2, 3));
+    }
+    @Test
+    public void moveLeftTest(){
+        enemy = Mockito.spy(new ZombieNormal(2,2));
+        enemy.moveLeft();
+        verify(enemy,times(1)).setPosition(new Position(1, 2));
+    }
+    @Test
+    public void moveRightTest(){
+        enemy = Mockito.spy(new ZombieNormal(2,2));
+        enemy.moveRight();
+        verify(enemy,times(1)).setPosition(new Position(3, 2));
+    }
+    @Test
+    public void hitTest(){
+        enemy.hit();
+        assertFalse(enemy.isDead());
+        enemy.hit();
+        assertTrue(enemy.isDead());
+        enemy.hit();
+
+    }
 
 }

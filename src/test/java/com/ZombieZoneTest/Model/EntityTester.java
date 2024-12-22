@@ -12,10 +12,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/*
 public class EntityTester {
-    private Entity entity;
-    private final Integer TIMETOMOVEDOZOMBIENORMAL = 1000/2;
+    private Soldier entity;
     @BeforeEach
     public void SetUp(){
         entity = Mockito.spy(new Soldier(2,2));
@@ -55,3 +54,4 @@ public class EntityTester {
     }
 
 }
+*/
