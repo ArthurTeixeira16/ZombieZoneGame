@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class  Game {
 
     private Arena arena;
     private Soldier soldier;
@@ -107,7 +107,6 @@ public class Game {
             if (bullet.isDestroyed()) {
                 continue;
             }
-
             for (Enemy zombie : zombies) {
                 if (bullet.getPosition().equals(zombie.getPosition())) {
                     bullet.destroy();
@@ -115,7 +114,6 @@ public class Game {
                     break;
                 }
             }
-
             for (Wall wall : walls) {
                 if (bullet.getPosition().equals(wall.getPosition())) {
                     bullet.destroy();

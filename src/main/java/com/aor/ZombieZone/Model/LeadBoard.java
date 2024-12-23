@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.*;
 
 public class LeadBoard implements ScoreObserver {
-    private static final String FILE_NAME = "leaderboard.txt";
+    private String FILE_NAME = "leaderboard.txt";
     private List<Integer> listOfScore;
 
     public LeadBoard() {
@@ -18,11 +18,14 @@ public class LeadBoard implements ScoreObserver {
 
     public void addToListOfScore(Integer value) {
         listOfScore.add(value);
+        sortListOfScore();
+        saveScores();
+    }
+    public void sortListOfScore() {
         listOfScore.sort(Comparator.reverseOrder());
-        if (listOfScore.size() > 5) {
+        if(listOfScore.size() > 5) {
             listOfScore = listOfScore.subList(0, 5);
         }
-        saveScores();
     }
 
     public List<Integer> getListOfScore() {
@@ -33,9 +36,11 @@ public class LeadBoard implements ScoreObserver {
     public void onGameEnd(int score) {
         this.addToListOfScore(score);
     }
-
-    private void loadScores() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+    public BufferedReader getReader() throws FileNotFoundException {
+        return (new BufferedReader(new FileReader(FILE_NAME)));
+    }
+    public void loadScores() {
+        try (BufferedReader reader = getReader()) {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
@@ -44,16 +49,13 @@ public class LeadBoard implements ScoreObserver {
                     System.err.println("Invalid score in file: " + line);
                 }
             }
-            listOfScore.sort(Comparator.reverseOrder());
-            if (listOfScore.size() > 5) {
-                listOfScore = listOfScore.subList(0, 5);
-            }
+            sortListOfScore();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
-    private void saveScores() {
+    public void saveScores() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (int score : listOfScore) {
                 writer.write(String.valueOf(score));
@@ -62,5 +64,8 @@ public class LeadBoard implements ScoreObserver {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    public void setListOfScore(List<Integer> list) {
+        this.listOfScore = list;
     }
 }

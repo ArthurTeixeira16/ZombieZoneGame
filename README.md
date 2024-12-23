@@ -119,14 +119,19 @@ Views like GameView, MenuView, and HudView implement the View<Interface> interfa
 #### KNOWN CODE SMELLS
 
 The major code smell that was analyzed was in the class Game, it has too many attributes and methods that can complicate the design if we want to increase the number of features in the game.
+In second instance, the group has struggled a bit in the Initializer class, specially at the massive class constructor.
 
 ### TESTING
 
-- Screenshot of coverage report.
-- Link to mutation testing report.
+#### Overall Test Coverage
+- ![](src/main/resources/ImagesForReadme/CoveragePrint.png)
+- 
+- #### Mutation Testing
+- The mutation testing topic unfortunately was the biggest issue for the group. After several tryouts to implement, following the teacher's advice, searching other alternatives, consultating the pitest website, we have ended up not being able to have the mutation testing done, despite all the effort on building a sturdy and complete test code. Afterknowing that we would not make it, the group has decided to reverse the changes in the code in order to keep the code cleaner and more organized.
 
 ### SELF-EVALUATION
 
 - Arthur Teixeira: 33.33%
 - Divaldo Dias: 33.33%%
 - Pedro Gouveia: 33.33%
+- All the components of the group have worked with a similar amount of effort. We have organized ourselves in order to attempt all the tasks and there is nothing to complain about the inidividual perfomance of any member. The result of the evaluation should be equal for everyone.
