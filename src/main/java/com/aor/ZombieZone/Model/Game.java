@@ -40,10 +40,18 @@ public class Game {
     public void setHud(Hud hud) {
         this.hud = hud;
     }
-
     public void addListener(GameListener gameListener){
         gameListeners.add(gameListener);
     }
+
+    public List<GameListener> getGameListeners() {
+        return gameListeners;
+    }
+
+    public List<ScoreObserver> getScoreObservers() {
+        return scoreObservers;
+    }
+
     public void addScoreObserver(ScoreObserver scoreObserver) {
         scoreObservers.add(scoreObserver);
     }
@@ -78,15 +86,12 @@ public class Game {
         }
         return false;
     }
-
-
     public void shoot(Position direction){
             Position soldierposition = getSoldier().getPosition();
             Projectile projectile = new Projectile(soldierposition.getX() + direction.getX(), soldierposition.getY() + direction.getY(), 7, 4);
             projectile.setDirection(direction);
             projectiles.add(projectile);
     }
-
     public void checkDamage(long currentTime){
         for(Enemy zombie: zombies){
             if(zombie.getPosition().equals(soldier.getPosition())){
@@ -97,25 +102,28 @@ public class Game {
             }
         }
     }
+    public void checkBulletsCollisions() {
+        for (Projectile bullet : projectiles) {
+            if (bullet.isDestroyed()) {
+                continue;
+            }
 
-    public void checkBulletsCollisions(){
-        for(Projectile bullet: projectiles){
-            for(Enemy zombie:zombies){
-                if(bullet.getPosition().equals(zombie.getPosition())){
-                    if(!bullet.isDestroyed()) {
-                        bullet.destroy();
-                        zombie.hit();
-                    }
+            for (Enemy zombie : zombies) {
+                if (bullet.getPosition().equals(zombie.getPosition())) {
+                    bullet.destroy();
+                    zombie.hit();
+                    break;
                 }
             }
-            for(Wall wall:walls){
-                if(bullet.getPosition().equals(wall.getPosition())){
+
+            for (Wall wall : walls) {
+                if (bullet.getPosition().equals(wall.getPosition())) {
                     bullet.destroy();
+                    break;
                 }
             }
         }
     }
-
     public void update(long deltaTime, long currentTime) throws IOException {
         if(soldier.isDead()){
             for(ScoreObserver scoreObserver:scoreObservers){
@@ -165,7 +173,6 @@ public class Game {
         }
         return true;
     }
-
     public Soldier getSoldier() {
         return soldier;
     }
@@ -178,9 +185,15 @@ public class Game {
     public List<Wall> getWalls() {
         return walls;
     }
-    public Hud getHud() { return hud;}
+    public Hud getHud() {
+        return hud;
+    }
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
+    public Score getScore() {return score;}
 
+    public int getSafeTime() {
+        return SafeTime;
+    }
 }

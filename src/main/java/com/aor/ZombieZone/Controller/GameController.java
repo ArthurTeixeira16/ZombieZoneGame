@@ -73,13 +73,11 @@ public class GameController implements GameListener {
         observers.getFirst().changed(3);
         game.resetGame();
     }
-
     public void draw() throws IOException {
         screen.clear();
         gameView.render(screen.newTextGraphics());
         screen.refresh();
     }
-
     public Screen getScreen() {
         return screen;
     }
@@ -99,15 +97,9 @@ public class GameController implements GameListener {
     public List<StateObserver> getObservers() {
         return observers;
     }
-
-    public void setObservers(List<StateObserver> observers) {
-        this.observers = observers;
-    }
-
     public Game getGame() {
         return game;
     }
-
     public void handleInput() throws IOException {
             KeyStroke key;
             while(isRunning()) {

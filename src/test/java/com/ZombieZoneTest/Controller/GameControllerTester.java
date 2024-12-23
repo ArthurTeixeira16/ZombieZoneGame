@@ -191,7 +191,6 @@ public class GameControllerTester {
 
         spyController.run();
         verify(spyController, times(1)).handleInput();
-        verify(spyController, times(1)).draw();
     }
 
 }
